@@ -1,19 +1,34 @@
 \section{Discussion}
-Really unsupervised! in this article the sensors type and location are known in order to evaluate the proposed approach, however, in real deployment it is not needed.
+The additional advantages of the work presented in this article are discussed in this section.
 
-We don't need any occupancy model. It founds device in the clusters that betray the building occupancy. e.g. light, elevator.
+%practical
+Since the intrinsic-correlation estimator mines in an unsupervised manner the devices relationships the proposed method is truly practical. 
+In this work we validated the estimator efficiency using the sensors metadata (i.e. device types and location), however, these tags are not needed by the estimator to uncover devices relationships.
+Furthermore, the estimator requires no prior information on the analyzed building and deploying our tool to other buildings requires no particular human intervention.
+In particular the proposed approach do not need extra sensor deployment such as occupancy sensors. 
 
-The proposed approach is designed to be flexible and for example it can be used with different correlation metrics like the Granger causality \cite{kim:buildsys2010}.
+%best effort
+Nevertheless, the proposed method takes advantage of all the existing building sensors.
+The understanding of the building energy consumption is obviously better understand by sensing the consumption of numerous devices, 
+but saving opportunities is observable with a minimum of 2 monitored devices.
+This best effort approach is particularly effective as it requires no extra instrumentation that is also consuming electricity.
 
-The goal of this article is to develop a tool that enables to identify energy wastes in an unsupervised manner.
-however more work is needed to allow on line detection: use of smaller time bin.
+% %Occupancy &Move to the related work section?
+% Although no occupancy model is involved in the proposed approach, our experiments revealed that the building occupancy is indirectly monitored by certain devices that betray the presence of humans (e.g. the elevator in the Cory Hall). 
+% The inconsistencies between the devices usage and the occupancy are highlighted by broken relationships with these devices and stands for obvious electricity wastes.
 
-season changes; devices relationships have seasonal pattern thus we may need forecast models such as ARIMA to make the reference matrix evolve in time.
+%EMD
+We also observed advantages of decomposing sensor data using EMD that is beneficial for different purpose.
+In this article we analyze only the data at the medium frequencies, however, we observed that data at the high frequencies and residual data (Figure \ref{fig:heatmap}) permit to discriminate the type of the monitored devices.
+Consequently, this information is valuable to automatically retrieve the semantic of the devices.
 
-positive/negative correlation
 
-limitation: the proposed method is useless in case the intrinsic-related devices are left ON all the time..
+% %limitation
+% The goal of this article is to develop an unsupervised tool that identifies energy wastes in buildings.
+% However, the design of the system that reports these energy waste in real time is beyond the goal of this work.
+% more work is needed to allow on line detection: use of smaller time bin.
+% 
+% 
+% season changes; devices relationships have seasonal pattern thus we may need forecast models such as ARIMA to make the reference matrix evolve in time.
 
 
-advantage of EMD to monitor sensor data; residual data provide information on the device types.
-This could be used in understanding the sensor semantics TODO add ref

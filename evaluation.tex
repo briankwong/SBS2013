@@ -101,10 +101,10 @@ The reference matrix is computed using all the time bins, then, its distance to 
 As we seek for the abnormal changes of the devices intrinsic-relationships the anomaly detector process only the data at the medium frequencies and disregard all others time scales ranges.
 
 \begin{figure*}[t]
-  \subfloat[Broken relationship between devices from the same room $X_1$\label{fig:res:eng1}]{\includegraphics[width=.32\textwidth]{img/0sig20_sig31alarm1-eps-converted-to.pdf}} \hspace{.015\textwidth} %EHP turned on at night!?
-  \subfloat[Broken relationship between devices from the same room $X_2$\label{fig:res:eng2}]{\includegraphics[width=.32\textwidth]{img/0sig134_sig123alarm65-eps-converted-to.pdf}} \hspace{.015\textwidth}  %Light left on during night
- \subfloat[Unexpected high correlation between devices from different rooms\label{fig:res:eng3}]{\includegraphics[width=.32\textwidth]{img/0sig24_sig33alarm66-eps-converted-to.pdf}}\\ %Three EHPs that are really correlated
- \subfloat[Long term anomaly partially detected\label{fig:res:eng4}]{\includegraphics[width=\textwidth]{img/0sig3_sig15alarm7-eps-converted-to.pdf}}\\  
+  \subfloat[High power usage where the HVAC (EHP) is turned on at night\label{fig:res:eng1}]{\includegraphics[width=.32\textwidth]{img/0sig20_sig31alarm1-eps-converted-to.pdf}} \hspace{.015\textwidth} %EHP turned on at night!?
+  \subfloat[High power usage where the light is left on at night\label{fig:res:eng2}]{\includegraphics[width=.32\textwidth]{img/0sig123_sig134alarm65-eps-converted-to.pdf}} \hspace{.015\textwidth}  %Light left on during night
+ \subfloat[Low power usage where the HVAC (EHP) is not used during office hours\label{fig:res:eng3}]{\includegraphics[width=.32\textwidth]{img/0sig24_sig33alarm66-eps-converted-to.pdf}}\\ %Three EHPs that are really correlated
+ \subfloat[Long term high power usage partially detected\label{fig:res:eng4}]{\includegraphics[width=\textwidth]{img/0sig3_sig15alarm7-eps-converted-to.pdf}}\\  
 \caption{Example of alerts (red rectangles) reported by the anomaly detector using the Engineering Building 2 dataset}
 \end{figure*}
 
@@ -141,11 +141,11 @@ The top-priority anomaly reported by the detector is caused by the 10 days long 
 The detector partially reported this anomaly, however, lower threshold value $\tau$ permits to identify most of it.
 
 \begin{figure*}[t]
-  \subfloat[Cooler failure\label{fig:res:cory1}]{\includegraphics[width=.32\textwidth]{img/1sig37_sig55alarm16-eps-converted-to.pdf}} \hspace{.015\textwidth}
- \subfloat[Abnormal usage\label{fig:res:cory21}]{\includegraphics[width=.32\textwidth]{img/1sig7_sig49alarm19-eps-converted-to.pdf}}
+  \subfloat[Low power usage due to a chiller failure\label{fig:res:cory1}]{\includegraphics[width=.32\textwidth]{img/1sig37_sig55alarm16-eps-converted-to.pdf}} \hspace{.015\textwidth}
+ \subfloat[High power usage highlighted by the elevator usage\label{fig:res:cory21}]{\includegraphics[width=.32\textwidth]{img/1sig7_sig49alarm19-eps-converted-to.pdf}}
  \hspace{.015\textwidth}
- \subfloat[Normal usage\label{fig:res:cory22}]{\includegraphics[width=.32\textwidth]{img/1sig7_sig49alarm-eps-converted-to.pdf}}\\ 
- \subfloat[Heating/cooling anomaly\label{fig:res:cory3}]{\includegraphics[width=\textwidth]{img/1sig34_sig54alarm27-eps-converted-to.pdf}} 
+ \subfloat[Normal power and elevator usage\label{fig:res:cory22}]{\includegraphics[width=.32\textwidth]{img/1sig7_sig49alarm-eps-converted-to.pdf}}\\ 
+ \subfloat[Long term high power usage due to competing heating and cooling\label{fig:res:cory3}]{\includegraphics[width=\textwidth]{img/1sig34_sig54alarm27-eps-converted-to.pdf}} 
 \caption{Example of anomalies identified by the proposed detector for the Cory Hall dataset}
 \end{figure*}
 
@@ -171,5 +171,5 @@ This anomaly corresponds to the malfunctioning of the HVAC Heater serving the 4t
 In fact the heater is constantly working for 18 consecutive days thus over provisioning the corresponding floors.
 This also results in the increase of the 4th floor HVAC Chiller power consumption to maintain appropriate temperature.
 This situation where heating and cooling system are competing is a well-know problem in building management as it leads to important energy wastes.
-For this particular example the heater only electricity waste is estimated around 2300 kWh which is 3.7 times the mean electric consumption of the Cory Hall.
+For this particular example the heater only electricity waste is estimated around 2500 kWh which is 4 times the mean electric consumption of the Cory Hall.
 Nevertheless, as the anomaly spans over 18 days it is hidden in the building overall consumption thus difficult to be detected by building administrators without the help of the proposed method.

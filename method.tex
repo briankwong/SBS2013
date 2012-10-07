@@ -9,12 +9,12 @@
  \label{fig:diagram1}
 \end{figure}
 
-As demonstrated in the previous section discovering the devices that are used in concert is particularly difficult due to the dominant pattern of office hours.
+As demonstrated in the previous section discovering the devices that are used in concert is particularly difficult due to the dominant pattern corresponding to the office hours.
 The proposed correlation estimator address this issue by decomposing each signal into a set of components, called IMFs, that reveal the data structures at different time scales.
 This IMF decomposition is based on a recent signal processing technique: Empirical Mode Decomposition (see \emph{EMD} in Fig.\ref{fig:diagram1}).
 The next step is to filter out the IMFs that interfere with our goal and analyze only those standing for time scales shorter than the unwanted daily pattern.
 Consequently, the proposed estimator aggregates the IMFs that falls into the same meaningful time scales ranges (see \emph{IMF agg.} in Fig.\ref{fig:diagram1}).
-The resulting partial signals from different devices are compared pairwise to identify the devices intrinsic relationships (see \emph{Corr. Coeff.} in Fig.\ref{fig:diagram1}). 
+The resulting partial signals of different devices are compared pairwise to identify the devices intrinsic relationships (see \emph{Corr. Coeff.} in Fig.\ref{fig:diagram1}). 
 
 % These intrinsic relations are uncovered by comparing the sensors data at certain meaningful frequency bands.
 % Namely, looking at high frequency allows to compare short-term variations representing the instantaneous devices change of state, however, the low frequency highlights long-term fluctuations revealing long devices usage pattern.
@@ -139,7 +139,7 @@ Then, the vector $C^t_{i,*}$ is the behavior of the $i^{th}$ device for this tim
 In addition, its normal behavior is given by the corresponding vector in the reference matrix; $R_{i,*}$.
 We exhibit the device behavior change at the time bin $t$ with the following Minkowski weighted distance;
 
-\[ l^t_{i} = \left(\sum_{j=1}^p  w_j\left(C^t_{i,j} - R_{i,j}\right)^k\right)^{1/p} \]
+\[ l^t_{i} = \left(\sum_{j=1}^p  w_j\left(C^t_{i,j} - R_{i,j}\right)^p\right)^{1/p} \]
 
 where $w_j$ is defined as;
 

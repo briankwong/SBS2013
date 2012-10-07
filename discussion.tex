@@ -1,0 +1,19 @@
+\section{Discussion}
+Really unsupervised! in this article the sensors type and location are known in order to evaluate the proposed approach, however, in real deployment it is not needed.
+
+We don't need any occupancy model. It founds device in the clusters that betray the building occupancy. e.g. light, elevator.
+
+The proposed approach is designed to be flexible and for example it can be used with different correlation metrics like the Granger causality \cite{kim:buildsys2010}.
+
+The goal of this article is to develop a tool that enables to identify energy wastes in an unsupervised manner.
+however more work is needed to allow on line detection: use of smaller time bin.
+
+season changes; devices relationships have seasonal pattern thus we may need forecast models such as ARIMA to make the reference matrix evolve in time.
+
+positive/negative correlation
+
+limitation: the proposed method is useless in case the intrinsic-related devices are left ON all the time..
+
+
+advantage of EMD to monitor sensor data; residual data provide information on the device types.
+This could be used in understanding the sensor semantics TODO add ref

@@ -1,0 +1,40 @@
+\section{Data sets}
+In order to evaluate the efficiency of the theoretical tools presented in the previous sections we analyze the data collected at two different locations.
+One is in Japan at the University of Tokyo main campus and the other one is in U.S. at the University of California Berkeley.
+
+\subsection{Engineering Building 2} \label{data:engbldg2}
+The data from the University of Tokyo is obtained from a large sensor network deployed at the Engineering Building 2 of the Hongo campus. 
+This is a recent 12 stories building hosting class rooms, laboratories, professor offices, server rooms and where 135 sensors are deployed to measure the electricity consumption of the lighting and HVAC systems for 231 rooms.
+We classify the HVAC devices in two categories, EHP (Electrical Heat Pump) and GHP (Gas Heat Pump).
+In the dataset the GHPs are the only devices that serve numerous rooms on several floors, namely the 5 GHPs of the dataset serve 154 rooms.
+Otherwise the EHP and other lighting systems serve a couple of adjacent rooms independently so the electricity consumption of each couple of rooms  is separately monitored.
+In addition, metadata is associated to each sensor in order to provide its type and the room number it serves.
+
+This dataset contains 10 weeks of data starting from June 27th 2011 and ending on September 5th 2011.
+Therefore this is significant sample of the offices energy consumption during the summer in Tokyo, the city's most important power demand season.
+Note that, it is also the summer when the university has initiated several power-saving measures due to the the Tohoku earthquake and Fukushima nuclear accident.
+
+Although this dataset consists of only two types of device (light and HVAC), it is a valuable ground truth to evaluate the proposed approach.
+Indeed the rooms users are likely to use both the light and HVAC at the same time (particularly during summer and winter) thus we expect the proposed intrinsic-correlation estimator to uncover these device relationships from the data (i.e. without any prior knowledge on the devices location or type).
+Furthermore, we expect the anomaly detector to identify discontinuities in these relationships that represent electricity saving opportunities.
+Such relationship discontinuity is for example a room HVAC left on during night while the room lights have been turned off.
+
+
+\subsection{Cory Hall}
+The other dataset we analyze in this article is measured at the Cory Hall building on the University of California Berkeley campus.
+This 5 stories building was completed in 1950 thus its infrastructure is significantly older than the one of the Engineering Building 2.
+Especially the HVAC are serving many floors.... (is the building updated at sometime?)
+
+70 sensors measuring a lot of different things, in a 5 stories building. 
+the building contains a datacenter and microlab 
+
+13 weeks of data
+
+
+Analyzing these two datasets is particularly appealing because the two building infrastructures are fundamentally different, thus, enable us to valid the proposed unsupervised method in two different environments.
+
+\subsection{Data pre-processing}
+TODO
+data reported every 5min 
+remove errors using a threshold 20 for the Eng.Bldg.2 and 1000 for the Cory Hall
+

@@ -1,0 +1,34 @@
+\section{Related work}
+Therefore, it is a practical way of reducing the energy consumption of any building in contrast to the anomaly detectors based on neural networks or kernel regression that requires training datasets and complex parameter tuning \cite{brown:buildperf2012}.
+Also, the proposed method does not require extra deployments such as sensors monitoring the room occupancy \cite{agarwal:ipsn2011,erickson:ipsn2011} or extra measurements for occupancy models (e.g. network traffic \cite{kim:buildsys2010,Bellala_buildsys11}).
+
+
+
+
+Bellala's work
+\cite{bellala:kdd2012}
+
+
+This approach provides new insights in buildings energy consumption as it is fundamentally different from past works.
+complementary to other methods decreasing the energy consumption of the building normal operations.
+% 
+% problem:
+% The building energy consumption is mainly driven by its occupancy.
+% The human occupancy is responsible for the majority of the devices energy consumption.
+% For example, workstations, lights and air conditioners are utilized the most when humans occupied the building.
+% 
+% Thereby, all devices follow the same trend which is conducted by the human occupancy.
+% In practice sensors data look all same.
+% All devices are used during office hours and left off at night. (TODO see figure...)
+% For our purpose, finding devices used simultaneously, this data is really difficult to analyze as the differences between each device is insignificant.
+% 
+% Our approach consists of; (1) subtract from the data the general trend driven by the building occupancy, (2) analyze remaining data to cluster devices used in concert.
+% 
+% 
+% 
+% result summary:
+% We evaluate the proposed correlation estimator using 10 weeks of data from 135 devices serving 231 rooms.
+% 
+% contributions
+% and advantages: unsupervised approach, small number of parameter (only one!), no training data required, no need of occupancy model/instrumentation, No distinction of weekdays, weekend, holidays...
+% 

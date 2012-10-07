@@ -1,0 +1,41 @@
+\section{Introduction}
+Buildings are one of the prime targets to reduce the world energy consumption.
+In the United States, the second largest energy consumer in the world, buildings accounts for 41\% of the country total energy consumption \cite{aer2011}.
+The first measure towards reducing the buildings energy consumption is to prevent electricity wastes due to the improper uses of the buildings equipment.
+
+The infrastructure of large buildings is usually monitored with numerous sensors that are deployed to supervise the basic building operations.
+However, the identification of the misbehaving devices is a difficult task left to the building administrators.
+The main challenges in this crucial task are the large number of devices involved in the building operations and the complex interactions between the devices.
+Consequently, our goal is to develop tools that help building administrator in detecting devices abnormal uses.
+
+The intuition behind the proposed approach is that each service provided by the building requires a minimum subset of devices and a saving opportunity is characterized by the partial activation of devices from the same subset.
+For example the comfort of a room is ensured by the light and air conditioning.
+Thus, when the room is occupied both devices are used together and they will be turned off as soon as the room is emptied.
+If a person leaves the room and turns off only the light then the air conditioner is a source of electricity waste.
+
+Following this basic idea we propose an unsupervised methodology to systematically detect electricity wastes.
+Our proposal consists of two key components;
+\begin{itemize}
+ \item the intrinsic-relationship estimator mines the building raw data in order to identify the devices that are used in concert.
+ It uncovers the devices relationships by looking at the correlation of their activities. 
+ Therefore it allows one to understand the devices that are used all together (high correlation), devices used independently (no correlation) and the mutually exclusive usages of devices (negative correlation).
+ \item The anomaly detector monitors devices relationships over time and reports the devices that are misbehaving.
+ It models the normal usages of the devices through a robust and longitudinal analysis of the building data and detect anomalous usages that stand for electricity wastes.
+\end{itemize}
+
+
+The main difficulty in this approach is to uncover the devices relationship. 
+As the devices energy consumption is mainly driven by the building occupancy all the devices follows the same trend and seem to be used all at once.
+Therefore, one of the main contributions of this work is to uncover the devices intrinsic relationships by filtering out the patterns common to all the devices.
+This filtering is achieved using a recent signal processing technique, Empirical Mode Decomposition.
+
+Another key contribution of this work is to propose a practical way to reduce buildings energy consumption.
+Indeed the proposed method is easily and quickly usable in any building as it does not require prior knowledge of the analyzed building nor extra sensor deployment and it is tuned through a single intuitive parameter.
+
+We validate the efficiency of the proposed method using 4 months of data from two buildings whose infrastructures are fundamentally different.
+This experiments highlight the effectiveness of the intrinsic-correlation estimator to uncover the devices relationship in a large deployment of 135 sensors.
+Furthermore, we inspected the anomaly detector results and demonstrate that identified devices abnormal behaviors are significant opportunities to save energy.
+The major reported device misbehavior accounts for 2300 kWh which is 3.7 times the mean energy consumption of the building.
+Nevertheless, without the proposed method this anomaly identification would be difficult for building operators as it spans over 18 days thus it is hidden in the building overall consumption.
+
+In the rest of this article we describe the main challenge faced toward our goal, we detail the mechanisms of the intrinsic-correlation estimator and the anomaly detector and evaluate both of them, we discuss different outcomes of the proposed methodology and conclude.

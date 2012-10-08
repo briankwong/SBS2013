@@ -139,15 +139,15 @@ Then, the vector $C^t_{i,*}$ is the behavior of the $i^{th}$ device for this tim
 In addition, its normal behavior is given by the corresponding vector in the reference matrix; $R_{i,*}$.
 We exhibit the device behavior change at the time bin $t$ with the following Minkowski weighted distance;
 
-\[ l^t_{i} = \left(\sum_{j=1}^p  w_j\left(C^t_{i,j} - R_{i,j}\right)^p\right)^{1/p} \]
+\[ l^t_{i} = \left(\sum_{j=1}^d  w_j\left(C^t_{i,j} - R_{i,j}\right)^p\right)^{1/p} \]
 
-where $w_j$ is defined as;
+where $d$ is the number of devices and $w_j$ is defined as;
 
 \[ w_j = \frac{R_{i,j}}{\sum_{k=1}^d R_{i,k}} \]
 
 The weight $w_j$ permits to prioritize the relationship changes with the intrinsically-correlated devices given by the reference matrix.
 In other words, our definition of behavior change is mainly driven by the relationship alterations among devices that are usually highly correlated.
-We also set $p=4$ in order to inhibit small differences between $C^t_{i,j}$ and $R_{i,j}$ and emphasize the main distinction with the reference matrix.
+We also set $p=4$ in order to inhibit small differences between $C^t_{i,j}$ and $R_{i,j}$ and emphasize the important ones.
 
 By monitoring this quantity over numerous time bins the abnormal device behaviors are easily identified as the outlier values.
 In order to identify these outlier values we implement a robust detector based on MAD, a robust dispersion measure commonly used in anomaly detection \cite{huber:wiley2009,chan:springer2005}.

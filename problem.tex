@@ -1,10 +1,12 @@
 \section{Problem Statement}
 \subsection{Dominant patterns}
 \begin{figure}
-\includegraphics[width=.48\textwidth]{img/heatMap_raw_201106-eps-converted-to.pdf}
+\begin{center}
+\includegraphics[width=.45\textwidth]{img/heatMap_raw_201106-eps-converted-to.pdf}
 \caption{Correlation coefficients of the raw traces from the Engineering Building 2 dataset (Section \ref{data:engbldg2}).
 The matrix is ordered such as the devices serving same/adjacent rooms are nearby in the matrix.}
 \label{fig:heatmap:raw}
+\end{center}
 \end{figure}
 
 The first step of the proposed approach is to uncover the devices that are used all together.
@@ -22,10 +24,12 @@ These two 1-week long traces are characterized by the same daily pattern that st
 This dominant pattern makes the two traces look similar and biases the correlation computation.
 
 \begin{figure}[t!]
-\includegraphics[width=.5\textwidth]{img/acf_101A1_GHP-eps-converted-to.pdf}
+\begin{center}
+\includegraphics[width=.45\textwidth]{img/acf_101A1_GHP-eps-converted-to.pdf}
 \caption{Auto-correlation of a usual signal from the Engineering Building 2 dataset.
 The signal features daily and weekly patterns (resp. $x=24$ and $x=168$).}
 \label{fig:autocorr}
+\end{center}
 \end{figure}
 
 Our data inspection uncovered a few dominant patterns that are common to building energy consumption data.

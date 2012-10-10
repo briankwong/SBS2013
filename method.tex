@@ -9,7 +9,7 @@
  \label{fig:diagram1}
 \end{figure}
 
-As demonstrated in the previous section discovering the devices that are used in concert is particularly difficult due to the dominant pattern corresponding to the office hours.
+As shown in the previous section discovering the devices that are used in concert is particularly difficult due to the dominant pattern corresponding to the office hours.
 The proposed correlation estimator address this issue by decomposing each signal into a set of components, called IMFs, that reveal the data structures at different time scales.
 This IMF decomposition is based on a recent signal processing technique: Empirical Mode Decomposition (see \emph{EMD} in Fig.\ref{fig:diagram1}).
 The next step is to filter out the IMFs that interfere with our goal and analyze only those standing for time scales shorter than the unwanted daily pattern.
@@ -75,7 +75,7 @@ Namely, given a data point $p$ GZC measures the quarter ($T_4$), the two halves 
 
 \begin{figure}
 \begin{center}
- \includegraphics[width=.3\textwidth]{img/gzc.pdf}
+ \includegraphics[width=.25\textwidth]{img/gzc.pdf}
  \end{center}
  \caption{Generalized Zero Crossing: the local mean period at the point $p$ is computed from one quarter period $T_4$, two half periods $T_2^x$ and four full periods $T_1^y$ (where $x=1, 2$, and, $y=1,2,3,4$).}
  \label{fig:gzc}

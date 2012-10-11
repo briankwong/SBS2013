@@ -1,7 +1,7 @@
 
 \section{Experimental Results}
-In this section we evaluate the efficiency of the proposed intrinsic-correlation estimator and anomaly detector.
-First, we exhibit the benefits of monitoring building data at different time scales using the intrinsic-correlation estimator.
+In this section we evaluate the efficiency of SBM and the anomaly detector.
+First, we exhibit the benefits of monitoring building data at different time scales using SBM.
 Second, we present and thoroughly investigate the alarms reported by the anomaly detector with the two datasets.
 
 
@@ -16,9 +16,9 @@ Second, we present and thoroughly investigate the alarms reported by the anomaly
 \end{figure*}
 
 \subsection{Devices behavior at different time scales}
-The intrinsic-correlation estimator is evaluated using the data from the Engineering Building 2 as ground truth data.
-As discussed in Section \ref{data:engbldg2} this dataset is appropriate to validate the proposed estimator as we assume that the lighting and air heating/cooling systems of the same room are intrinsically related.
-Thereby we process the dataset using the proposed intrinsic-correlation estimator and verify that the correlation score assigned to the devices located in the same rooms are significantly high.
+SBM is evaluated using the data from the Engineering Building 2 as ground truth data.
+As discussed in Section \ref{data:engbldg2} this dataset is appropriate to validate SBM as we assume that the lighting and air heating/cooling systems of the same room are intrinsically related.
+Thereby we process the dataset using SBM and verify that the correlation score assigned to the devices located in the same rooms are significantly high.
 
 The dataset is split in 10 bins of 1 week long, for each bin all signals are processed with EMD and their correlation at the four distinct time scale is computed. 
 Thereby, we obtain the four reference correlation matrices (i.e. the matrix of the median correlations) depicted in Figure \ref{fig:heatmap}.
@@ -38,9 +38,9 @@ For example using a community mining algorithm (i.e. the Louvain algorithm \cite
 As expected we obtained mainly clusters of only two devices (light and HVAC serving the same room), but we also found clusters that are composed of more devices.
 The biggest cluster contains 33 devices that are 2 GHP devices and the corresponding lights.
 Similarly another cluster of 8 devices contains 1 GHP and the corresponding lights and the 2 other GHP are clustered together with a single light.
-We also obtained a cluster containing the 3 HVAC serving the three server rooms. Although these server rooms are located at different floors the estimator measured a strong correlation between these devices as they are managed in the same way.
+We also obtained a cluster containing the 3 HVAC serving the three server rooms. Although these server rooms are located at different floors SBM measured a strong correlation between these devices as they are managed in the same way.
 Interestingly we also observe a couple of clusters that consist of independent devices serving two adjacent rooms belonging to the same lab.
-These clusters are the definite evidence of the proposed estimator ability to uncover devices intrinsic-relationships.
+These clusters are the definite evidence of the SBM ability to uncover devices intrinsic-relationships.
  
 \paragraph{Low frequencies}
 Low frequencies intend to capture the daily pattern common to all the devices.

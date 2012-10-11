@@ -18,7 +18,7 @@ If a person leaves the room and turns off only the light then the air conditione
 Following this basic idea we propose an unsupervised methodology to systematically detect electricity wastes.
 Our proposal consists of two key components;
 \begin{itemize}
- \item the intrinsic-relationship estimator mines the raw sensor data for identifying the devices that are used in concert.
+ \item the strip and bind method (SMB) mines the raw sensor data for identifying the devices that are used in concert.
  It uncovers the devices relationships by looking at the correlation of their activities. 
  Therefore it allows us to differentiate the devices that are used all together (high correlation), devices used independently (no correlation) and the mutually exclusive usages of devices (negative correlation).
  \item The anomaly detector monitors devices relationships over time and reports misbehaving devices.
@@ -35,9 +35,9 @@ Another key contribution of this work is to propose a practical way to reduce bu
 Indeed the proposed method is easily and quickly usable in any building as it does not require prior knowledge of the analyzed building nor extra sensor deployment and it is tuned through a single intuitive parameter.
 
 We validate the efficiency of the proposed method using 10 weeks of data from a modern Japanese building containing 135 sensors and 8 weeks of data from an older American building containing 70 sensors.
-These experiments highlight the effectiveness of the intrinsic-correlation estimator to uncover the devices relationship in a large deployment of 135 sensors.
+These experiments highlight the effectiveness of SMB to uncover the devices relationship in a large deployment of 135 sensors.
 Furthermore, we inspect the anomaly detector results and show that the reported alarms correspond to significant opportunities to save energy.
 The major anomaly reported in the American building accounts for a waste of 2500 kWh over 18 days whereas the building average power consumption is 600 kW per hour.
 Without the proposed method identifying these energy wastes would be difficult for building administrators as they are hidden in the building overall consumption.
 
-In the rest of this article we detail the mechanisms of the intrinsic-correlation estimator and the anomaly detector before evaluating both of them with real data then we discuss different outcomes of the proposed methodology and conclude.
+In the rest of this article we detail the mechanisms of SMB and the anomaly detector before evaluating both of them with real data then we discuss different outcomes of the proposed methodology and conclude.

@@ -36,15 +36,9 @@ A typical medium-to-large building contains thousands of sensors, monitoring the
 With the increased push for operational efficiency, operators are relying more on historical data processing to uncover opportunities for energy-savings.
 However, they are overwhelmed with the deluge of data and seek more efficient ways to identify potential problems.
 In this paper we present a new approach, called the Strip and Bind Method (SBM), for uncovering relationships between devices and model their in-concert usage.
-Thereby, using longitudinal and robust analysis of the data we retrieve the normal behavior of the devices and flags anomalous device usages.
-% It then flags deviations from the model as abnormal.
-Unlike other approaches, SBM requires no a priori knowledge about the building and runs on all sensors data -- treating each stream as a time-varying signal.
-% Since most sensors in the building are driven by the same underlying activity and weather patterns, we first had to remove
-% the dominant trend to obtain the instrinstic behavioral pattern.  Detrending is done using 
-% Empirical Mode Decomposition -- a recent signal processing tool.  We then construct a correlation-based model on the underlying 
-% intrinsic signals. 
-We run SBM on a set of building sensor traces; each containing up to several thousand sensors and over 500 GB of data, collected over
-18 weeks from two separate buildings in different geographic locations and climates.  We demonstrate that, in many cases, SBM uncovers
-misbehaviors correspond to inefficient device usage that leads to energy waste.  The average waste uncovered is as high as 2500 kWh per 
-device.
+A longitudinal analysis of building data using SBM permits to determine the normal behavior of the devices and flags anomalous device usages.
+Unlike other approaches, SBM requires no a priori knowledge about the building.
+We run SBM on a set of building sensor traces; each containing hundred sensors reporting data flows over 18 weeks from two separate buildings with fundamentally different infrastructures.  
+We demonstrate that, in many cases, SBM uncovers misbehaviors corresponding to inefficient device usage that leads to energy waste.  
+The average waste uncovered is as high as 2500 kWh per device.
 \end{abstract}

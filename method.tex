@@ -1,19 +1,19 @@
 
 \section{Methodology}
 
-\subsection{Intrinsic-Correlation Estimator} \label{methodo:est}
+\subsection{Strip and Bind} \label{methodo:est}
 
 \begin{figure}[t!]
  \includegraphics[width=.5\textwidth]{img/estimator.pdf}
- \caption{Overview of the intrinsic-correlation estimator analyzing two raw signals standing for one week of data from two different HVACs. (1)~Decomposition of the signals in IMFs using EMD; (2)~aggregation of the IMFs based on their time scale; (3)~comparison of the partial signals (aggregated IMFs) using correlation coefficient.}
+ \caption{Overview of SBM analyzing two raw signals standing for one week of data from two different HVACs. (1)~Decomposition of the signals in IMFs using EMD; (2)~aggregation of the IMFs based on their time scale; (3)~comparison of the partial signals (aggregated IMFs) using correlation coefficient.}
  \label{fig:diagram1}
 \end{figure}
 
 As shown in the previous section discovering the devices that are used in concert is particularly difficult.
-The proposed correlation estimator addresses this issue by decomposing each signal into a set of components, called IMF, that reveal the data structures at different time scales.
+SBM addresses this issue by decomposing each signal into a set of components, called IMF, that reveal the data structures at different time scales.
 This IMF decomposition is based on Empirical Mode Decomposition (see \emph{EMD} in Fig.\ref{fig:diagram1} and Section \ref{emd}).
 The next step is to filter out the IMFs that interfere with our goal and keep only those standing for time scales shorter than the unwanted daily pattern.
-Consequently, the proposed estimator aggregates the IMFs that falls into the same meaningful time scales ranges (see \emph{IMF agg.} in Fig.\ref{fig:diagram1}).
+Consequently, SBM aggregates the IMFs that falls into the same meaningful time scales ranges (see \emph{IMF agg.} in Fig.\ref{fig:diagram1}).
 The resulting partial signals of different devices are compared pairwise to identify the devices intrinsic relationships (see \emph{Corr. Coeff.} in Fig.\ref{fig:diagram1}). 
 
 % These intrinsic relations are uncovered by comparing the sensors data at certain meaningful frequency bands.

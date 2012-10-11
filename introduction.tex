@@ -1,43 +1,70 @@
 \section{Introduction}
-Buildings are one of the prime targets to reduce the world energy consumption.
-In the United States, the second largest energy consumer in the world, buildings account for 41\% of the country total energy consumption \cite{aer2011}.
-The first measure towards reducing the buildings energy consumption is to prevent electricity wastes due to the improper uses of the buildings equipment.
+Buildings are one of the prime targets to reduce energy consumption around the world.
+In the United States, the second largest energy consumer in the world, buildings account for 41\% of the country's total energy consumption \cite{aer2011}.
+The first measure towards reducing the building's energy consumption is to prevent electricity waste, due to the improper use of the buildings equipment.
 
-Large buildings infrastructure is usually monitored with numerous sensors.
-Some of these sensors enable building administrators to analyze in real time the devices consumption and identify devices providing inappropriate services.
-Detecting these misbehaving devices is crucial as they are sources of energy waste.
-However, identifying these saving opportunities is impractical for administrators because large buildings usually contain hundreds of monitored devices, and, it requires constant attention as abnormal usages may happen at any time.
-Consequently, the goal of this work is to establish a methodology that reports to building administrators devices abnormal uses.
+Large building infrastructure is usually monitored by numerous sensors.
+Some of these sensors enable building administrators to view device power-draw in real time.  This allows administrators
+ to determine proper device behavior and system-wide inefficiencies.
+%,  and identify devices providing inappropriate services.
+% sensors providing a service is weird to think about  -- i like how the next paragraph explains it
+Detecting misbehaving devices is crucial, as many are sources of energy waste.  % a light not turning on properly is NOT WASTEFUL, but does affect service quality
+However, identifying these saving opportunities is impractical for administrators because large buildings usually contain hundreds of monitored devices
+producing thousands of streams and it requires continuous monitoring.% attention as abnormal usages may happen at any time.
+%Consequently, the goal of this work is to establish a methodology that reports to building administrators devices abnormal uses.  
+As such, the goal of this work is to establish a method that reports abnormal device-usage patterns to the administrator by closely examining 
+all of the continuous power streams.
 
 The intuition behind the proposed approach is that each service provided by the building requires a minimum subset of devices.
-The devices within a subset are used at the same time when the corresponding service is needed and a saving opportunity is characterized by the partial activation of the devices.
-For example, the comfort of an office is ensured by the light and air conditioning.
-Thus, when the room is occupied both devices are used together and they are turned off as soon as the room is empty.
-If a person leaves the room and turns off only the light then the air conditioner is a source of electricity waste.
+The devices within a subset are used at the same time when the corresponding service is needed and a savings opportunity is characterized by the partial activation of the devices.
+For example, office comfort is attained through sufficient lighting, ventilation, and air conditioning.
+These are controlled by the lighting and HVAC system.
+%controlled by the lighting system and air conditioner.% the light and air conditioning.
+Thus, when the room is occupied both the air conditioner (heater on a cold day) and lights are used together and should be turned off 
+when the room is empty.
+In principal, if a person leaves the room and turns off \emph{only} the lights then the air conditioner (or heater) is a source of electricity waste.
 
-Following this basic idea we propose an unsupervised methodology to systematically detect electricity wastes.
-Our proposal consists of two key components;
-\begin{itemize}
- \item the strip and bind method (SMB) mines the raw sensor data for identifying the devices that are used in concert.
- It uncovers the devices relationships by looking at the correlation of their activities. 
- Therefore it allows us to differentiate the devices that are used all together (high correlation), devices used independently (no correlation) and the mutually exclusive usages of devices (negative correlation).
- \item The anomaly detector monitors devices relationships over time and reports misbehaving devices.
- It learns the devices normal usages using a robust and longitudinal analysis of the building data and detect anomalous usages that stand for electricity wastes.
-\end{itemize}
+Following this basic idea we propose an unsupervised methodology to systematically detect electricity waste.
+Our proposal consists of two key components:
+% \begin{enumerate}
+%  \item The strip and bind method (SBM) mines raw sensor data, identifying devices that are used in concert.
+%  It uncovers the devices relationships by looking at the correlation of their activities. 
+%  Therefore it allows us to differentiate the devices that are used all together (high correlation), devices used independently (no correlation) and the mutually exclusive usages of devices (negative correlation).
+%  \item The anomaly detector monitors devices relationships over time and reports misbehaving devices.
+%  It learns the devices normal usages using a robust and longitudinal analysis of the building data and detect anomalous usages that stand for electricity wastes.
+% \end{enumerate}
 
+\begin{enumerate}
+ \item The strip and bind method (SBM) mines the raw sensor data, identifying inter-device usage patterns.% that are typically used in concert to provide a service.
+We first \emph{strip} the underlying traces of occupancy-induced trends.  Then we \emph{bind} device traces, whose underlying behavior
+is highly correlated, by placing them into a correlated device set.
+ %  Then
+ % It uncovers the devices relationships by looking at the correlation of their activities. 
+ This allows us to differentiate between devices that are used together (high correlation), used independently (no correlation), and used mutually exclusively (negative correlation).
+ \item The anomaly detector monitors devices relationships over time and reports deviations from the norm.  % misbehaving devices.
+ It learns the normal inter-device usages using a robust, longitudinal analysis of the building data and detect anomalous usage patterns.  Such
+ patterns present an opportunity to reduce electricity waste.
+ % that may represent that stand for electricity wastes.
+\end{enumerate}
 
-The main difficulty in this approach is to uncover the devices relationship from the numerous and noisy sensor traces. 
-Since the devices energy consumption is mainly driven by the building occupancy all the devices follow the same trend (i.e. daily pattern) and seem to be used all at once.
-Therefore, one of the main contributions of this work is to uncover the devices intrinsic relationships by filtering out the patterns common to all the devices.
-This filtering is achieved using the Empirical Mode Decomposition \cite{huang:emd1998}.
+The main challenge we overcame with our approach is uncovering the device relationships from numerous, noisy sensor traces
+that all share a similar trend.
+%The main difficulty in this approach is to uncover the devices relationship from the numerous and noisy sensor traces. 
+Since device energy consumption is mainly driven by building occupancy, all the devices follow the same daily pattern, 
+in roughly overlapping time intervals and phases.
+%and seem to be used all at once.
+Therefore, one of the main contributions of this work is uncovering the intrinsic device relationships by filtering out the dominant
+trend.  This is achieved by using Empirical Mode Decomposition \cite{huang:emd1998}.
 
-Another key contribution of this work is to propose a practical way to reduce building energy consumption.
-Indeed the proposed method is easily and quickly usable in any building as it does not require prior knowledge of the analyzed building nor extra sensor deployment and it is tuned through a single intuitive parameter.
+Another key contribution of this work is in using the SBM method to practically reduce building energy consumption.
+Moreover, the proposed method is ease to use and functions in any building, as it does not require prior knowledge of the
+ building nor extra sensors.  It is also tuned through a single intuitive parameter.  %which parameter?
 
-We validate the efficiency of the proposed method using 10 weeks of data from a modern Japanese building containing 135 sensors and 8 weeks of data from an older American building containing 70 sensors.
-These experiments highlight the effectiveness of SMB to uncover the devices relationship in a large deployment of 135 sensors.
+We validate the effectiveness of our appraoch using 10 weeks of data from a modern Japanese building containing 135 sensors and 
+8 weeks of data from an older American building containing 70 sensors.
+These experiments highlight the effectiveness of SBM to uncover device relationships in a large deployment of 135 sensors.
 Furthermore, we inspect the anomaly detector results and show that the reported alarms correspond to significant opportunities to save energy.
 The major anomaly reported in the American building accounts for a waste of 2500 kWh over 18 days whereas the building average power consumption is 600 kW per hour.
 Without the proposed method identifying these energy wastes would be difficult for building administrators as they are hidden in the building overall consumption.
 
-In the rest of this article we detail the mechanisms of SMB and the anomaly detector before evaluating both of them with real data then we discuss different outcomes of the proposed methodology and conclude.
+In the rest of this paper, we detail the mechanisms of SBM and the anomaly detector before evaluating both of them with real data then we discuss different outcomes of the proposed methodology and conclude.

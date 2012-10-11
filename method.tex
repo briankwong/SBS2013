@@ -9,10 +9,10 @@
  \label{fig:diagram1}
 \end{figure}
 
-As shown in the previous section discovering the devices that are used in concert is particularly difficult due to the dominant pattern corresponding to the office hours.
+As shown in the previous section discovering the devices that are used in concert is particularly difficult.
 The proposed correlation estimator address this issue by decomposing each signal into a set of components, called IMFs, that reveal the data structures at different time scales.
-This IMF decomposition is based on a recent signal processing technique: Empirical Mode Decomposition (see \emph{EMD} in Fig.\ref{fig:diagram1}).
-The next step is to filter out the IMFs that interfere with our goal and analyze only those standing for time scales shorter than the unwanted daily pattern.
+This IMF decomposition is based on Empirical Mode Decomposition (see \emph{EMD} in Fig.\ref{fig:diagram1} and Section \ref{emd}).
+The next step is to filter out the IMFs that interfere with our goal and keep only those standing for time scales shorter than the unwanted daily pattern.
 Consequently, the proposed estimator aggregates the IMFs that falls into the same meaningful time scales ranges (see \emph{IMF agg.} in Fig.\ref{fig:diagram1}).
 The resulting partial signals of different devices are compared pairwise to identify the devices intrinsic relationships (see \emph{Corr. Coeff.} in Fig.\ref{fig:diagram1}). 
 
@@ -28,12 +28,12 @@ The resulting partial signals of different devices are compared pairwise to iden
 
 % These two steps are described by the two following sections.
 
-\subsubsection{Empirical Mode Decomposition}
+\subsubsection{Empirical Mode Decomposition} \label{emd}
 Empirical Mode Decomposition (EMD) \cite{huang:emd1998} is a technique that decomposes a signal and reveals its intrinsic patterns, trend and noise.
-This technique has been widely applied to a variety of datasets, including climate variables \cite{barnhart:climateEMD2011,lee:climateEMD2011}, medical data \cite{lima:bioMed2006,echeverria:bioMed2001,blanco:bioMed2008}, speech signals \cite{huang:signalProc2006,hasan:ieeeletter2009}, and images \cite{nunes:image2003,nunes:vision2005}.
+This technique has been widely applied to a variety of datasets, including climate variables \cite{lee:climateEMD2011}, medical data \cite{blanco:bioMed2008}, speech signals \cite{huang:signalProc2006,hasan:ieeeletter2009}, and images \cite{nunes:vision2005}.
 % for example, it helped to uncover the global surface temperature trends\cite{}, solar activity patterns and predicts climate variables .
 The EMD success relies on its empirical, adaptive and intuitive approach.
-In fact this technique is designed to efficiently decompose both non-stationary and non-linear signals without requiring any predetermined basis functions.  
+In fact this technique is designed to efficiently decompose both non-stationary and non-linear signals without requiring any predetermined basis functions or specific tuning.  
 
 EMD decomposes a signal into a set of oscillatory components called intrinsic mode functions (IMFs). 
 An IMF satisfies two conditions: (1) it contains the same number of extrema and zero crossings (or differ at most by one); (2) the two IMF envelopes defined by its local maxima and local minima are symmetric with respect to zero. 
@@ -60,17 +60,17 @@ For this work we implemented a variant of EMD called Complete Ensemble EMD \cite
 This algorithm computes EMD several times with additional noise, it allows us to efficiently analyze signals that have flat sections (i.e. consuming no electricity in our case) and permits to solve the EMD mode mixing problem.
 
 \subsubsection{IMF aggregation} \label{methodo:corr}
-By applying EMD to power consumption signals we obtain a set of IMFs that precisely describe the devices consumption patterns at different time scales.
-Thereby we can concentrate our data analysis on the smaller time scales thus ignoring the daily pattern that prevent us from efficiently analyzing raw signals.
+By applying EMD to energy consumption signals we obtain a set of IMFs that precisely describe the devices consumption patterns at different time scales.
+Thereby, it allows us to concentrate our data analysis on the smaller time scales thus ignoring the dominant patterns that prevent us from efficiently analyzing raw signals.
 
-However, comparing the IMFs obtained from different signals is not straightforward.
-Because EMD is empirically uncovering IMFs from the data there is no guarantee that the two IMFs $c_i^1$ and $c_i^2$ obtained from two distinct signals $S^1$ and $S^2$ represent data at the same time scale.
-Directly comparing $c_i^1$ and $c_i^2$ is meaningless unless we confirm that they belongs to the same time domain.
+However, comparing the IMFs obtained from different signals is not trivial.
+Because EMD is empirically uncovering IMFs from the data there is no guarantee that the two IMFs $c_i^1$ and $c_i^2$ obtained from two distinct signals $S^1$ and $S^2$ represent data at the same frequency domain.
+Directly comparing $c_i^1$ and $c_i^2$ is meaningless unless we confirm that they belongs to the same frequency domain.
 
 There is numerous techniques available to retrieve the IMFs frequencies \cite{huang:aada2009}.
 In this work we take advantage of the Generalized Zero Crossing (GZC) \cite{huang:patent2006} because it is a simple and robust estimator of the IMF instantaneous frequency \cite{huang:aada2009}.
 GZC is a direct estimation of the IMF instantaneous frequency using critical points defined as the zero crossings and local extrema (round dots in Figure \ref{fig:gzc}).
-Namely, given a data point $p$ GZC measures the quarter ($T_4$), the two halves ($T_2^x$) and the four full periods ($T_1^y$) $p$  belongs to (see Figure \ref{fig:gzc}) and the the instantaneous period is computed as:
+Namely, given a data point $p$ GZC measures the quarter ($T_4$), the two halves ($T_2^x$) and the four full periods ($T_1^y$) $p$  belongs to (see Figure \ref{fig:gzc}) and the instantaneous period is computed as:
 \[T=\frac{1}{7}\{4T_4+(2T_2^1+2T_2^2)+(T_1^1+T_1^2+T_1^3+T_1^4)\}\]
 
 \begin{figure}
@@ -81,45 +81,44 @@ Namely, given a data point $p$ GZC measures the quarter ($T_4$), the two halves 
  \label{fig:gzc}
 \end{figure}
 
-Thereby GZC provides the instantaneous period for each couple of consecutive critical points.
+Since all points $p$ between two critical points have the same instantaneous period GZC is local down to a quarter period.
 Hereafter we refer to the time scale of an IMF as the average of the instantaneous periods along the whole IMF.
 
-EMD inherently extracts IMFs at different time scales that depend on the original signal.
-In order to efficiently compare IMFs obtained from different signals we partially reconstruct the signals by aggregating IMFs that fall into the same time scale range.
-Thereby, two partial signals standing for the same time scale range can be directly compared.
+Because the time scale of each IMF depends on the original signal, we propose the following to efficiently compare IMFs from different signals.
+We cluster IMFs regarding their time scale and partially reconstruct each signal by aggregating its IMFs from the same cluster, then, we directly compare the partial signals of different signals.
 
-We define four time scale ranges: 
+The IMFs are clustered using four time scale ranges: 
 \begin{itemize}
  \item the \emph{high frequencies} stand for all the IMFs with a time scale lower than 20 minutes. These IMFs capture the noise and observational errors.
- \item The \emph{medium frequencies} stand for all the IMFs with a time scale between 20 and 360 minutes. These IMFs convey the devices usage.
- \item The \emph{low frequencies} stand for all the IMFs with a time scale between 360 and 8640 minutes. These IMFs represent the daily usage of the devices.
- \item The \emph{residual data} is all data with a time scale higher than 8640 minutes. This is mainly the residual data obtained after applying EMD and it highlights the trend of the devices.
+ \item The \emph{medium frequencies} stand for all the IMFs with a time scale between 20 minutes and 6 hours. These IMFs convey the detailed devices usage.
+ \item The \emph{low frequencies} stand for all the IMFs with a time scale between 6 hours and 6 days. These IMFs represent the daily pattern of the devices.
+ \item The \emph{residual data} is all data with a time scale higher than 6 days. This is mainly the residual data obtained after applying EMD and it highlights the trend of the devices.
 \end{itemize}
 
 These time scale ranges are arbitrarily determined according to our experiments and goal.
 Namely, the 20 minutes boundary relies on the sampling period of our dataset (5 minutes) and permits to capture IMFs with really short periods.
-The 360 minutes (i.e. 6 hours) boundary allows us to analyze all patterns that have a period shorter than the usual office hours.
-The 8640 minutes (i.e. 6 days) boundary allows us to capture daily patterns and week days pattern.
+The 6 hours boundary allows us to analyze all patterns that have a period shorter than the usual office hours.
+The 6 days boundary allows us to capture daily patterns and weekday pattern.
 
-Thereby, for each device we obtain 4 partial signals representing different characteristics of the device power consumption (see \emph{Partial Signals} in Fig.\ref{fig:diagram1}).
+Aggregating a signal IMFs in these time scale ranges results in 4 partial signals representing different characteristics of the device energy consumption (see \emph{Partial Signals} in Fig.\ref{fig:diagram1}).
 We compare the devices pairwise using the correlation coefficient of their partial signals.
 In the example of Figure \ref{fig:diagram1}, the correlation coefficient of the raw signals suggests that they are highly correlated ($0.5675$). 
 However, the comparison of the corresponding partial signals provides new insights;
 the two devices are poorly correlated at high and medium frequencies (respectively $-0.0127$ and $-0.0420$) but highly correlated at low frequencies (0.7886) meaning that these devices are not intrinsically correlated but only features similar daily pattern.
 
-All the devices are compared pair wise at the four different time scale ranges.
-Consequently we obtain four correlation matrices that monitor the devices similarities at different time scales.
-Each line of these matrices (or column as the matrices are symmetric) reveals the behavior of a device, namely, its relationships with the other devices at a certain time range scale.
-These matrices are our system fundamental tools to track the behavior of the devices and permit the proposed anomaly detector to identify misbehavior.
+All the devices are compared pairwise at the four different time scale ranges.
+Consequently we obtain four correlation matrices that convey the devices similarities at different time scales.
+Each line of these matrices (or column as the matrices are symmetric) reveals the behavior of a device, namely, its relationships with the other devices at a certain time scale range.
+These matrices are the basis of our system to track the behavior of the devices and permit the proposed anomaly detector to identify misbehavior.
 
 
 \subsection{Anomaly Detector}\label{methodo:ano}
-The proposed anomaly detector aims at identifying devices misuses in an unsupervised manner.
-The devices activity is monitored via the correlation matrices presented in the previous section.
+The proposed anomaly detector aims at identifying misbehaving devices in an unsupervised manner.
+The devices behavior is monitored via the correlation matrices presented in the previous section.
 Using numerous observations the detector computes an adaptive reference that exhibits the normal devices utilization.
-Then the detector compares the computed reference with the current data and reports devices that deviate from their usual behavior.
+Then, the detector compares the computed reference with the current data and reports devices that deviate from their usual behavior.
 
-\subsubsection{References computation}
+\subsubsection{Reference}
 We define four reference matrices that exhibit the normal devices behavior at the four time scale ranges defined in the Section \ref{methodo:corr}.
 These references are similarly computed; (1) we retrieve the correlation matrices for $n$ consecutive time bins of length $l$ as described in the Section \ref{methodo:est}. (2) For each pair of devices we store the median correlation over the $n$ time bins and obtain a matrix of the median device correlations.
 
@@ -128,38 +127,32 @@ Formally, for each time scale range the computed reference matrix for the $d$ de
 where $i$ and $j$ ranges in $[1,d]$.
 
 Assuming that the devices predominantly behave normally and the anomalies are exceptional events, the reference matrices exhibit the normal device behaviors.
-In fact the abnormal correlation values that could appear in the $n$ analyzed time bins are ignored by the median operator thanks to his robustness to the outlier values.
+In fact the abnormal correlation values that could appear in the analyzed time bins are ignored by the median operator thanks to its robustness to the outlier values.
 
 \subsubsection{Behavior change}
-The anomaly detection consists in identifying the devices that have a behavior significantly different from the one provided by the reference matrices.
-Consequently, we compare each device behavior for a certain time bin to the one provided by the reference matrix.
+The anomaly detection consists in identifying the devices that significantly deviate from their normal behaviors as defined in the reference matrices.
+Consequently, we compare each device behavior for all time bins to the one provided by the reference matrix.
 
-Consider the correlation matrix $C^t$ obtained using the data from the time bin $t$.
+Consider the correlation matrix $C^t$ obtained with the data of the time bin $t$.
 Then, the vector $C^t_{i,*}$ is the behavior of the $i^{th}$ device for this time bin.
-In addition, its normal behavior is given by the corresponding vector in the reference matrix; $R_{i,*}$.
-We exhibit the device behavior change at the time bin $t$ with the following Minkowski weighted distance;
-
+Its normal behavior is given by the corresponding vector in the reference matrix $R_{i,*}$.
+We measure the device behavior change at the time bin $t$ with the following Minkowski weighted distance:
 \[ l^t_{i} = \left(\sum_{j=1}^d  w_j\left(C^t_{i,j} - R_{i,j}\right)^p\right)^{1/p} \]
+where $d$ is the number of devices and $w_j$ is:
+\[ w_j = \frac{R_{i,j}}{\sum_{k=1}^d R_{i,k}}. \]
+The weight $w$ permits to highlight the relationship changes between the device $i$ and those related to it in the reference matrix.
+In other words, our definition of behavior change is mainly driven by the relationship among devices that are usually highly correlated.
+We also set $p=4$ in order to inhibit small differences between $C^t_{i,j}$ and $R_{i,j}$ but emphasize the important ones.
 
-where $d$ is the number of devices and $w_j$ is defined as;
-
-\[ w_j = \frac{R_{i,j}}{\sum_{k=1}^d R_{i,k}} \]
-
-The weight $w_j$ permits to prioritize the relationship changes with the intrinsically-correlated devices given by the reference matrix.
-In other words, our definition of behavior change is mainly driven by the relationship alterations among devices that are usually highly correlated.
-We also set $p=4$ in order to inhibit small differences between $C^t_{i,j}$ and $R_{i,j}$ and emphasize the important ones.
-
-By monitoring this quantity over numerous time bins the abnormal device behaviors are easily identified as the outlier values.
+By monitoring this quantity over several time bins the abnormal device behaviors are easily identified as the outlier values.
 In order to identify these outlier values we implement a robust detector based on MAD, a robust dispersion measure commonly used in anomaly detection \cite{huber:wiley2009,chan:springer2005}.
-
 MAD stands for \emph{median absolute deviation} and it is a measure that robustly estimates the variability of the data by computing the median of the absolute deviations from the median of the data.
 Namely, let $l_{i}$ be a vector representing the behavior changes of the device $i$ over numerous time bins, then its MAD value is defined as:
 \[ \mad_i = b \median(\lvert l_{i} - \median(l_{i})\rvert)\]
 where the constant $b$ is usually set to $1.4826$ for consistency with the usual parameter $\sigma$ at Gaussian distributions.
-
-Thereby we define as anomalous the behavior change of the device $i$ at the time bin $t$ that satisfies the following equation;
+Consequently, we define as anomalous the behavior of the device $i$ at the time bin $t$ that satisfies the following equation:
 \[l^t_{i} > \median(l_{i}) + \tau  \mad_i\]
-where $\tau$ is a parameter that permits to make the detector more or less conservative.
+where $\tau$ is a parameter that permits to make the detector more or less sensitive.
 
 The final output of the proposed detector is a list of alarms in the form $(t,i)$ meaning that the device $i$ has an abnormal behavior at the time bin $t$.
 The priority of the alarms in this list is selected by the building administrator by tuning the $\tau$ parameter.

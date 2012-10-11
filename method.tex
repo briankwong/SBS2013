@@ -10,7 +10,7 @@
 \end{figure}
 
 As shown in the previous section discovering the devices that are used in concert is particularly difficult.
-The proposed correlation estimator address this issue by decomposing each signal into a set of components, called IMFs, that reveal the data structures at different time scales.
+The proposed correlation estimator addresses this issue by decomposing each signal into a set of components, called IMF, that reveal the data structures at different time scales.
 This IMF decomposition is based on Empirical Mode Decomposition (see \emph{EMD} in Fig.\ref{fig:diagram1} and Section \ref{emd}).
 The next step is to filter out the IMFs that interfere with our goal and keep only those standing for time scales shorter than the unwanted daily pattern.
 Consequently, the proposed estimator aggregates the IMFs that falls into the same meaningful time scales ranges (see \emph{IMF agg.} in Fig.\ref{fig:diagram1}).
@@ -109,7 +109,7 @@ the two devices are poorly correlated at high and medium frequencies (respective
 All the devices are compared pairwise at the four different time scale ranges.
 Consequently we obtain four correlation matrices that convey the devices similarities at different time scales.
 Each line of these matrices (or column as the matrices are symmetric) reveals the behavior of a device, namely, its relationships with the other devices at a certain time scale range.
-These matrices are the basis of our system to track the behavior of the devices and permit the proposed anomaly detector to identify misbehavior.
+These matrices are our basis to track the behavior of the devices and permit the proposed anomaly detector to identify misbehavior.
 
 
 \subsection{Anomaly Detector}\label{methodo:ano}
@@ -127,7 +127,7 @@ Formally, for each time scale range the computed reference matrix for the $d$ de
 where $i$ and $j$ ranges in $[1,d]$.
 
 Assuming that the devices predominantly behave normally and the anomalies are exceptional events, the reference matrices exhibit the normal device behaviors.
-In fact the abnormal correlation values that could appear in the analyzed time bins are ignored by the median operator thanks to its robustness to the outlier values.
+In fact the abnormal correlation values that could appear in the analyzed time bins are ignored by the median operator thanks to its robustness to outliers.
 
 \subsubsection{Behavior change}
 The anomaly detection consists in identifying the devices that significantly deviate from their normal behaviors as defined in the reference matrices.
@@ -145,8 +145,8 @@ In other words, our definition of behavior change is mainly driven by the relati
 We also set $p=4$ in order to inhibit small differences between $C^t_{i,j}$ and $R_{i,j}$ but emphasize the important ones.
 
 By monitoring this quantity over several time bins the abnormal device behaviors are easily identified as the outlier values.
-In order to identify these outlier values we implement a robust detector based on MAD, a robust dispersion measure commonly used in anomaly detection \cite{huber:wiley2009,chan:springer2005}.
-MAD stands for \emph{median absolute deviation} and it is a measure that robustly estimates the variability of the data by computing the median of the absolute deviations from the median of the data.
+In order to identify these outlier values we implement a robust detector based on median absolute deviation (MAD), a robust dispersion measure commonly used in anomaly detection \cite{huber:wiley2009,chan:springer2005}.
+It is a measure that robustly estimates the variability of the data by computing the median of the absolute deviations from the median of the data.
 Namely, let $l_{i}$ be a vector representing the behavior changes of the device $i$ over numerous time bins, then its MAD value is defined as:
 \[ \mad_i = b \median(\lvert l_{i} - \median(l_{i})\rvert)\]
 where the constant $b$ is usually set to $1.4826$ for consistency with the usual parameter $\sigma$ at Gaussian distributions.

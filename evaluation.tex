@@ -24,15 +24,15 @@ The dataset is split in 10 bins of 1 week long, for each bin all signals are pro
 Thereby, we obtain the four reference correlation matrices (i.e. the matrix of the median correlations) depicted in Figure \ref{fig:heatmap}.
 
 \paragraph{High frequencies}
-In this work the high frequencies correspond to the signals noise, therefore, we don't expect any beneficial information from the corresponding matrix.
+In this work the high frequencies correspond to the signals noise, therefore, we do not expect any beneficial information from the corresponding matrix.
 Indeed in this experiments the corresponding reference matrix does not provide any help to discriminate devices location.
 Thus, we emphasize that this data should be ignored in order to efficiently uncover the devices intrinsic relationship (contrarily to the approach proposed in \cite{romain:iotapp12}).
 Interestingly, we found that the sensors monitoring the lighting systems generate consistent noise and could help one to cluster this type of sensor (Fig. \ref{fig:heatmap:high}).
   
 \paragraph{Medium frequencies}
-This article main interest is the data analysis at the medium frequencies as it is designed to capture the intrinsic device relationships.
+Our main focus is on the medium frequencies as it is designed to capture the intrinsic device relationships.
 Figure \ref{fig:heatmap:med} depicts the devices correlation at the medium frequencies, this is significantly different from the correlation matrix of raw signals (Fig. \ref{fig:heatmap:raw}) as higher correlation are mainly along the matrix diagonal. 
-Since the devices serving the same or adjacent rooms are placed nearby in the matrix it confirms our assumption; high correlation scores at the medium frequency band stand for devices intrinsic relationship.
+Since the devices serving the same or adjacent rooms are placed nearby in the matrix it validates our assumption; high correlation scores at the medium frequency band stand for devices intrinsic relationship.
 Thus, this matrix helps us to cluster devices that are used in concert.
 For example using a community mining algorithm (i.e. the Louvain algorithm \cite{blondel:unfolding}) we identify the communities described by this reference matrix.
 As expected we obtained mainly clusters of only two devices (light and HVAC serving the same room), but we also found clusters that are composed of more devices.
@@ -71,7 +71,7 @@ Nevertheless, due to the lack of ground truth data such as rooms schedule or rep
 To validate the detector performance we manually inspect the identified anomalies.
 Therefore, for each reported alarm $(t,i)$ we thoroughly investigate the data from the device $i$ and its related devices (as provided by the reference matrix) at the time bin $t$ in order to identify the root cause of the alarm.
 In particular we retrieve the major relationship change that causes the anomaly (i.e. $\max(|w_j(C_{i,j}^t - R_{i,j})|)$, see Section \ref{methodo:ano}) and examine the metadata associated to the corresponding device $j$ and the sign of the relationship change $C_{i,j}^t - R_{i,j}$.
-A positive relation change value means the devices correlation at the time bin $t$ is abnormally high, whereas negative value means that the relationship between the two devices is broken.
+A positive value of relation change means the devices correlation at the time bin $t$ is abnormally high, whereas negative value means that the relationship between the two devices is broken.
 
 Furthermore, this investigation allow us to classify the alarms into five groups,
 \begin{itemize}
@@ -110,7 +110,7 @@ As we seek for the abnormal changes of the devices intrinsic-relationships the a
 
 By varying the threshold $\tau$ we can tune the sensitivity of the detector thus the number of reported alarms.  
 Furthermore, by plotting the number of alarms against the value of $\tau$ for both datasets (Fig. \ref{fig:thres}) we observe an elbow in the graph around $\tau=5$.
-With thresholds lower than this pivot value ($tau<5$) the number of alarms is significantly increasing thus likely to report less important anomalies, whereas, for higher value ($\tau>5$) the number of alarms is slowly decreasing thus provide a more conservative result that only consists of the most important anomalies.
+With thresholds lower than this pivot value ($\tau<5$) the number of alarms is significantly increasing thus likely to report less important anomalies, whereas, for higher value ($\tau>5$) the number of alarms is slowly decreasing thus provide a more conservative result that only consists of the most important anomalies.
 As this pivot value is usually a good trade off we set $\tau=5$ for both datasets.
 
 
@@ -149,7 +149,7 @@ The detector partially reported this anomaly, however, lower threshold value $\t
 \caption{Example of anomalies identified by the proposed detector for the Cory Hall dataset}
 \end{figure*}
 
-6 alarms reported abnormal low power usage, our inspection revealed that they usually correspond to saving initiatives from the rooms users probably due to the electricity concern in Japan.
+We observed 6 alarms corresponding to abnormal low power usage, our inspection revealed that they usually correspond to energy saving initiatives from the rooms users probably due to the electricity concern in Japan.
 This behavior is depicted in Figure \ref{fig:res:eng3}, the occupancy is obvious as the light is used at the usual office hours but the air conditioner has not been tuned on during in the sole intention to save electricity.
 
 \subsubsection{Cory Hall}
@@ -171,5 +171,5 @@ This anomaly corresponds to the malfunctioning of the HVAC Heater serving the 4t
 In fact the heater is constantly working for 18 consecutive days thus over provisioning the corresponding floors.
 This also results in the increase of the 4th floor HVAC Chiller power consumption to maintain appropriate temperature.
 This situation where heating and cooling system are competing is a well-know problem in building management as it leads to important energy wastes.
-For this particular example the heater only electricity waste is estimated around 2500 kWh which is 4 times the mean electric consumption of the Cory Hall.
+For this particular example, the electricity waste is estimated around 2500 kWh for the heater only whereas the average consumption of the Cory Hall is around 600kW per hour.
 Nevertheless, as the anomaly spans over 18 days it is hidden in the building overall consumption thus difficult to be detected by building administrators without the help of the proposed method.

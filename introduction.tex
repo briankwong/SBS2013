@@ -3,31 +3,31 @@ Buildings are one of the prime targets to reduce the world energy consumption.
 In the United States, the second largest energy consumer in the world, buildings account for 41\% of the country total energy consumption \cite{aer2011}.
 The first measure towards reducing the buildings energy consumption is to prevent electricity wastes due to the improper uses of the buildings equipment.
 
-Large buildings operations are usually measured with numerous sensors.
-Some of these sensors enable building administrators to monitor in real time the devices consumption and identify devices providing inappropriate services.
+Large buildings infrastructure is usually monitored with numerous sensors.
+Some of these sensors enable building administrators to analyze in real time the devices consumption and identify devices providing inappropriate services.
 Detecting these misbehaving devices is crucial as they are sources of energy waste.
-However, identifying these saving opportunities is impractical for numerous administrators because large buildings usually contain hundreds of monitored devices, and, it requires constant attention as abnormal usages may happen at any time.
-Consequently, the goal of this work is to develop a tool that reports to building administrators devices abnormal uses.
+However, identifying these saving opportunities is impractical for administrators because large buildings usually contain hundreds of monitored devices, and, it requires constant attention as abnormal usages may happen at any time.
+Consequently, the goal of this work is to establish a methodology that reports to building administrators devices abnormal uses.
 
 The intuition behind the proposed approach is that each service provided by the building requires a minimum subset of devices.
-The devices within a subset function at the same time when the corresponding service is needed and a saving opportunity is characterized by the partial activation of the devices.
-For example, the comfort of a room is ensured by the light and air conditioning.
-Thus, when the room is occupied both devices are used together and they are turned off as soon as the room is emptied.
+The devices within a subset are used at the same time when the corresponding service is needed and a saving opportunity is characterized by the partial activation of the devices.
+For example, the comfort of an office is ensured by the light and air conditioning.
+Thus, when the room is occupied both devices are used together and they are turned off as soon as the room is empty.
 If a person leaves the room and turns off only the light then the air conditioner is a source of electricity waste.
 
 Following this basic idea we propose an unsupervised methodology to systematically detect electricity wastes.
 Our proposal consists of two key components;
 \begin{itemize}
- \item the intrinsic-relationship estimator mines the building raw data in order to identify the devices that are used in concert.
+ \item the intrinsic-relationship estimator mines the raw sensor data for identifying the devices that are used in concert.
  It uncovers the devices relationships by looking at the correlation of their activities. 
- Therefore it allows one to differentiate the devices that are used all together (high correlation), devices used independently (no correlation) and the mutually exclusive usages of devices (negative correlation).
- \item The anomaly detector monitors devices relationships over time and reports the devices that are misbehaving.
- It models the devices normal usages using a robust and longitudinal analysis of the building data and detect anomalous usages that stand for electricity wastes.
+ Therefore it allows us to differentiate the devices that are used all together (high correlation), devices used independently (no correlation) and the mutually exclusive usages of devices (negative correlation).
+ \item The anomaly detector monitors devices relationships over time and reports misbehaving devices.
+ It learns the devices normal usages using a robust and longitudinal analysis of the building data and detect anomalous usages that stand for electricity wastes.
 \end{itemize}
 
 
-The main difficulty in this approach is to uncover the devices relationship. 
-Since the devices energy consumption is mainly driven by the building occupancy all the devices follow the same trend and seem to be used all at once.
+The main difficulty in this approach is to uncover the devices relationship from the numerous and noisy sensor traces. 
+Since the devices energy consumption is mainly driven by the building occupancy all the devices follow the same trend (i.e. daily pattern) and seem to be used all at once.
 Therefore, one of the main contributions of this work is to uncover the devices intrinsic relationships by filtering out the patterns common to all the devices.
 This filtering is achieved using the Empirical Mode Decomposition \cite{huang:emd1998}.
 

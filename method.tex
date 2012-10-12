@@ -5,15 +5,15 @@
 
 \begin{figure}[t!]
  \includegraphics[width=.5\textwidth]{img/estimator.pdf}
- \caption{Overview of SBM analyzing two raw signals standing for one week of data from two different HVACs. (1)~Decomposition of the signals in IMFs using EMD; (2)~aggregation of the IMFs based on their time scale; (3)~comparison of the partial signals (aggregated IMFs) using correlation coefficient.}
+ \caption{\emph{Search and Bind} using two raw signals standing for one week of data from two different HVACs. (1)~Decomposition of the signals in IMFs using EMD; (2)~aggregation of the IMFs based on their time scale; (3)~comparison of the partial signals (aggregated IMFs) using correlation coefficient.}
  \label{fig:diagram1}
 \end{figure}
 
 As shown in the previous section discovering the devices that are used in concert is particularly difficult.
-SBM addresses this issue by decomposing each signal into a set of components, called IMF, that reveal the data structures at different time scales.
+SBS addresses this issue by decomposing each signal into a set of components, called IMF, that reveal the data structures at different time scales.
 This IMF decomposition is based on Empirical Mode Decomposition (see \emph{EMD} in Fig.\ref{fig:diagram1} and Section \ref{emd}).
 The next step is to filter out the IMFs that interfere with our goal and keep only those standing for time scales shorter than the unwanted daily pattern.
-Consequently, SBM aggregates the IMFs that falls into the same meaningful time scales ranges (see \emph{IMF agg.} in Fig.\ref{fig:diagram1}).
+Consequently, SBS aggregates the IMFs that falls into the same meaningful time scales ranges (see \emph{IMF agg.} in Fig.\ref{fig:diagram1}).
 The resulting partial signals of different devices are compared pairwise to identify the devices intrinsic relationships (see \emph{Corr. Coeff.} in Fig.\ref{fig:diagram1}). 
 
 % These intrinsic relations are uncovered by comparing the sensors data at certain meaningful frequency bands.
@@ -109,14 +109,14 @@ the two devices are poorly correlated at high and medium frequencies (respective
 All the devices are compared pairwise at the four different time scale ranges.
 Consequently we obtain four correlation matrices that convey the devices similarities at different time scales.
 Each line of these matrices (or column as the matrices are symmetric) reveals the behavior of a device, namely, its relationships with the other devices at a certain time scale range.
-These matrices are our basis to track the behavior of the devices and permit the proposed anomaly detector to identify misbehavior.
+These matrices are our basis to track the behavior of the devices and search for misbehavior.
 
 
-\subsection{Anomaly Detector}\label{methodo:ano}
-The proposed anomaly detector aims at identifying misbehaving devices in an unsupervised manner.
+\subsection{Search}\label{methodo:ano}
+The Search part of the method aims at identifying misbehaving devices in an unsupervised manner.
 The devices behavior is monitored via the correlation matrices presented in the previous section.
-Using numerous observations the detector computes an adaptive reference that exhibits the normal devices utilization.
-Then, the detector compares the computed reference with the current data and reports devices that deviate from their usual behavior.
+Using numerous observations SBS computes an adaptive reference that exhibits the normal devices utilization.
+Then, SBS compares the computed reference with the current data and reports devices that deviate from their usual behavior.
 
 \subsubsection{Reference}
 We define four reference matrices that exhibit the normal devices behavior at the four time scale ranges defined in the Section \ref{methodo:corr}.
@@ -130,7 +130,7 @@ Assuming that the devices predominantly behave normally and the anomalies are ex
 In fact the abnormal correlation values that could appear in the analyzed time bins are ignored by the median operator thanks to its robustness to outliers.
 
 \subsubsection{Behavior change}
-The anomaly detection consists in identifying the devices that significantly deviate from their normal behaviors as defined in the reference matrices.
+SBS consists in identifying the devices that significantly deviate from their normal behaviors as defined in the reference matrices.
 Consequently, we compare each device behavior for all time bins to the one provided by the reference matrix.
 
 Consider the correlation matrix $C^t$ obtained with the data of the time bin $t$.
@@ -152,7 +152,7 @@ Namely, let $l_{i}$ be a vector representing the behavior changes of the device 
 where the constant $b$ is usually set to $1.4826$ for consistency with the usual parameter $\sigma$ at Gaussian distributions.
 Consequently, we define as anomalous the behavior of the device $i$ at the time bin $t$ that satisfies the following equation:
 \[l^t_{i} > \median(l_{i}) + \tau  \mad_i\]
-where $\tau$ is a parameter that permits to make the detector more or less sensitive.
+where $\tau$ is a parameter that permits to make SBS more or less sensitive.
 
-The final output of the proposed detector is a list of alarms in the form $(t,i)$ meaning that the device $i$ has an abnormal behavior at the time bin $t$.
+The final output of SBS is a list of alarms in the form $(t,i)$ meaning that the device $i$ has an abnormal behavior at the time bin $t$.
 The priority of the alarms in this list is selected by the building administrator by tuning the $\tau$ parameter.

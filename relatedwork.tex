@@ -1,5 +1,5 @@
 \section{Related work}
-Reducing the buildings energy consumption is an serious concern that received a lot of attention from the research community.
+Reducing the buildings energy consumption is a serious concern that received a lot of attention from the research community.
 Since HVACs are one of the major electricity consumer in the buildings, several researchers have mainly focused on reducing the consumption of HVACs.
 The most promising techniques are based on occupancy model predictions as they ensure that empty rooms are not over conditioned needlessly.
 The room occupancy is usually monitored through sensor networks \cite{agarwal:ipsn2011,erickson:ipsn2011} or the computer network traffic \cite{kim:buildsys2010}.
@@ -8,11 +8,11 @@ However, these occupancy model predictions track human activity through sensor n
 Fundamentally different, the approach proposed in this article prevents any devices abnormal usages rather than optimizing the HVAC usage, nevertheless, the two approaches are complementary and can be used together.
 % The main additional advantage of our approach is to analyze more than the HVAC activity without the need of extra sensors.
 
-Energy wastes are also detected by predicting the devices consumption using regression analysis and weather variables.
+Abnormal usages are also detected by predicting the devices consumption using regression analysis and weather variables.
 For example, using kernel regression one can forecasts the devices consumption and those that are significantly different from the predictions are reported as anomalous \cite{brown:buildperf2012}.
 However, the implementation of these approaches in real situations is difficult as it requires training dataset and non-trivial parameter tuning.
 
-Similar to our approach, several prior works identify energy wastes using frequency analysis and unsupervised anomaly detection methods.
+Similar to our approach, several prior works identify abnormal energy-consumption using frequency analysis and unsupervised anomaly detection methods.
 Thereby, the devices consumption is modeled using the Fourier transform and outliers are detected using simple statistics \cite{li:ieee2010} or clustering techniques \cite{Bellala_buildsys11,wrinch:pes2012,jakkula,chen:aaaiw2011}.
 However, these methods assume a constant periodicity in the data, thus, they report devices usages happening at unusual times although they may not correspond to a faulty operation.
 In this article we do not make any assumption on the devices usage schedule but on the device relationships.

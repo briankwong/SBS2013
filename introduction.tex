@@ -10,7 +10,7 @@ Some of these sensors enable building administrators to view device power-draw i
 % sensors providing a service is weird to think about  -- i like how the next paragraph explains it
 Detecting misbehaving devices is crucial, as many are sources of energy waste.  % a light not turning on properly is NOT WASTEFUL, but does affect service quality
 However, identifying these saving opportunities is impractical for administrators because large buildings usually contain hundreds of monitored devices
-producing thousands of streams and it requires continuous monitoring.% attention as abnormal usages may happen at any time.
+producing thousands of streams and it requires continuous monitoring. % attention as abnormal usages may happen at any time.
 %Consequently, the goal of this work is to establish a methodology that reports to building administrators devices abnormal uses.  
 As such, the goal of this work is to establish a method that reports abnormal device-usage patterns to the administrator by closely examining 
 all of the continuous power streams.
@@ -35,15 +35,14 @@ Our proposal consists of two key components:
 % \end{enumerate}
 
 \begin{enumerate}
- \item The strip and bind method (SBM) mines the raw sensor data, identifying inter-device usage patterns.% that are typically used in concert to provide a service.
+ \item The strip and bind method (SBM) mines the raw sensor data, identifying inter-device usage patterns. % that are typically used in concert to provide a service.
 We first \emph{strip} the underlying traces of occupancy-induced trends.  Then we \emph{bind} device traces, whose underlying behavior
 is highly correlated, by placing them into a correlated device set.
  %  Then
  % It uncovers the devices relationships by looking at the correlation of their activities. 
  This allows us to differentiate between devices that are used together (high correlation), used independently (no correlation), and used mutually exclusively (negative correlation).
  \item The anomaly detector monitors devices relationships over time and reports deviations from the norm.  % misbehaving devices.
- It learns the normal inter-device usages using a robust, longitudinal analysis of the building data and detect anomalous usage patterns.  Such
- patterns present an opportunity to reduce electricity waste.
+ It learns the normal inter-device usages using a robust, longitudinal analysis of the building data and detect anomalous usage patterns.  Such patterns present an opportunity to reduce electricity waste.
  % that may represent that stand for electricity wastes.
 \end{enumerate}
 
@@ -57,10 +56,10 @@ Therefore, one of the main contributions of this work is uncovering the intrinsi
 trend.  This is achieved by using Empirical Mode Decomposition \cite{huang:emd1998}.
 
 Another key contribution of this work is in using the SBM method to practically reduce building energy consumption.
-Moreover, the proposed method is ease to use and functions in any building, as it does not require prior knowledge of the
+Moreover, the proposed method is easy to use and functions in any building, as it does not require prior knowledge of the
  building nor extra sensors.  It is also tuned through a single intuitive parameter.  %which parameter?
 
-We validate the effectiveness of our appraoch using 10 weeks of data from a modern Japanese building containing 135 sensors and 
+We validate the effectiveness of our approach using 10 weeks of data from a modern Japanese building containing 135 sensors and 
 8 weeks of data from an older American building containing 70 sensors.
 These experiments highlight the effectiveness of SBM to uncover device relationships in a large deployment of 135 sensors.
 Furthermore, we inspect the anomaly detector results and show that the reported alarms correspond to significant opportunities to save energy.

@@ -1,23 +1,21 @@
 \section{Discussion}
-The additional advantages of the work presented in this article are discussed in this section.
-
+The additional advantages of SBS are discussed in this section.
 %practical
-SBS is truly practical thanks to unsupervised manner to mine the devices relationships. 
-In this work we validated the SBS efficiency using the sensors metadata (i.e. device types and location), however, these tags are not needed by SBS to uncover devices relationships.
-Furthermore, SBS requires no prior information on the analyzed building and deploying our tool to other buildings requires no particular human intervention.
-In particular the proposed approach do not need extra sensor deployment such as occupancy sensors. 
+SBS is a practical method to mine the devices relationships and their normal behavior. 
+In this article we validated the SBS efficiency using the sensors metadata (i.e. device types and location), however, these tags are not needed by SBS to uncover devices relationships.
+Furthermore, SBS requires no prior knowledge about the analyzed building and deploying our tool to other buildings requires no particular human intervention.
+In particular neither extra sensor deployment nor training dataset is needed. 
 
 %best effort
-Nevertheless, the proposed method takes advantage of all the existing building sensors.
-The understanding of the building energy consumption is obviously better understand by sensing the consumption of numerous devices, 
-but saving opportunities is observable with a minimum of 2 monitored devices.
-This best effort approach is particularly effective as it requires no extra instrumentation that is also consuming electricity.
-For example, our experiments revealed that the building occupancy is indirectly monitored by certain devices that betray the presence of humans (e.g. the elevator in the Cory Hall). 
+Nevertheless, SBS is a best effort approach that takes advantage of all the existing building sensors.
+For example, our experiments revealed that SBS uncovers indirectly the building occupancy by certain devices that betray the presence of humans (e.g. the elevator in the Cory Hall). 
 Thereby, the proposed method would benefits from existing sensors that monitor the rooms occupancy (e.g. those deployed in \cite{agarwal:ipsn2011,erickson:ipsn2011}) albeit they are no needed.
+The building energy consumption is better understood by SBS if the energy consumption of numerous devices is monitored, 
+but interesting abnormalities such as saving opportunities are observable with a minimum of 2 monitored devices.
 
 
 %EMD
-We also observed advantages of decomposing sensor data using EMD that is beneficial for different purpose.
+We also observed advantages of striping sensor data that is beneficial for different purpose.
 In this article we analyze only the data at the medium frequencies, however, we observed that data at the high frequencies and residual data (Figure \ref{fig:heatmap}) permit to discriminate the type of the monitored devices.
 Consequently, this information is valuable to automatically retrieve the semantic of the devices.
 
@@ -29,13 +27,3 @@ Consequently, this information is valuable to automatically retrieve the semanti
 % 
 % 
 % season changes; devices relationships have seasonal pattern thus we may need forecast models such as ARIMA to make the reference matrix evolve in time.
-
-
-Reducing the buildings energy consumption is a serious concern that received a lot of attention from the research community.
-Since HVACs are one of the major electricity consumer in the buildings, several researchers have mainly focused on reducing the consumption of HVACs.
-The most promising techniques are based on occupancy model predictions as they ensure that empty rooms are not over conditioned needlessly.
-The room occupancy is usually monitored through sensor networks \cite{agarwal:ipsn2011,erickson:ipsn2011} or the computer network traffic \cite{kim:buildsys2010}.
-These approaches are highly effective for buildings that have rooms rarely occupied (e.g. conference room) and studies show that such approach can achieves up to 42\% annual energy saving.
-However, these occupancy model predictions track human activity through sensor networks that usually imply the extra cost and privacy concerns.
-Fundamentally different, the approach proposed in this article prevents any devices abnormal usages rather than optimizing the HVAC usage, nevertheless, the two approaches are complementary and can be used together.
-% The main additional advantage of our approach is to analyze more than the HVAC activity without the need of extra sensors.

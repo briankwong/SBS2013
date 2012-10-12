@@ -64,16 +64,16 @@ At high and medium frequencies we obtained very similar matrices, however, almos
 % TODO add some info about the reference matrix for the Cory Hall?
 
 \subsection{Anomalies}
-We now validate the misbehavior found by SBS in the data collected at the Engineering Building 2 and the one from the Cory Hall.
+We now validate the anomalies found by SBS in the traces from the Engineering Building 2 and the Cory Hall.
 Nevertheless, due to the lack of ground truth data such as rooms schedule or reports of energy waste evaluating the SBS results is not straightforward.
 
 \paragraph{Evaluation process}
 To validate the SBS results we manually inspect the identified anomalies.
-Therefore, for each reported alarm $(t,i)$ we thoroughly investigate the data from the device $i$ and its related devices (as provided by the reference matrix) at the time bin $t$ in order to identify the root cause of the alarm.
-In particular we retrieve the major relationship change that causes the anomaly (i.e. $\max(|w_j(C_{i,j}^t - R_{i,j})|)$, see Section \ref{methodo:ano}) and examine the metadata associated to the corresponding device $j$ and the sign of the relationship change $C_{i,j}^t - R_{i,j}$.
-A positive value of relation change means the devices correlation at the time bin $t$ is abnormally high, whereas negative value means that the relationship between the two devices is broken.
-
-Furthermore, this investigation allow us to classify the alarms into five groups,
+Therefore, for each reported alarm $(t,i)$ we thoroughly investigate the data from the device $i$ and its related devices (as provided by the reference matrix) in order to identify the root cause of the alarm.
+In particular we retrieve the major relationship change that causes the alarm (i.e. $\max(|w_j(C_{i,j}^t - R_{i,j})|)$, see Section \ref{methodo:ano}) and examine the metadata associated to the corresponding device
+% $j$ and the sign of the relationship change $C_{i,j}^t - R_{i,j}$.
+% A positive value of relation change means the devices correlation at the time bin $t$ is abnormally high, whereas negative value means that the relationship between the two devices is broken.
+This investigation allow us to classify the alarms into five groups:
 \begin{itemize}
  \item \emph{High power usage}: alarms standing for electricity waste.
  \item \emph{Low power usage}: alarms caused by a device abnormal low electricity consumption.
@@ -94,11 +94,9 @@ Furthermore, this investigation allow us to classify the alarms into five groups
 \end{figure}
 
 \paragraph{Experimental setup}
-For all the experiments presented in this section the data is split in time bins of one day long.
-% starting from 09:00 am which is approximately the offices opening hours.
-% We particularly discourage to start the time bins at midnight as we found that numerous anomalies appear at night and they are better highlighted if they are not spanning two time bins.
-The reference matrix is computed using all the time bins, then, its distance to each time bin is calculated.
-As we seek for the abnormal changes of the devices intrinsic-relationships SBS searches only for anomalies at the medium frequencies and disregard all others time scales ranges.
+For all the experiments presented in this section the data is split in time bins of one day long starting from 09:00 am which is approximately the offices opening hours.
+We avoid to start the time bins at midnight as we found that numerous anomalies appear at night and they are better highlighted if they are not spanning two time bins.
+The reference matrix is computed using data at the medium frequencies for all the time bins.
 
 \begin{figure*}[t]
   \subfloat[High power usage where the HVAC (EHP) is turned on at night\label{fig:res:eng1}]{\includegraphics[width=.32\textwidth]{img/0sig20_sig31alarm1-eps-converted-to.pdf}} \hspace{.015\textwidth} %EHP turned on at night!?
@@ -110,7 +108,8 @@ As we seek for the abnormal changes of the devices intrinsic-relationships SBS s
 
 By varying the threshold $\tau$ we can tune the sensitivity of SBS thus the number of reported alarms.  
 Furthermore, by plotting the number of alarms against the value of $\tau$ for both datasets (Fig. \ref{fig:thres}) we observe an elbow in the graph around $\tau=5$.
-With thresholds lower than this pivot value ($\tau<5$) the number of alarms is significantly increasing thus likely to report less important anomalies, whereas, for higher value ($\tau>5$) the number of alarms is slowly decreasing thus provide a more conservative result that only consists of the most important anomalies.
+With thresholds lower than this pivot value ($\tau<5$) the number of alarms is significantly increasing thus likely to report less important anomalies.
+Whereas for higher value ($\tau>5$) the number of alarms is slowly decreasing thus provide a more conservative result that only consists of the most important anomalies.
 As this pivot value is usually a good trade off we set $\tau=5$ for both datasets.
 
 
@@ -133,11 +132,11 @@ SBS reported 55 alarms along the 10 weeks of the Engineering Building 2 dataset.
 However, 36 alarms are discarded as they stand for missing data in the dataset; one GHP has no data for the first 18 days.
 Since this device is highly correlated to another GHP in the reference matrix, their relationship is broken for the 18 first bins and two alarms per bin are raised (one for each GHP).
 
-In spite of the university measures to reduce its electricity footprint, SBS reported 9 alarms usually standing for small electricity waste (Table \ref{tab:classif}).
-For example Figure \ref{fig:res:eng1} depicts the electricity consumption of the light and HVAC system of the same room for which two alarms have been raised at the first time bin.
-Because the HVAC was not used during daytime but has been turned on at night when the light is turned off the relationship between the two devices is broken and an alarm is raised for each device.
-Figure \ref{fig:res:eng2} is another example of energy waste where the light has been left on during night whereas the HVAC has been turned off.
-The top-priority anomaly reported by SBS is caused by the 10 days long constant use of a room HVAC (Figure \ref{fig:res:eng4}) and this opportunity to save electricity account for 165 kWh.
+In spite of the post-Fukushima university measures to reduce its electricity footprint, SBS reported 9 alarms corresponding to high power usages (Table \ref{tab:classif}).
+For example Figure \ref{fig:res:eng1} depicts the electricity consumption of the light and EHP of the same room for which two alarms have been raised at the first time bin.
+Because the EHP was not used during daytime but has been turned on at night when the light is turned off the relationship between the two devices is broken and an alarm is raised for each device.
+Figure \ref{fig:res:eng2} is another example of energy waste where the light has been left on during night whereas the EHP has been turned off.
+The top-priority anomaly reported by SBS is caused by the 10 days long constant use of a room EHP (Figure \ref{fig:res:eng4}) and this waste of electricity accounts for 165 kWh.
 SBS partially reported this anomaly, however, lower threshold value $\tau$ permits to identify most of it.
 
 \begin{figure*}[t]
@@ -149,27 +148,27 @@ SBS partially reported this anomaly, however, lower threshold value $\tau$ permi
 \caption{Example of anomalies identified by SBS for the Cory Hall dataset}
 \end{figure*}
 
-We observed 6 alarms corresponding to abnormal low power usage, our inspection revealed that they usually correspond to energy saving initiatives from the rooms users probably due to the electricity concern in Japan.
-This behavior is depicted in Figure \ref{fig:res:eng3}, the occupancy is obvious as the light is used at the usual office hours but the air conditioner has not been tuned on during in the sole intention to save electricity.
+We observed 6 alarms corresponding to abnormal low power usage, our inspection revealed that they usually correspond to energy saving initiatives from the rooms users likely due to the electricity concern in Japan.
+This behavior is depicted in Figure \ref{fig:res:eng3}, the occupancy is obvious as the light is used at the usual office hours but the EHP has not been turned on during daytime in the sole intention to save electricity.
 
 \subsubsection{Cory Hall}
 SBS reported 39 alarms for the Cory Hall dataset (Table \ref{tab:classif}).
 Among these alarms 7 are classified as low power usage, however, our inspection revealed that the root causes for this type of anomaly is different than for the Engineering Building 2 dataset.
-For the previous experiment this type of anomaly stands mainly for saving measures from the room user, however, in this case we observe that the low power usage usually stands for device failures or misconfigurations.
-For example, Figure \ref{fig:res:cory1} depicts the electricity consumption of the 2nd floor chiller and at a power riser that includes the consumption of multiple systems including the chiller.
+Indeed, we observe here that the low power usage usually stands for device failures or misconfigurations.
+For example, Figure \ref{fig:res:cory1} depicts the electricity consumption of the $2^{nd}$ floor chiller and at a power riser that includes the consumption of multiple systems including the chiller.
 As the chiller suddenly stops working the correlation between both measurements is significantly altered and an alarm for each device is raised.
 
 SBS also reported 25 alarms corresponding to high power usage. 
-Interestingly, we indirectly observed a saving opportunity from the measurements of the elevator power consumption and a power panel that provides electricity to facilities from the 1st to the 4th floor.
-Figure \ref{fig:res:cory21} and \ref{fig:res:cory22} shows the electricity consumption for these two devices. 
+We indirectly observed an energy-saving opportunity from the power consumption of the elevator and a power panel for equipment at the $1^{st}$ to the $4^{th}$ floor.
+Figure \ref{fig:res:cory21} and \ref{fig:res:cory22} shows the electricity consumption of both devices. 
 We found that the elevator is a good occupancy indicator as the amount of electricity going through the panel fluctuates along with the elevator power consumption (Figure \ref{fig:res:cory22}).
-However, SBS identified anomalous activity during a week-end, in this case the electricity consumption measured at the panel is independent from the elevator usage and oscillates significantly.
-Since the particular device causing this anomaly is not instrumented with a sensor we could not precisely identified the root cause of this anomaly.
+SBS identified anomalous energy-consumption during a weekend  as the consumption measured at the panel is independently fluctuating from the elevator usage.
+Since these fluctuations are caused by a device that is not monitored we could not identified more precisely the anomaly root cause. Nevertheless the reported alarm is worthwhile for building operators to start investigating on this abnormal energy-consumption.
 
-The most important anomaly identified by SBS is shown in Figure \ref{fig:res:cory3}.
-This anomaly corresponds to the malfunctioning of the HVAC Heater serving the 4th and 5th floor. 
+The most important anomaly identified in the Cory Hall is shown in Figure \ref{fig:res:cory3}.
+This anomaly corresponds to the malfunctioning of the HVAC Heater serving the $4^{th}$ and $5^{th}$ floor. 
 In fact the heater is constantly working for 18 consecutive days thus over provisioning the corresponding floors.
-This also results in the increase of the 4th floor HVAC Chiller power consumption to maintain appropriate temperature.
-This situation where heating and cooling system are competing is a well-know problem in building management as it leads to important energy waste.
-For this particular example, the electricity waste is estimated around 2500 kWh for the heater only whereas the average consumption of the Cory Hall is around 600kW per hour.
-Nevertheless, as the anomaly spans over 18 days it is hidden in the building overall consumption thus difficult to be detected by building administrators without the help of the proposed method.
+Moreover, in order to maintain appropriate temperature this also results in the increase of the $4^{th}$ floor HVAC Chiller power consumption and several fans as the one depicted in Figure \ref{fig:res:cory3}.
+This situation where heating and cooling systems are competing is a well-know problem in building management as it leads to important energy waste.
+For this example, the electricity waste is estimated around 2500 kWh for the heater only whereas the average consumption of the Cory Hall is around 600kW per hour.
+Nevertheless, as the anomaly spans over 18 days it is hidden in the building overall consumption thus difficult to be detected by building administrators without the help of SBS.

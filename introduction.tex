@@ -1,7 +1,7 @@
 \section{Introduction}
 Buildings are one of the prime targets to reduce energy consumption around the world.
 In the United States, the second largest energy consumer in the world, buildings account for 41\% of the country's total energy consumption \cite{aer2011}.
-The first measure towards reducing the building's energy consumption is to prevent electricity waste, due to the improper use of the buildings equipment.
+The first measure towards reducing the building's energy consumption is to prevent electricity waste due to the improper use of the buildings equipment.
 
 Large building infrastructure is usually monitored by numerous sensors.
 Some of these sensors enable building administrators to view device power-draw in real time.  This allows administrators
@@ -35,14 +35,13 @@ Our proposal consists of two key components:
 % \end{enumerate}
 
 \begin{description}
- \item[Strip and Bind] the first part of the proposed method mines the raw sensor data, identifying inter-device usage patterns. % that are typically used in concert to provide a service.
-We first \emph{strip} the underlying traces of occupancy-induced trends.  Then we \emph{bind} device traces, whose underlying behavior
-is highly correlated, by placing them into a correlated device set.
+ \item[Strip and Bind] The first part of the proposed method mines the raw sensor data, identifying inter-device usage patterns. % that are typically used in concert to provide a service.
+We first \emph{strip} the underlying traces of occupancy-induced trends.  Then we \emph{bind} devices  whose underlying behavior is highly correlated. %, by placing them into a correlated device set.
  %  Then
  % It uncovers the devices relationships by looking at the correlation of their activities. 
  This allows us to differentiate between devices that are used together (high correlation), used independently (no correlation), and used mutually exclusively (negative correlation).
  \item[Search] The second part of the method monitors devices relationships over time and reports deviations from the norm.  % misbehaving devices.
- It learns the normal inter-device usages using a robust, longitudinal analysis of the building data and detect anomalous usage patterns.  Such patterns present an opportunity to reduce electricity waste.
+ It learns the normal inter-device usages using a robust, longitudinal analysis of the building data and detect anomalous usages.  Such abnormalities usually present an opportunity to reduce electricity waste or events that deserve careful attention (e.g. faulty device).
  % that may represent that stand for electricity wastes.
 \end{description}
 

@@ -9,12 +9,21 @@
  \label{fig:diagram1}
 \end{figure}
 
-As shown in the previous section discovering the devices that are used in concert is particularly difficult.
-SBS addresses this issue by decomposing each signal into a set of components, called IMF, that reveal the data structures at different time scales.
-This IMF decomposition is based on Empirical Mode Decomposition (see \emph{EMD} in Fig.\ref{fig:diagram1} and Section \ref{emd}).
-The next step is to filter out the IMFs that interfere with our goal and keep only those standing for time scales shorter than the unwanted daily pattern.
-Consequently, SBS aggregates the IMFs that falls into the same meaningful time scales ranges (see \emph{IMF agg.} in Fig.\ref{fig:diagram1}).
-The resulting partial signals of different devices are compared pairwise to identify the devices intrinsic relationships (see \emph{Corr. Coeff.} in Fig.\ref{fig:diagram1}). 
+%As shown in the previous section, discovering the devices that are used in concert is particularly difficult.
+Discovering devices that are used in concert is non-trivial.  
+SBS decomposes each signal into a set of components, called Intrinsic mode functions (IMF), 
+that decomposes the signal into sub-signals at different time scales.  IMFs are obtained using 
+%that reveal the signal structures at different time scales.
+Empirical Mode Decomposition (see Fig.~\ref{fig:diagram1} and Section~\ref{emd}).
+%Then, we filter out the IMFs that interfere with our goal and keep only those standing for time scales shorter than the unwanted daily pattern.
+%We then remov out IMFs with time scales 
+We only consider IMFs with a daily time scale or smaller, since we are interested in capturing short-scale dependencies
+for services being delivered.
+Consequently, SBS aggregates the IMFs that falls into the same relative time scales ranges (see \emph{IMF agg.} in Fig.\ref{fig:diagram1}).
+%The resulting partial signals of different devices are compared pairwise to identify the devices intrinsic relationships (see \emph{Corr. Coeff.} in Fig.\ref{fig:diagram1}). 
+The resulting IMFs of different device power traces are compared, pairwise, to identify the devices 
+with that show un/correlated underlying usage patterns, after the dominant trends are removed (see \emph{Corr. Coeff.} in Fig.\ref{fig:diagram1}). 
+
 
 % These intrinsic relations are uncovered by comparing the sensors data at certain meaningful frequency bands.
 % Namely, looking at high frequency allows to compare short-term variations representing the instantaneous devices change of state, however, the low frequency highlights long-term fluctuations revealing long devices usage pattern.
@@ -29,22 +38,26 @@ The resulting partial signals of different devices are compared pairwise to iden
 % These two steps are described by the two following sections.
 
 \subsubsection{Empirical Mode Decomposition} \label{emd}
-Empirical Mode Decomposition (EMD) \cite{huang:emd1998} is a technique that decomposes a signal and reveals its intrinsic patterns, trend and noise.
-This technique has been widely applied to a variety of datasets, including climate variables \cite{lee:climateEMD2011}, medical data \cite{blanco:bioMed2008}, speech signals \cite{huang:signalProc2006,hasan:ieeeletter2009}, and images \cite{nunes:vision2005}.
+Empirical Mode Decomposition (EMD) \cite{huang:emd1998} is a technique that decomposes a signal and reveals its intrinsic patterns, 
+trend and noise.
+This technique has been widely applied to a variety of datasets, including climate variables~\cite{lee:climateEMD2011}, medical data~\cite{blanco:bioMed2008}, speech signals~\cite{huang:signalProc2006,hasan:ieeeletter2009}, and image processing~\cite{nunes:vision2005}.
 % for example, it helped to uncover the global surface temperature trends\cite{}, solar activity patterns and predicts climate variables .
-The EMD success relies on its empirical, adaptive and intuitive approach.
-In fact this technique is designed to efficiently decompose both non-stationary and non-linear signals without requiring any predetermined basis functions or specific tuning.  
+EMD's effectiveness relies on its empirical, adaptive and intuitive approach.
+In fact, this technique is designed to efficiently decompose both non-stationary and non-linear signals without requiring any 
+a priori basis functions or tuning.  
 
 EMD decomposes a signal into a set of oscillatory components called intrinsic mode functions (IMFs). 
-An IMF satisfies two conditions: (1) it contains the same number of extrema and zero crossings (or differ at most by one); (2) the two IMF envelopes defined by its local maxima and local minima are symmetric with respect to zero. 
-Thereby, the IMFs are functions that directly conveys the amplitude and frequency modulations.
+An IMF satisfies two conditions: (1) it contains the same number of extrema and zero crossings (or differ at most by one); (2) the two 
+IMF envelopes defined by its local maxima and local minima are symmetric with respect to zero.  Consequently, 
+ IMFs are functions that directly convey the amplitude and frequency modulations.
 
-EMD is an iterative sifting process that extracts IMFs step by step; each step seeks for the IMF with the highest frequency, then the computed IMF is removed from the data and the residual data are used as input for the next step.
+EMD is an iterative sifting process that extracts IMFs step by step; each step seeks for the IMF with the highest frequency, then the 
+computed IMF is removed from the data and the residual data are used as input for the next step.
 The process stops when the residual data becomes a monotonic function from which no more IMF can be extracted.
 
 We formally describe the EMD process as follows: 
 \begin{enumerate}
-\item for a signal \emph{X(t)}, let $m_1$ be the mean of its upper and lower envelopes as determined from a cubic-spline interpolation of local maxima and minima.
+\item For a signal \emph{X(t)}, let $m_1$ be the mean of its upper and lower envelopes as determined from a cubic-spline interpolation of local maxima and minima.
 \item The first component $h_1$ is computed: $h_1=X(t)-m_1$
 \item In the second sifting process, $h_1$ is treated as the data, and $m_{11}$ is the mean of $h_1$'s upper and lower envelopes: $h_{11}=h_1-m_{11}$
 \item The procedure is repeated $k$ times, until $h_{1k}$ is an IMF: $h_{1(k-1)}-m_{1k}=h_{1k}$
@@ -53,24 +66,30 @@ repeated on $r_j: r_1-c_2 = r_2,\dots,r_{n-1} - c_n = r_n$
 \item The process stops when $r_n$ contains no more than 3 extrema.
 \end{enumerate}
 
-Thereby, the result of EMD is a set of IMFs $c_i$ and the final residue $r_n$, such as: \[X(t)=\sum^{n}_{i=1}c_i+r_n\]
-where the size of the resulting set of IMFs $n$ depends on the original signal $X(t)$ and $r_n$ represents the trend of the data (see \emph{IMFs} in Fig.\ref{fig:diagram1}).
+The result of EMD is a set of IMFs $c_i$ and the final residue $r_n$, such as: \[X(t)=\sum^{n}_{i=1}c_i+r_n\]
+where the size of the resulting set of IMFs $n$ depends on the original signal $X(t)$ and $r_n$ represents the trend of 
+the data (see \emph{IMFs} in Fig.\ref{fig:diagram1}).
 
-For this work we implemented a variant of EMD called Complete Ensemble EMD \cite{torres:icassp2012}.
-This algorithm computes EMD several times with additional noise, it allows us to efficiently analyze signals that have flat sections (i.e. consuming no electricity in our case) and permits to solve the EMD mode mixing problem.
+For this work we implemented a variant of EMD called Complete Ensemble EMD~\cite{torres:icassp2012}.
+This algorithm computes EMD several times with additional noise, it allows us to efficiently analyze signals that have 
+flat sections (i.e. consuming no electricity in our case) and permits us to solve the \emph{EMD mode mixing problem}.
 
 \subsubsection{IMF aggregation} \label{methodo:corr}
-By applying EMD to energy consumption signals we obtain a set of IMFs that precisely describe the devices consumption patterns at different time scales.
-Thereby, it allows us to concentrate our data analysis on the smaller time scales thus ignoring the dominant patterns that prevent us from efficiently analyzing raw signals.
+By applying EMD to energy consumption signals we obtain a set of IMFs that precisely describe the devices consumption 
+patterns at different time scales.  Therefore, we can focus our analysis on the smaller time scales, ignoring the dominant 
+patterns that prevent us from effectively analyzing raw signals.
 
-However, comparing the IMFs obtained from different signals is not trivial.
-Because EMD is empirically uncovering IMFs from the data there is no guarantee that the two IMFs $c_i^1$ and $c_i^2$ obtained from two distinct signals $S^1$ and $S^2$ represent data at the same frequency domain.
+However, comparing the IMFs obtained from different signals is also not trivial,
+ because EMD is empirically uncovering IMFs from the data there is no guarantee that the two IMFs $c_i^1$ and $c_i^2$ obtained from t
+ wo distinct signals $S^1$ and $S^2$ represent data at the same frequency domain.
 Directly comparing $c_i^1$ and $c_i^2$ is meaningless unless we confirm that they belongs to the same frequency domain.
 
-There is numerous techniques available to retrieve the IMFs frequencies \cite{huang:aada2009}.
-In this work we take advantage of the Generalized Zero Crossing (GZC) \cite{huang:patent2006} because it is a simple and robust estimator of the IMF instantaneous frequency \cite{huang:aada2009}.
-GZC is a direct estimation of the IMF instantaneous frequency using critical points defined as the zero crossings and local extrema (round dots in Figure \ref{fig:gzc}).
-Namely, given a data point $p$ GZC measures the quarter ($T_4$), the two halves ($T_2^x$) and the four full periods ($T_1^y$) $p$  belongs to (see Figure \ref{fig:gzc}) and the instantaneous period is computed as:
+There are numerous techniques to retrieve IMF frequencies~\cite{huang:aada2009}.  
+In this work we take advantage of the Generalized Zero Crossing (GZC)~\cite{huang:patent2006} because it is a simple and robust 
+estimator of the IMF instantaneous frequency \cite{huang:aada2009}.
+GZC is a direct estimation of IMF instantaneous frequency using critical points defined as the zero crossings and local extrema 
+(round dots in Figure \ref{fig:gzc}).
+Formally, given a data point $p$ GZC measures the quarter ($T_4$), the two halves ($T_2^x$) and the four full periods ($T_1^y$) $p$  belongs to (see Figure \ref{fig:gzc}) and the instantaneous period is computed as:
 \[T=\frac{1}{7}\{4T_4+(2T_2^1+2T_2^2)+(T_1^1+T_1^2+T_1^3+T_1^4)\}\]
 
 \begin{figure}
@@ -82,52 +101,66 @@ Namely, given a data point $p$ GZC measures the quarter ($T_4$), the two halves 
 \end{figure}
 
 Since all points $p$ between two critical points have the same instantaneous period GZC is local down to a quarter period.
-Hereafter we refer to the time scale of an IMF as the average of the instantaneous periods along the whole IMF.
-
-Because the time scale of each IMF depends on the original signal, we propose the following to efficiently compare IMFs from different signals.
-We cluster IMFs regarding their time scale and partially reconstruct each signal by aggregating its IMFs from the same cluster, then, we directly compare the partial signals of different signals.
+Hereafter, we refer to the time scale of an IMF as the average of the instantaneous periods along the whole IMF.
+Because the time scale of each IMF depends on the original signal, we propose the following, to efficiently compare IMFs from different signals:  
+We cluster IMFs with respect to their time scales and partially reconstruct each signal by aggregating its IMFs from the 
+same cluster.  Then, we directly compare the partial signals of different signals.
 
 The IMFs are clustered using four time scale ranges: 
 \begin{itemize}
- \item the \emph{high frequencies} stand for all the IMFs with a time scale lower than 20 minutes. These IMFs capture the noise and observational errors.
+ \item The \emph{high frequencies} stand for all the IMFs with a time scale lower than 20 minutes. These IMFs capture the noise and observational errors.
  \item The \emph{medium frequencies} stand for all the IMFs with a time scale between 20 minutes and 6 hours. These IMFs convey the detailed devices usage.
  \item The \emph{low frequencies} stand for all the IMFs with a time scale between 6 hours and 6 days. These IMFs represent the daily pattern of the devices.
  \item The \emph{residual data} is all data with a time scale higher than 6 days. This is mainly the residual data obtained after applying EMD and it highlights the trend of the devices.
 \end{itemize}
 
-These time scale ranges are arbitrarily determined according to our experiments and goal.
-Namely, the 20 minutes boundary relies on the sampling period of our dataset (5 minutes) and permits to capture IMFs with really short periods.
-The 6 hours boundary allows us to analyze all patterns that have a period shorter than the usual office hours.
-The 6 days boundary allows us to capture daily patterns and weekday pattern.
+These time scale ranges are chosen based on our experiments and goal.
+The 20-minute boundary relies on the sampling period of our dataset (5 minutes) and permits us to capture IMFs with really short periods.
+The 6-hour boundary allows us to analyze all patterns that have a period shorter than the usual office hours.
+The 6-day boundary allows us to capture daily patterns and weekday pattern.
 
-Aggregating a signal IMFs in these time scale ranges results in 4 partial signals representing different characteristics of the device energy consumption (see \emph{Partial Signals} in Fig.\ref{fig:diagram1}).
-We compare the devices pairwise using the correlation coefficient of their partial signals.
-In the example of Figure \ref{fig:diagram1}, the correlation coefficient of the raw signals suggests that they are highly correlated ($0.5675$). 
-However, the comparison of the corresponding partial signals provides new insights;
-the two devices are poorly correlated at high and medium frequencies (respectively $-0.0127$ and $-0.0420$) but highly correlated at low frequencies (0.7886) meaning that these devices are not intrinsically correlated but only features similar daily pattern.
+Aggregating signal IMFs, within each time scale range, results in 4 partial signals representing different characteristics of the device's
+ energy consumption (see \emph{Partial Signals} in Fig.\ref{fig:diagram1}).
+We do a pairwise device trace comparison, calculating the correlation coefficient of their partial signals.
+In the example shown in Figure~\ref{fig:diagram1}, the correlation coefficient of the raw signals suggests that they are highly correlated ($0.5675$). 
+However, the comparison of the corresponding \emph{partial signals} provides new insights;
+the two devices are poorly correlated at high and medium frequencies (respectively $-0.0127$ and $-0.0420$) but highly correlated at low frequencies (0.7886) meaning that these devices are not ``intrinsically'' correlated.  They only share a similar daily pattern.
 
 All the devices are compared pairwise at the four different time scale ranges.
-Consequently we obtain four correlation matrices that convey the devices similarities at different time scales.
-Each line of these matrices (or column as the matrices are symmetric) reveals the behavior of a device, namely, its relationships with the other devices at a certain time scale range.
-These matrices are our basis to track the behavior of the devices and search for misbehavior.
+Consequently, we obtain four correlation matrices that convey the device similarities at different time scales.
+Each line of these matrices (or column, since the matrices are symmetric) reveals the behavior of a device -- its relationships with the 
+other devices at a particular time scale.
+The matrices form the basis for tracking the behavior of devices and to search for misbehavior.
 
 
 \subsection{Search}\label{methodo:ano}
-The Search part of the method aims at identifying misbehaving devices in an unsupervised manner.
-The devices behavior is monitored via the correlation matrices presented in the previous section.
-Using numerous observations SBS computes an adaptive reference that exhibits the normal devices utilization.
-Then, SBS compares the computed reference with the current data and reports devices that deviate from their usual behavior.
+\emph{Search} aims at identifying misbehaving devices in an unsupervised manner.
+Device behavior is monitored via the correlation matrices presented in the previous section.
+Using numerous observations SBS computes an adaptive reference that exhibits the normal inter-device usage pattern.
+Then, SBS compares the computed reference with the current data and reports devices that deviate from their usual 
+behavior.
 
 \subsubsection{Reference}
-We define four reference matrices that exhibit the normal devices behavior at the four time scale ranges defined in the Section \ref{methodo:corr}.
-These references are similarly computed; (1) we retrieve the correlation matrices for $n$ consecutive time bins of length $l$ as described in the Section \ref{methodo:est}. (2) For each pair of devices we store the median correlation over the $n$ time bins and obtain a matrix of the median device correlations.
+We define four reference matrices, which capture normal device behavior at the four time scale ranges defined, in 
+Section~\ref{methodo:corr}.
+The references are as computed as follows: (1) we retrieve the correlation matrices for $n$ consecutive time bins of 
+length $l$ )as described in Section~\ref{methodo:est}). (2) For each pair of devices we store the median correlation 
+over the $n$ time bins and obtain a matrix of the median device correlations.
 
-Formally, for each time scale range the computed reference matrix for the $d$ devices and the $n$ time bins is:
+Formally, for each time scale range the computed reference matrix for $d$ devices and $n$ time bins is:
 \[\tilde{R}_{i,j} =  \median(C^1_{i,j},...,C^n_{i,j})\]
 where $i$ and $j$ ranges in $[1,d]$.
 
-Assuming that the devices predominantly behave normally and the anomalies are exceptional events, the reference matrices exhibit the normal device behaviors.
-In fact the abnormal correlation values that could appear in the analyzed time bins are ignored by the median operator thanks to its robustness to outliers.
+% Assuming that device-usage predominantly behaves normally and the anomalies are exceptional 
+% events, the reference matrices exhibit the normal device behaviors.
+Our model assumes anomalies are rare.  We assume that normal behavior is not truly anomalous.
+Abnormal correlation values, that could appear during model construction, %in the analyzed time bins 
+are ignored by the median operator thanks to its robustness to outliers.  However, if that assumption does not hold, 
+ our model will flag the opposite -- labeling abnormal as normal and vice-versa.
+From close inspection of our data, we believe our primary assumption is sound.  Normal behavior occurs
+most frequently, therefore detected anomalies should be meaningful.
+
+
 
 \subsubsection{Behavior change}
 SBS consists in identifying the devices that significantly deviate from their normal behaviors as defined in the reference matrices.

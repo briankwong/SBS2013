@@ -1,22 +1,24 @@
 \section{Discussion}
-The additional advantages of SBS are discussed in this section.
+%The additional advantages of SBS are discussed in this section.
 %practical
-SBS is a practical method to mine the devices relationships and their normal behavior. 
-In this article we validated the SBS efficiency using the sensors metadata (i.e. device types and location), however, these tags are not needed by SBS to uncover devices relationships.
-Furthermore, SBS requires no prior knowledge about the analyzed building and deploying our tool to other buildings requires no particular human intervention.
-In particular neither extra sensor deployment nor training dataset is needed. 
+SBS is a practical method for mining devices traces, uncovering hidden relationships and abnormal behavior. 
+In this paper, we validated the SBS efficacy using the sensors metadata (i.e. device types and location), however, these 
+tags are not needed by SBS to uncover devices relationships.
+Furthermore, SBS requires no prior knowledge about the building and deploying our tool to other buildings requires no human intervention.
+Neither extra sensor deployment nor training dataset is needed. 
 
 %best effort
 Nevertheless, SBS is a best effort approach that takes advantage of all the existing building sensors.
-For example, our experiments revealed that SBS uncovers indirectly the building occupancy by certain devices that betray the presence of humans (e.g. the elevator in the Building 2). 
-Thereby, the proposed method would benefits from existing sensors that monitor the rooms occupancy (e.g. those deployed in \cite{agarwal:ipsn2011,erickson:ipsn2011}) albeit they are no needed.
-The building energy consumption is better understood by SBS if the energy consumption of numerous devices is monitored, 
-but interesting abnormalities such as saving opportunities are observable with a minimum of 2 monitored devices.
+For example, our experiments revealed that SBS indirectly uncovers building occupancy through device use (e.g. the elevator in the Building 2). 
+The proposed method would benefit from existing sensors that monitor the room occupancy as well (e.g. those deployed in~\cite{agarwal:ipsn2011,erickson:ipsn2011}).  % albeit they are no needed.
+Building energy consumption can be better understood after using SBS (if the energy consumption of numerous devices is monitored).  
+Saving opportunities are also observable with a minimum of 2 monitored devices.
 
 %EMD
-Striping sensor data with EMD is also beneficial for other works.
-In this article we analyze only the data at the medium frequencies, however, we observed that data at the high frequencies and residual data (Figure \ref{fig:heatmap}) permit to discriminate the type of the monitored devices.
-Consequently, this information is valuable to automatically retrieve the semantic of the devices.
+%Striping sensor data with EMD is beneficial for other work.
+In this paper, we analyze only the data at medium frequencies, however, we observe that data at the high frequencies and residual data (Figure \ref{fig:heatmap}) permit us to determine the type of the  device as well.
+This information is valuable to automatically retrieve and validate device labels -- a major challenge in building metadata
+management.
 
 
 % %limitation

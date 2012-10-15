@@ -1,8 +1,9 @@
 
 \section{Experimental Results}
-In this section we evaluate the efficiency of SBS.
-First, we exhibit the benefits of striping the data by monitoring the patterns captured at different time scales.
-Second, we thoroughly investigate the alarms reported by SBS with the two datasets.
+In this section we evaluate SBS on our building traces.  We demonstrate
+ the benefits of striping the data, by monitoring patterns captured at different time scales.
+Then, we thoroughly investigate the alarms reported by SBS.
+
 
 
 \begin{figure*}[t!]
@@ -16,48 +17,57 @@ Second, we thoroughly investigate the alarms reported by SBS with the two datase
 \end{figure*}
 
 \subsection{Device behavior at different time scales}
-The Strip and Bind part of SBS is evaluated using the data from the Building 1 as ground truth data.
-This dataset is appropriate to measure the SBS performance as we assume that the lighting and HVAC systems of the same room are intrinsically related.
-Consequently, we analyze this data using SBS and verify that the higher correlations at medium frequencies correspond to devices located in the same room. % and the unwanted data is captured at the other frequencies.
+The Strip and Bind part of SBS is evaluated using the data from the Building 1, since we can verify how items are being 
+used and use it as ground truth.
+This dataset is appropriate to measure SBS's performance, since lighting and HVAC systems serving the same room are always used 
+simultaneously.
+Consequently, we analyze this data using SBS and verify that the higher correlations at medium frequencies correspond to devices l
+ocated in the same room. % and the unwanted data is captured at the other frequencies.
 
-The dataset is split in 10 bins of 1 week long, each bin being processed with SBS.
-Using the 10 correlation matrices at each time scale range SBS uncover the four reference matrices depicted in Figure \ref{fig:heatmap}.
+The dataset is split in 10 bins of 1 week long and each bin is processed by SBS.
+Using the 10 correlation matrices at each time scale range SBS uncovers the four reference matrices depicted in 
+Figure \ref{fig:heatmap}.
 
 \paragraph{High frequencies}
-In this work the high frequencies correspond to the signals noise, therefore, we do not expect any beneficial information from the corresponding matrix (Fig. \ref{fig:heatmap:high}).
-Indeed the corresponding reference matrix does not provide any help to discriminate devices location.
-Thus, we emphasize that this high frequency data should be ignored for efficiently uncovering the devices intrinsic relationships (contrarily to \cite{romain:iotapp12}).
+In this work the high frequencies correspond to the signals \emph{noise}, 
+therefore, we do not expect any useful information from the corresponding matrix (Fig. \ref{fig:heatmap:high}).
+Indeed, the corresponding reference matrix does not provide any help to determine a device's relative location.
+Thus, we emphasize that high frequency data should be ignored for uncovering device relationships (contrart to \cite{romain:iotapp12}).
 Interestingly, we find that the sensors monitoring the lights generate consistent noise. % and could help one to cluster this type of sensor.
   
 \paragraph{Medium frequencies}
 Our main focus is on the medium frequencies as it is designed to capture the intrinsic device relationships.
-Figure \ref{fig:heatmap:med} shows the correlation matrix at such frequencies.
+Figure \ref{fig:heatmap:med} shows the correlation matrix at medium frequencies.
 It is significantly different from the one obtained with the raw signals (Fig. \ref{fig:heatmap:raw}): high correlation coefficients are concentrated along the matrix diagonal. 
-Since the devices serving the same or adjacent rooms are placed nearby in the matrix it validates our assumption: high correlation scores within the medium frequency band stand for the devices intrinsic relationship.
-Considering this reference matrix as an adjacency matrix of a graph in which the nodes are the devices, we identify the clusters of correlated devices using a community mining algorithm (i.e. the Louvain algorithm \cite{blondel:unfolding}).
+Since devices serving the same or adjacent rooms are placed nearby in the matrix it validates our hypothesis: \emph{high correlation scores within the medium frequency band shows strong inter-device relationships}.
+
+Considering this reference matrix as an adjacency matrix of a graph, in which the nodes are the devices, we identify the clusters of 
+correlated devices using a community mining algorithm~\cite{blondel:unfolding}.
 As expected we obtain mainly clusters of only two devices (light and HVAC serving the same room), but we also find clusters that are composed of more devices.
-For example a cluster contains 3 HVAC serving the three server rooms. Although these server rooms are located at different floors SBS measured a strong correlation between these devices as they are similarly managed.
-Interestingly we also observe a couple of clusters that consist of independent devices serving two adjacent rooms belonging to the same lab.
+For example a cluster contains 3 HVAC systems serving the three server rooms. Although these server rooms are located on
+ different floors, SBS shows a strong correlation between these devices.  Coincidentally, they managed similarly.
+Interestingly, we also observe a couple of clusters that consist of independent devices serving adjacent rooms belonging to the same lab.
 The bigger cluster contains 33 devices that are 2 GHP devices and the corresponding lights.
-This correlation matrix and the corresponding clusters are the evidences of the method ability to uncover devices intrinsic-relationships.
+This correlation matrix and the corresponding clusters 
+highlight the ability for SBS to such hidden inter-device usage relationships.
  
 \paragraph{Low frequencies}
-Low frequencies intend to capture the daily pattern common to all the devices.
-Figure \ref{fig:heatmap:low} depicts the corresponding reference matrix which is similar to the one for the raw signals (Fig. \ref{fig:heatmap:raw}) and advertises no particular structure (daily patterns account for the coefficients high values).
+Low frequencies capture daily patterns, embedded in all the device traces.  
+Figure \ref{fig:heatmap:low} depicts the corresponding reference matrix which is similar to raw signal trace (Fig. \ref{fig:heatmap:raw}) 
+and it shows no particular structure.% (daily patterns account for the coefficients high values).
 % Since this matrix contains mainly high values, most of the partial signals at low frequencies features similar characteristics (i.e. daily patterns).
-Therefore, these partial signals are correctly discarded as they do not help us in identifying inter-device usage patterns.
+These partial signals are discarded as they do not help us in identifying inter-device usage patterns.
  
 \paragraph{Residual data}
-In this experiment the residual data stands for the weekly trend of the devices.
-Obviously this data provides poor insights on the devices intrinsic-relationships.
-But surprisingly by reordering the correlation matrix based on the type of the devices (Figure \ref{fig:heatmap:res}) we visually identify two major clusters.
-The first cluster consists of HVAC devices (see EHP and GHP in Fig. \ref{fig:heatmap:res}) whereas the second one contains only lights. 
-An in-depth examination of the data revealed that long-term trends are inherent to the device types. 
+The residual data shows the weekly trend, which gives us no information about device relationships.
+But, surprisingly, by reordering the correlation matrix based on the type of the devices (Figure \ref{fig:heatmap:res}) 
+we can visually identify two major clusters.
+The first cluster consists of HVAC devices (see EHP and GHP in Fig. \ref{fig:heatmap:res}) and the second one contains only lights. 
+An in-depth examination of the data reveals that long-term trends are inherent to the device types. 
 For example, as the consumption of both the EHP and GHP devices is driven by the building occupancy and the outside temperature, these two types of devices follow the same trend. 
 However, the use of light is independent from the outside temperature thus the lighting systems follow a common trend different from the EHP and GHP one.
 
-We conduct the same experiments by splitting the dataset in 70 bins of 1 day long and observe analogous results at high and medium frequencies but dissimilar at lower frequencies.
-At high and medium frequencies we obtained very similar matrices, however, almost no information is captured at the low frequencies (because the bins are too short to exhibit daily oscillations) and the residual data captures only the daily trend.
+We conduct the same experiments by splitting the dataset in 70 bins of 1 day long and observe analogous results at high and medium frequencies but not at lower frequencies.  This is because the bins are too short to exhibit daily oscillations and the residual data captures only the daily trend.
 
 % TODO add some info about the reference matrix for the Building 2?
 

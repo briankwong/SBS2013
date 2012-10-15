@@ -12,13 +12,13 @@ Detecting misbehaving devices is crucial, as many are sources of energy waste.  
 However, identifying these saving opportunities is impractical for administrators because large buildings usually contain hundreds of monitored devices
 producing thousands of streams and it requires continuous monitoring. % attention as abnormal usages may happen at any time.
 %Consequently, the goal of this work is to establish a methodology that reports to building administrators devices abnormal uses.  
-As such, the goal of this work is to establish a method that reports abnormal device-usage patterns to the administrator by closely examining 
+As such, the goal of this work is to establish a method that automatically reports abnormal device-usage patterns to the administrator by closely examining 
 all of the continuous power streams.
 
 The intuition behind the proposed approach is that each service provided by the building requires a minimum subset of devices.
 The devices within a subset are used at the same time when the corresponding service is needed and a savings opportunity is characterized by the partial activation of the devices.
 For example, office comfort is attained through sufficient lighting, ventilation, and air conditioning.
-These are controlled by the lighting and HVAC system.
+These are controlled by the lighting and HVAC (Heating, Ventilation, and Air Conditioning) system.
 %controlled by the lighting system and air conditioner.% the light and air conditioning.
 Thus, when the room is occupied both the air conditioner (heater on a cold day) and lights are used together and should be turned off 
 when the room is empty.
@@ -62,7 +62,7 @@ We validate the effectiveness of our approach using 10 weeks of data from a mode
 8 weeks of data from an older American building containing 70 sensors.
 These experiments highlight the effectiveness of SBS to uncover device relationships in a large deployment of 135 sensors.
 Furthermore, we inspect the SBS results and show that the reported alarms correspond to significant opportunities to save energy.
-The major anomaly reported in the American building accounts for a waste of 2500 kWh over 18 days whereas the building average power consumption is 600 kW per hour.
+The major anomaly reported in the American building lasts 18 days and accounts for a waste of 2500 kWh for a single device whereas the building average power consumption is 600 kW per hour.
 Without the proposed method identifying these energy waste would be difficult for building administrators as they are hidden in the building overall consumption.
 
 In the rest of this paper, we detail the mechanisms of SBS before evaluating it with real data then we discuss different outcomes of the proposed methodology and conclude.

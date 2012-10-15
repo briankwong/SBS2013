@@ -12,9 +12,8 @@ The matrix is ordered such as the devices serving same/adjacent rooms are nearby
 %The first step of the proposed approach is to uncover from the raw data the devices that are used all together.
 The primary objective of SBS is to determine the devices that are used simulataneously.
 %The basic tool that allows us to compare device energy consumption is the correlation coefficient.
-Initially, we ran correlation analysis across pairs of power-draw signals between distinct devices, summarized by
-a correlation coefficient.  However, our results did not yield any useful information when applied to 
-the raw data.
+Classical approaches would run correlation analyses across pairs of power-draw signals between distinct devices, summarized by a correlation coefficient.  
+However, doing that does not yield any useful information when applied to the raw data.
 %However, during our experiments we found that it provides poor help when it is directly applied to the raw signals.
 For example the two raw signals of Figure \ref{fig:diagram1} are from two independent HVAC systems serving different rooms on different floors.
 Since each space is independently controlled, we expect their power-draw signals to be uncorrelated (or at least distinguishable 
@@ -23,9 +22,9 @@ from other signal pairs).  However, their correlation coefficient ($0.5675$) was
 %Another example, with 135 devices, is depicted in Figure \ref{fig:heatmap:raw}.
 
 % Another example, depicted in Figure \ref{fig:heatmap:raw}, shows a correlation matrix with 135 distinct locations, each containing a number of devices.  
-Another example, depicted in Figure \ref{fig:heatmap:raw}, shows a correlation matrix with 135 distinct lighting and HVAC systems serving numerous rooms in a building (Section \ref{data:engbldg2}).
+Using a larger set of devices, Figure \ref{fig:heatmap:raw} shows a correlation matrix with 135 distinct lighting and HVAC systems serving numerous rooms in a building (described later on in Section \ref{data:engbldg2}).
 The indices are selected such that their index-difference is indicative of their relative spatial proximity.  
-For example, a device in location 1 is closer to a device in location 2 than it is to 
+For example, a device in location 1 is closer in the building to a device in location 2 than it is to 
 a device in location 135. 
 % We do not account for obstructions between them, such as walls.  %?
 The color of the cell is the average pairwise correlation coefficient for devices in the row-column index.  The higher the value, the lighter the color.
@@ -47,19 +46,19 @@ The signal features daily and weekly patterns (resp. $x=24$ and $x=168$).}
 \end{center}
 \end{figure}
 
-Intuitively, the daily occupant usage patterns %office hours, 
+An explanation for that is that the daily occupant usage patterns %office hours, 
 drives these results.
 Figure \ref{fig:diagram1} demonstrates this more clearly.  It shows two 1-week raw signals traces which feature the same 
 diurnal pattern.  
-This trend is present in almost every sensor trace, and it hides 
+This trend is present in almost every sensor trace, and, in the correlations, it hides 
 the smaller fluctuations providing more specific patterns driven by local occupant activity.  Upon deeper inspection, we uncovered several
  dominant patterns, common among energy-consuming devices in buildings~\cite{wrinch:pes2012}.  Figure~\ref{fig:autocorr} depicts the 
  auto-correlation of a usual electric power signal for a device.  The two highest values in the figure correspond to a lag of 24 hours and 168 hours (one week).  
- Therefore, the signal is periodic and similar values are seen at daily and weekly time scales.
+ Therefore, the signal has some periodicity and similar (though not equal) values are seen at daily and weekly time scales.
 The daily pattern is due to daily office hours and the weekly pattern corresponds to weekdays and weekends.  
 %Indeed, thorough inspection of the data reveals that the 
-Clearly, the use of correlation analysis on the \emph{raw} signals reveals no useful information and cannot be used to determine meaningful 
-inter-device relationships.  %metric is insufficient with raw signals containing the same dominant pattern.
+Clearly, the use of correlation analysis on the \emph{raw} signals cannot be used to determine meaningful 
+inter-device relationships because periodic components act as non-stationary trends for quicker phenomenon, hence making correlation functions irrelevant.  %metric is insufficient with raw signals containing the same dominant pattern.
 
 Such trends must be removed in order to make meaningful progress towards our aforementioned goals.  In the next section
 we describe SBS.  We discuss \emph{strip and bind} in section~\ref{methodo:est}, which addresses the detrending and

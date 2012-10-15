@@ -1,42 +1,51 @@
 \section{Data sets}
-SBS is evaluated using data collected at two different geographic locations.
-One is a recent building at the University of Tokyo main campus and the other one is another building at the University of California Berkeley.
+We evaluate SBS using data collected from buildings in two different geographic locations.  
+%One is a recent building at the University of Tokyo main campus and the other one is another building at the University of California Berkeley.
 
-\subsection{Engineering Building 2} \label{data:engbldg2}
-The data from the University of Tokyo is collected at the Engineering Building 2 of the Hongo campus. 
-This 12 stories building was completed in 2005 and is now hosting classrooms, laboratories, professor offices and server rooms.
-In addition, the electricity consumption of the lighting and HVAC systems of 231 rooms is monitored by 135 sensors.
-The HVAC system of this building is decentralized and the corresponding devices are classified into two categories, EHP (Electrical Heat Pump) and GHP (Gas Heat Pump).
-The GHPs are the only devices that serve numerous rooms on several floors, namely the 5 GHPs of the dataset serve 154 rooms.
-Otherwise the EHP and lighting systems serve only pairs of rooms and they are independently controlled by the rooms users.
-In addition, metadata associated to each sensor provide the type of the monitored device and the room number it serves, therefore, the electricity consumption of each pair of rooms is separately monitored.
+\subsection{Building 1} \label{data:engbldg2}
+%The data from building 1 is collected at the Engineering Building 2 of the Hongo campus. 
+Building 1, is a 12-story building completed in 2005 and is now hosting classrooms, laboratories, professor offices 
+and server rooms.  In addion, rather than a centralized HVAC system, small, local HVAC system are set up throughout
+the buidling.  The electricity consumption of the lighting and HVAC systems of 231 rooms is monitored by 135 sensors.
+The HVAC system of this building is decentralized and the corresponding devices are classified into two categories, EHP (Electrical Heat Pump) 
+and GHP (Gas Heat Pump).
+The GHPs are the only devices that serve numerous rooms on several floors.  The 5 GHPs of the dataset serve 154 rooms.
+The EHP and lighting systems serve only pairs of rooms and they are independently controlled by the rooms users.
+In addition, metadata associated to each sensor provides the type of the monitored device and the associated room number, 
+therefore, the electricity consumption of each pair of rooms is separately monitored.
 
 The dataset contains 10 weeks of data starting from June $27^{th}$ 2011 and ending on September $5^{th}$ 2011.
-This period of time is particularly interesting for two reasons; in Tokyo the summer is the most energy-demanding season, and at that time the university has initiated several power-saving measures due to the the Tohoku earthquake and Fukushima nuclear accident.
+This period of time is particularly interesting for two reasons; in this region, the summer is the most energy-demanding 
+season and the building manager actively works to curtail energy usage as much as possible.
+%, and at that time the university has initiated several power-saving measures due to the the Tohoku earthquake and Fukushima nuclear accident.
 
 Furthermore, this dataset is a valuable ground truth to evaluate the Strip and Bind part of SBS.
-Since the light and HVAC of the rooms are directly controlled by the rooms users we expect SBS to uncover for each room prominent devices relationships.
+Since the light and HVAC of the rooms are directly controlled by the room's occupants, we expect SBS to uncover verifiable devices 
+relationships.  
 % In addition, we expect the anomaly detector to identify discontinuities in these relationships that represent obvious electricity saving opportunities (e.g. a room HVAC left on during night while the room lights have been turned off).
 
 % Due to privacy concern this dataset is not publicly available on the Internet but accessible upon request.
 
-\subsection{Cory Hall}
-The other analyzed dataset is from the Cory Hall, a 5 stories building at the University of California Berkeley campus hosting mainly classrooms, meeting rooms, laboratories and a datacenter.
-This building was completed in 1950 thus its infrastructure is significantly different from the one of the Engineering Building 2.
-The air conditioning of the building is ensured by a centralized HVAC system therefore the granularity of the served locations is down to a couple of floors per HVAC components.
-Nevertheless, we notice an independent HVAC system that was serving a particular laboratory; the Microfabrication Laboratory (Microlab).
+\subsection{Building 2}
+Building 2 is a 5-story building hosting mainly classrooms, meeting rooms, laboratories and a datacenter.
+This building was completed in 1950, thus its infrastructure is significantly different from the one of the Building 1.
+The HVAC system in the building is centralized and serves couple of floors per unit.
+There is a separate unit for an internal fabricated laboratory, inside the building.
+%Nevertheless, we notice an independent HVAC system that was serving a particular laboratory; the Microfabrication Laboratory (Microlab).
 
 This dataset consists of 8 weeks of energy consumption traces measured by 70 sensors from April $5^{th}$ 2011.
-Contrary to the other dataset a variety of devices is monitored, including,	 receptacles at certain floors, most of the HVAC components, power panel for different floors and the whole building consumption.
+Contrary to the other dataset, a variety of devices are monitored, including, receptacles on certain floors, most of the HVAC components, 
+ power panels for different floors and the whole building consumption.
 
-Analyzing these two datasets is particularly appealing because the two building infrastructures are fundamentally different, thus, enable us to evaluate the practical efficiency of the proposed unsupervised method in two different environments.
+Analyzing these two datasets is particularly appealing because the two building infrastructures are fundamentally different. 
+This enables us to evaluate the practical efficacy of the proposed, unsupervised method in two different environments.
 
 
 \subsection{Data pre-processing}
 Elaborated data pre-processing is not required for the proposed approach.
 Nevertheless, we observed in a few exceptional cases that sensors reporting excessively high values (i.e. values higher than the device actual capacity) greatly alter the performance of the proposed method.
 Because these values are outstanding in the corresponding signal they bias the computation of the correlation coefficient.
-Therefore, we remove from the raw signals the values that are higher than the maximum capacity of the device.
+Therefore, we remove from the raw signal values that are higher than the maximum capacity of the device.
 
-In addition, to compare signals of the same length, the raw data is arranged such as the energy consumption of each device is reported every 5 minutes. 
+In addition, to compare signals of the same length, the raw data is arranged such that the energy consumption of each device is reported every 5 minutes. 
 

@@ -21,8 +21,7 @@ We only consider IMFs with a daily time scale or smaller, since we are intereste
 for services being delivered.
 Consequently, SBS aggregates the IMFs that falls into the same relative time scales ranges (see \emph{IMF agg.} in Fig.\ref{fig:diagram1}).
 %The resulting partial signals of different devices are compared pairwise to identify the devices intrinsic relationships (see \emph{Corr. Coeff.} in Fig.\ref{fig:diagram1}). 
-The resulting IMFs of different device power traces are compared, pairwise, to identify the devices 
-with that show un/correlated underlying usage patterns, after the dominant trends are removed (see \emph{Corr. Coeff.} in Fig.\ref{fig:diagram1}). 
+The resulting partial signals of different device power traces are compared, pairwise, to identify the devices that show un/correlated patterns at different time scales (see \emph{Corr. Coeff.} in Fig.\ref{fig:diagram1}).
 
 
 % These intrinsic relations are uncovered by comparing the sensors data at certain meaningful frequency bands.
@@ -73,7 +72,7 @@ the data (see \emph{IMFs} in Fig.\ref{fig:diagram1}).
 
 For this work we implemented a variant of EMD called Complete Ensemble EMD~\cite{torres:icassp2012}.
 This algorithm computes EMD several times with additional noise, it allows us to efficiently analyze signals that have 
-flat sections (i.e. consuming no electricity in our case) and permits us to solve the \emph{EMD mode mixing problem}.
+flat sections (i.e. consuming no electricity in our case). % and permits us to solve the \emph{EMD mode mixing problem}.
 
 \subsubsection{IMF aggregation} \label{methodo:corr}
 By applying EMD to energy consumption signals we obtain a set of IMFs that precisely describe the devices consumption 
@@ -81,8 +80,7 @@ patterns at different time scales.  Therefore, we can focus our analysis on the 
 patterns that prevent us from effectively analyzing raw signals.
 
 However, comparing the IMFs obtained from different signals is also not trivial,
- because EMD is empirically uncovering IMFs from the data there is no guarantee that the two IMFs $c_i^1$ and $c_i^2$ obtained from t
- wo distinct signals $S^1$ and $S^2$ represent data at the same frequency domain.
+ because EMD is empirically uncovering IMFs from the data there is no guarantee that the two IMFs $c_i^1$ and $c_i^2$ obtained from two distinct signals $S^1$ and $S^2$ represent data at the same frequency domain.
 Directly comparing $c_i^1$ and $c_i^2$ is meaningless unless we confirm that they belongs to the same frequency domain.
 
 There are numerous techniques to retrieve IMF frequencies~\cite{huang:aada2009}.  
@@ -103,13 +101,13 @@ Formally, given a data point $p$ GZC measures the quarter ($T_4$), the two halve
 
 Since all points $p$ between two critical points have the same instantaneous period GZC is local down to a quarter period.
 Hereafter, we refer to the time scale of an IMF as the average of the instantaneous periods along the whole IMF.
-Because the time scale of each IMF depends on the original signal, we propose the following, to efficiently compare IMFs from different signals:  
+Because the time scale of each IMF depends on the original signal, we propose the following, to efficiently compare IMFs from different signals.
 We cluster IMFs with respect to their time scales and partially reconstruct each signal by aggregating its IMFs from the 
 same cluster.  Then, we directly compare the partial signals of different devices.
 
 The IMFs are clustered using four time scale ranges: 
 \begin{itemize}
- \item The \emph{high frequencies} stand for all the IMFs with a time scale lower than 20 minutes. These IMFs capture the noise and observational errors.
+ \item The \emph{high frequencies} stand for all the IMFs with a time scale lower than 20 minutes. These IMFs capture the noise.
  \item The \emph{medium frequencies} stand for all the IMFs with a time scale between 20 minutes and 6 hours. These IMFs convey the detailed devices usage.
  \item The \emph{low frequencies} stand for all the IMFs with a time scale between 6 hours and 6 days. These IMFs represent the daily pattern of the devices.
  \item The \emph{residual data} is all data with a time scale higher than 6 days. This is mainly the residual data obtained after applying EMD and it highlights the trend of the devices.
@@ -123,9 +121,9 @@ The 6-day boundary allows us to capture daily patterns and weekday pattern.
 Aggregating signal IMFs, within each time scale range, results in 4 partial signals representing different characteristics of the device's
  energy consumption (see \emph{Partial Signals} in Fig.\ref{fig:diagram1}).
 We do a pairwise device trace comparison, calculating the correlation coefficient of their partial signals.
-In the example shown in Figure~\ref{fig:diagram1}, the correlation coefficient of the raw signals suggests that they are highly correlated ($0.5675$). 
+In the example shown in Figure~\ref{fig:diagram1}, the correlation coefficient of the raw signals suggests that they are highly correlated ($0.57$). 
 However, the comparison of the corresponding \emph{partial signals} provides new insights;
-the two devices are poorly correlated at high and medium frequencies (respectively $-0.0127$ and $-0.0420$) but highly correlated at low frequencies (0.7886) meaning that these devices are not ``intrinsically'' correlated.  They only share a similar daily pattern.
+the two devices are poorly correlated at high and medium frequencies (respectively $-0.01$ and $-0.04$) but highly correlated at low frequencies ($0.79$) meaning that these devices are not ``intrinsically'' correlated.  They only share a similar daily pattern.
 
 All the devices are compared pairwise at the four different time scale ranges.
 Consequently, we obtain four correlation matrices that convey the device similarities at different time scales.
@@ -137,14 +135,14 @@ The matrices form the basis for tracking the behavior of devices and to search f
 \subsection{Search}\label{methodo:ano}
 \emph{Search} aims at identifying misbehaving devices in an unsupervised manner.
 Device behavior is monitored via the correlation matrices presented in the previous section.
-Using numerous observations SBS computes an adaptive reference that exhibits the normal inter-device usage pattern.
+Using numerous observations SBS computes a specific reference that exhibits the normal inter-device usage pattern.
 Then, SBS compares the computed reference with the current data and reports devices that deviate from their usual 
 behavior.
 
 \subsubsection{Reference}
-We define four reference matrices, which capture normal device behavior at the four time scale ranges defined, in 
+We define four reference matrices, which capture normal device behavior at the four time scale ranges defined in 
 Section~\ref{methodo:corr}.
-The references are as computed as follows: (1) we retrieve the correlation matrices for $n$ consecutive time bins (as described in Section~\ref{methodo:est}). (2) For each pair of devices we store the median correlation 
+The references are computed as follows: (1) we retrieve the correlation matrices for $n$ consecutive time bins (as described in Section~\ref{methodo:est}). (2) For each pair of devices we compute the median correlation 
 over the $n$ time bins and obtain a matrix of the median device correlations.
 
 Formally, for each time scale range the computed reference matrix for $d$ devices and $n$ time bins is:
@@ -153,12 +151,14 @@ where $i$ and $j$ ranges in $[1,d]$.
 
 % Assuming that device-usage predominantly behaves normally and the anomalies are exceptional 
 % events, the reference matrices exhibit the normal device behaviors.
-Our model assumes anomalies are rare.  We assume that normal behavior is not truly anomalous.
+Our model assumes anomalies are rare and the majority of the data is normal.
+This is a common assumption in unsupervised anomaly detection.
+% We assume that normal behavior is not truly anomalous.
 Abnormal correlation values, that could appear during model construction, %in the analyzed time bins 
-are ignored by the median operator thanks to its robustness to outliers.  However, if that assumption does not hold, 
- our model will flag the opposite -- labeling abnormal as normal and vice-versa.
-From close inspection of our data, we believe our primary assumption is sound.  Normal behavior occurs
-most frequently, therefore detected anomalies should be meaningful.
+are ignored by the median operator thanks to its robustness to outliers.  
+However, if that assumption does not hold, our model will flag the opposite -- labeling abnormal as normal and vice-versa.
+From close inspection of our data, we believe our primary assumption is sound.
+% Normal behavior occurs most frequently, therefore detected anomalies should be meaningful.
 
 
 

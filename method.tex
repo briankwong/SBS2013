@@ -173,19 +173,19 @@ We measure the device behavior change at the time bin $t$ with the following Min
 \[ l^t_{i} = \left(\sum_{j=1}^d  w_{ij}\left(C^t_{i,j} - R_{i,j}\right)^p\right)^{1/p} \]
 where $d$ is the number of devices and $w_{ij}$ is:
 \[ w_{ij} = \frac{R_{i,j}}{\sum_{k=1}^d R_{i,k}}. \]
-The weight $w$ permits us to highlight the relationship changes between the device $i$ and those related to it in the reference matrix.
+The weight $w$ enables us to highlight the relationship changes between the device $i$ and those related to it in the reference matrix.
 In other words, our definition of behavior change is mainly driven by the relationship among devices that are usually highly correlated.
 We also set $p=4$ in order to inhibit small differences between $C^t_{i,j}$ and $R_{i,j}$ but emphasize the important ones.
 
 By monitoring this quantity over several time bins the abnormal device behaviors are easily identified as the outlier values.
-In order to identify these outlier values we implement a robust detector based on median absolute deviation (MAD), a robust dispersion measure commonly used in anomaly detection \cite{huber:wiley2009,chan:springer2005}.
+In order to identify these outlier values we implement a robust detector based on median absolute deviation (MAD), a dispersion measure commonly used in anomaly detection \cite{huber:wiley2009,chan:springer2005}.
 It is a measure that robustly estimates the variability of the data by computing the median of the absolute deviations from the median of the data.
  Let $l_{i} = [l_i^1,...,l_i^n]$ be a vector representing the behavior changes of device $i$ over $n$ time bins, then its MAD value is defined as:
 \[ \mad_i = b \median(\lvert l_{i} - \median(l_{i})\rvert)\]
-where the constant $b$ is usually set to $1.4826$ for consistency with the usual parameter $\sigma$ at Gaussian distributions.
-Consequently, we define anomalous behavior, for device $i$ at $t$-th time bin, such that the follow equation is satisfied, as follows:%of the device $i$ at the time bin $t$ that satisfies the following equation:
+where the constant $b$ is usually set to $1.4826$ for consistency with the usual parameter $\sigma$ for Gaussian distributions.
+Consequently, we define anomalous behavior, for device $i$ at time $t$, such that the following equation is satisfied:%of the device $i$ at the time bin $t$ that satisfies the following equation:
 \[l^t_{i} > \median(l_{i}) + \tau  \mad_i\]
 Note, $\tau$ is a parameter that permits to make SBS more or less sensitive.
 
 The final output of SBS is a list of alarms in the form $(t,i)$ meaning that the device $i$ has abnormal behavior at the time bin $t$.
-The priority of the alarms in this list is selected by the building administrator by tuning the $\tau$ parameter.
+The priority of the alarms in this list is selected by the building administrator by tuning the parameter $\tau$.

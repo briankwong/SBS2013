@@ -21,8 +21,7 @@ The Strip and Bind part of SBS is evaluated using the data from the Building 1, 
 used and use it as ground truth.
 This dataset is appropriate to measure SBS's performance, since lighting and HVAC systems serving the same room are always used 
 simultaneously.
-Consequently, we analyze this data using SBS and verify that the higher correlations at medium frequencies correspond to devices l
-ocated in the same room. % and the unwanted data is captured at the other frequencies.
+Consequently, we analyze this data using SBS and verify that the higher correlations at medium frequencies correspond to devices located in the same room. % and the unwanted data is captured at the other frequencies.
 
 The dataset is split in 10 bins of 1 week long and each bin is processed by SBS.
 Using the 10 correlation matrices at each time scale range SBS uncovers the four reference matrices depicted in 
@@ -32,7 +31,7 @@ Figure \ref{fig:heatmap}.
 In this work the high frequencies correspond to the signals \emph{noise}, 
 therefore, we do not expect any useful information from the corresponding matrix (Fig. \ref{fig:heatmap:high}).
 Indeed, the corresponding reference matrix does not provide any help to determine a device's relative location.
-Thus, we emphasize that high frequency data should be ignored for uncovering device relationships (contrart to \cite{romain:iotapp12}).
+Thus, we emphasize that high frequency data should be ignored for uncovering device relationships (contrast to \cite{romain:iotapp12}).
 Interestingly, we find that the sensors monitoring the lights generate consistent noise. % and could help one to cluster this type of sensor.
   
 \paragraph{Medium frequencies}
@@ -148,11 +147,11 @@ Building 2& 25 (7) & 7 (3) & 4 (4) & 0 (0) & 3 (3) \\ \hline
 \end{table}
 
 SBS reported 55 alarms over the 10 weeks of the Building 1 dataset.
-However, 36 alarms were discarded as because of sensor errors; one GHP has missing data for the first 18 days.
+However, 36 alarms are set aside because of sensor errors; one GHP has missing data for the first 18 days.
 Since this device is highly correlated to the GHP in the reference matrix, their relationship is broken for the 18 first bins and 
 for each bin one alarm per device is raised.
 
-% In spite of the post-Fukushima measures to reduce the university's energy consumption, 
+In spite of the post-Fukushima measures to reduce Building 1 energy consumption, 
 SBS reported 9 alarms corresponding to high power usage (Table \ref{tab:classif}).
 Figure \ref{fig:res:eng1} depicts the electricity consumption of the light and EHP in the same room where two alarms are raised.
 Because the EHP was not used during daytime (but is turned on at night, when the light is turned off) the relationship between the two devices 

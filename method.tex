@@ -19,7 +19,7 @@ Empirical Mode Decomposition (see Fig.~\ref{fig:diagram1} and Section~\ref{emd})
 %We then remov out IMFs with time scales 
 We only consider IMFs with a daily time scale or smaller, since we are interested in capturing short-scale dependencies
 for services being delivered.
-Consequently, SBS aggregates the IMFs that falls into the same relative time scales ranges (see \emph{IMF agg.} in Fig.\ref{fig:diagram1}).
+Consequently, SBS aggregates the IMFs that fall into the same relative time scales ranges (see \emph{IMF agg.} in Fig.\ref{fig:diagram1}).
 %The resulting partial signals of different devices are compared pairwise to identify the devices intrinsic relationships (see \emph{Corr. Coeff.} in Fig.\ref{fig:diagram1}). 
 The resulting partial signals of different device power traces are compared, pairwise, to identify the devices that show un/correlated patterns at different time scales (see \emph{Corr. Coeff.} in Fig.\ref{fig:diagram1}).
 
@@ -59,7 +59,7 @@ We formally describe the EMD algorithm as follows:
 \begin{enumerate}
 \item For a signal \emph{X(t)}, let $m_0$ be the mean of its upper and lower envelopes as determined from a cubic-spline interpolation of local maxima and minima.
 \item The first component $h_0$ is computed: $h_0=X(t)-m_0$
-\item  The Sifting process is iterated, $h_1$ taking the place of $h_0$. Using its upper and lower envelopes, a new local mean $m_1$ is computed and $h_2 = h_1-m_1$.
+\item The sifting process is iterated, $h_1$ taking the place of $h_0$. Using its upper and lower envelopes, a new local mean $m_1$ is computed and $h_2 = h_1-m_1$.
 \item The procedure is repeated $k$ time until $h_k=h_{k-1}-m_{k-1}$ is an IMF according to the two conditions above.
 \item Then it is designated as $c_1=h_{k}$, the first IMF from the data, which contains the shortest period component of the signal. We separate it from the rest of the data: $X(t)-c_1 = r_1$, and the procedure is
 repeated on $r_j: r_1-c_2 = r_2,\dots,r_{n-1} - c_n = r_n$
@@ -81,7 +81,7 @@ patterns that prevent us from effectively analyzing raw signals.
 
 However, comparing the IMFs obtained from different signals is also not trivial,
  because EMD is empirically uncovering IMFs from the data there is no guarantee that the two IMFs $c_i^1$ and $c_i^2$ obtained from two distinct signals $S^1$ and $S^2$ represent data at the same frequency domain.
-Directly comparing $c_i^1$ and $c_i^2$ is meaningless unless we confirm that they belongs to the same frequency domain.
+Directly comparing $c_i^1$ and $c_i^2$ is meaningless unless we confirm that they belong to the same frequency domain.
 
 There are numerous techniques to retrieve IMF frequencies~\cite{huang:aada2009}.  
 In this work we take advantage of the Generalized Zero Crossing (GZC)~\cite{huang:patent2006} because it is a simple and robust 
@@ -118,7 +118,7 @@ The 20-minute boundary relies on the sampling period of our dataset (5 minutes) 
 The 6-hour boundary allows us to analyze all patterns that have a period shorter than the usual office hours.
 The 6-day boundary allows us to capture daily patterns and weekday pattern.
 
-Aggregating signal IMFs, within each time scale range, results in 4 partial signals representing different characteristics of the device's
+Aggregating IMFs, within each time scale range, results in 4 partial signals representing different characteristics of the device's
  energy consumption (see \emph{Partial Signals} in Fig.\ref{fig:diagram1}).
 We do a pairwise device trace comparison, calculating the correlation coefficient of their partial signals.
 In the example shown in Figure~\ref{fig:diagram1}, the correlation coefficient of the raw signals suggests that they are highly correlated ($0.57$). 

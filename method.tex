@@ -1,5 +1,5 @@
 
-\section{Methodology}
+\section{Methodology}\label{methodo}
 
 \subsection{Strip and Bind} \label{methodo:est}
 
@@ -11,17 +11,16 @@
 
 %As shown in the previous section, discovering the devices that are used in concert is particularly difficult.
 Discovering devices that are used in concert is non-trivial.  
-SBS decomposes each signal into an additive set of components, called Intrinsic mode functions (IMF), 
-that decomposes the signal into sub-signals at different time scales.  IMFs are obtained using 
+SBS decomposes each signal into an additive set of components, called Intrinsic Mode Functions (IMF), 
+that reveals the signal patterns at different frequency bands.  IMFs are obtained using 
 %that reveal the signal structures at different time scales.
-Empirical Mode Decomposition (see Fig.~\ref{fig:diagram1} and Section~\ref{emd}).
+Empirical Mode Decomposition (see Figure~\ref{fig:diagram1} and Section~\ref{emd}).
 %Then, we filter out the IMFs that interfere with our goal and keep only those standing for time scales shorter than the unwanted daily pattern.
 %We then remov out IMFs with time scales 
-We only consider IMFs with a daily time scale or smaller, since we are interested in capturing short-scale dependencies
-for services being delivered.
-Consequently, SBS aggregates the IMFs that fall into the same relative time scales ranges (see \emph{IMF agg.} in Fig.\ref{fig:diagram1}).
-%The resulting partial signals of different devices are compared pairwise to identify the devices intrinsic relationships (see \emph{Corr. Coeff.} in Fig.\ref{fig:diagram1}). 
-The resulting partial signals of different device power traces are compared, pairwise, to identify the devices that show un/correlated patterns at different time scales (see \emph{Corr. Coeff.} in Fig.\ref{fig:diagram1}).
+We only consider IMFs with time scales shorter than a day, since we are interested in capturing short-scale usage patterns.
+Consequently, SBS aggregates the IMFs that fall into this specific time scale (see \emph{IMF agg.} in Figure \ref{fig:diagram1}).
+%The resulting partial signals of different devices are compared pairwise to identify the devices intrinsic relationships (see \emph{Corr. Coeff.} in Figure\ref{fig:diagram1}). 
+The resulting partial signals of different device power traces are compared, pairwise, to identify the devices that show un/correlated usage patterns (see \emph{Corr. Coeff.} in Figure~\ref{fig:diagram1}).
 
 
 % These intrinsic relations are uncovered by comparing the sensors data at certain meaningful frequency bands.
@@ -57,18 +56,17 @@ The process stops when the residual data becomes a monotonic function from which
 
 We formally describe the EMD algorithm as follows: 
 \begin{enumerate}
-\item For a signal \emph{X(t)}, let $m_0$ be the mean of its upper and lower envelopes as determined from a cubic-spline interpolation of local maxima and minima.
-\item The first component $h_0$ is computed: $h_0=X(t)-m_0$
+\item Sifting process: For a current signal $h_0=X$, let $m_0$ be the mean of its upper and lower envelopes as determined from a cubic-spline interpolation of local maxima and minima.
+\item The estimated local mean $m_0$ is removed from the signal, giving a first component: $h_1 = h_0-m_0$
 \item The sifting process is iterated, $h_1$ taking the place of $h_0$. Using its upper and lower envelopes, a new local mean $m_1$ is computed and $h_2 = h_1-m_1$.
 \item The procedure is repeated $k$ time until $h_k=h_{k-1}-m_{k-1}$ is an IMF according to the two conditions above.
-\item Then it is designated as $c_1=h_{k}$, the first IMF from the data, which contains the shortest period component of the signal. We separate it from the rest of the data: $X(t)-c_1 = r_1$, and the procedure is
-repeated on $r_j: r_1-c_2 = r_2,\dots,r_{n-1} - c_n = r_n$
+\item This first IMF is designated as $c_1 = h_k$, and contains the component with shortest periods. We extract it from the signal to produce a residual: $r_1 = X - c_1$. The Steps 1 to 4 are iterated on the residual signal $r_1$, providing IMFs $c_j$ and residuals $r_j  = r_{j-1}-c_j$, for $j$ from $1$ to $n$.
 \item The process stops when residual $r_n$ contains no more than 3 extrema.
 \end{enumerate}
 
-The result of EMD is a set of IMFs $c_i$ and the final residue $r_n$, such as: \[X(t)=\sum^{n}_{i=1}c_i+r_n\]
-where the size of the resulting set of IMFs $n$ depends on the original signal $X(t)$ and $r_n$ represents the trend of 
-the data (see \emph{IMFs} in Fig.\ref{fig:diagram1}).
+The result of EMD is a set of IMFs $c_i$ and the final residue $r_n$, such as: \[X=\sum^{n}_{i=1}c_i+r_n\]
+where the size of the resulting set of IMFs $n$ depends on the original signal $X$ and $r_n$ represents the trend of 
+the data (see \emph{IMFs} in Figure~\ref{fig:diagram1}).
 
 For this work we implemented a variant of EMD called Complete Ensemble EMD~\cite{torres:icassp2012}.
 This algorithm computes EMD several times with additional noise, it allows us to efficiently analyze signals that have 
@@ -76,7 +74,7 @@ flat sections (i.e. consuming no electricity in our case). % and permits us to s
 
 \subsubsection{IMF aggregation} \label{methodo:corr}
 By applying EMD to energy consumption signals we obtain a set of IMFs that precisely describe the devices consumption 
-patterns at different time scales.  Therefore, we can focus our analysis on the smaller time scales, ignoring the dominant 
+patterns at different frequency bands.  Therefore, we can focus our analysis on the smaller time scales, ignoring the dominant 
 patterns that prevent us from effectively analyzing raw signals.
 
 However, comparing the IMFs obtained from different signals is also not trivial,
@@ -101,7 +99,7 @@ Formally, given a data point $p$ GZC measures the quarter ($T_4$), the two halve
 
 Since all points $p$ between two critical points have the same instantaneous period GZC is local down to a quarter period.
 Hereafter, we refer to the time scale of an IMF as the average of the instantaneous periods along the whole IMF.
-Because the time scale of each IMF depends on the original signal, we propose the following, to efficiently compare IMFs from different signals.
+Because the time scale of each IMF depends on the original signal, we propose the following to efficiently compare IMFs from different signals.
 We cluster IMFs with respect to their time scales and partially reconstruct each signal by aggregating its IMFs from the 
 same cluster.  Then, we directly compare the partial signals of different devices.
 
@@ -116,10 +114,10 @@ The IMFs are clustered using four time scale ranges:
 These time scale ranges are chosen based on our experiments and goal.
 The 20-minute boundary relies on the sampling period of our dataset (5 minutes) and permits us to capture IMFs with really short periods.
 The 6-hour boundary allows us to analyze all patterns that have a period shorter than the usual office hours.
-The 6-day boundary allows us to capture daily patterns and weekday pattern.
+The 6-day boundary allows us to capture daily patterns and weekday patterns.
 
 Aggregating IMFs, within each time scale range, results in 4 partial signals representing different characteristics of the device's
- energy consumption (see \emph{Partial Signals} in Fig.\ref{fig:diagram1}).
+ energy consumption (see \emph{Partial Signals} in Figure~\ref{fig:diagram1}).
 We do a pairwise device trace comparison, calculating the correlation coefficient of their partial signals.
 In the example shown in Figure~\ref{fig:diagram1}, the correlation coefficient of the raw signals suggests that they are highly correlated ($0.57$). 
 However, the comparison of the corresponding \emph{partial signals} provides new insights;
@@ -165,7 +163,7 @@ From close inspection of our data, we believe our primary assumption is sound.
 \subsubsection{Behavior change}
 % SBS consists in identifying the devices that significantly deviate from their normal behaviors as defined in the reference matrices.
 % Consequently, 
-We compare each inter-device usage matrix, for all time bins, to the one provided by the reference matrix.  
+We compare each device behavior, for all time bins, to the one provided by the reference matrix.  
 Consider the correlation matrix $C^t$ obtained from the data for time bin $t$ ($1 \leq t \leq n$).  
 Vector $C^t_{i,*}$ is the behavior of the $i^{th}$ device for this time bin.
 Its normal behavior is given by the corresponding vector in the reference matrix $R_{i,*}$.
@@ -173,8 +171,8 @@ We measure the device behavior change at the time bin $t$ with the following Min
 \[ l^t_{i} = \left(\sum_{j=1}^d  w_{ij}\left(C^t_{i,j} - R_{i,j}\right)^p\right)^{1/p} \]
 where $d$ is the number of devices and $w_{ij}$ is:
 \[ w_{ij} = \frac{R_{i,j}}{\sum_{k=1}^d R_{i,k}}. \]
-The weight $w$ enables us to highlight the relationship changes between the device $i$ and those related to it in the reference matrix.
-In other words, our definition of behavior change is mainly driven by the relationship among devices that are usually highly correlated.
+The weight $w$ enables us to highlight the relationship changes between the device $i$ and those highly correlated to it in the reference matrix.
+In other words, our definition of behavior change is mainly driven by the relationship among devices that are usually used in concert.
 We also set $p=4$ in order to inhibit small differences between $C^t_{i,j}$ and $R_{i,j}$ but emphasize the important ones.
 
 By monitoring this quantity over several time bins the abnormal device behaviors are easily identified as the outlier values.

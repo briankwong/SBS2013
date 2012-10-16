@@ -1,8 +1,8 @@
-\section{Discussion}
+\section{Discussion} \label{discussion}
 %The additional advantages of SBS are discussed in this section.
 %practical
 SBS is a practical method for mining device traces, uncovering hidden relationships and abnormal behavior. 
-In this paper, we validated the efficacy of SBS using the sensor metadata (i.e. device types and location), however, these 
+In this paper, we validate the efficacy of SBS using the sensor metadata (i.e. device types and location), however, these 
 tags are not needed by SBS to uncover devices relationships.
 Furthermore, SBS requires no prior knowledge about the building and deploying our tool to other buildings requires no human intervention --
 neither extra sensors nor a training dataset is needed. 
@@ -11,8 +11,7 @@ neither extra sensors nor a training dataset is needed.
 SBS is a best effort approach that takes advantage of all the existing building sensors.
 For example, our experiments revealed that SBS indirectly uncovers building occupancy through device use (e.g. the elevator in the Building 2). 
 The proposed method would benefit from existing sensors that monitor room occupancy as well (e.g. those deployed in~\cite{agarwal:ipsn2011,erickson:ipsn2011}).  % albeit they are no needed.
-Building energy consumption can be better understood after using SBS (if the energy consumption of numerous devices is monitored).  
-Saving opportunities are also observable with a minimum of 2 monitored devices.
+Savings opportunities are also observable with a minimum of 2 monitored devices and building energy consumption can be better understood after using SBS.
 
 % good=bad..
 SBS constructs a model for normal inter-device behavior by looking at the usage patterns over time, thus, we run the risk that

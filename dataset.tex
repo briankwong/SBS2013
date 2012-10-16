@@ -5,10 +5,10 @@ We evaluate SBS using data collected from buildings in two different geographic 
 \subsection{Building 1} \label{data:engbldg2}
 %The data from building 1 is collected at the Engineering Building 2 of the Hongo campus. 
 Building 1 -- a building in Japan -- is a 12-story building completed in 2005 and is now hosting classrooms, laboratories, professor offices 
-and server rooms.  In addion, rather than a centralized HVAC system, small, local HVAC system are set up throughout
-the buidling.  The electricity consumption of the lighting and HVAC systems of 231 rooms is monitored by 135 sensors.
-The HVAC system of this building is decentralized and the corresponding devices are classified into two categories, EHP (Electrical Heat Pump) 
-and GHP (Gas Heat Pump).
+and server rooms.  
+The electricity consumption of the lighting and HVAC systems of 231 rooms is monitored by 135 sensors.
+Rather than a centralized HVAC system, small, local HVAC system are set up throughout this buidling.  
+The HVAC systems are classified into two categories, EHP (Electrical Heat Pump) and GHP (Gas Heat Pump).
 The GHPs are the only devices that serve numerous rooms on several floors.  The 5 GHPs of the dataset serve 154 rooms.
 The EHP and lighting systems serve only pairs of rooms and they are independently controlled by the rooms users.
 In addition, metadata associated to each sensor provides the type of the monitored device and the associated room number, 
@@ -16,8 +16,7 @@ therefore, the electricity consumption of each pair of rooms is separately monit
 
 The dataset contains 10 weeks of data starting from June $27^{th}$ 2011 and ending on September $5^{th}$ 2011.
 This period of time is particularly interesting for two reasons; in this region, the summer is the most energy-demanding 
-season and the building manager actively works to curtail energy usage as much as possible.
-At that time the university initiated several power-saving measures due to the the Tohoku earthquake and Fukushima nuclear accident.
+season, and, the building manager actively works to curtail energy usage as much as possible due to the Tohoku earthquake and Fukushima nuclear accident.
 
 Furthermore, this dataset is a valuable ground truth to evaluate the Strip and Bind portions of SBS.
 Since the light and HVAC of the rooms are directly controlled by the room's occupants, we expect SBS to uncover verifiable devices 
@@ -44,7 +43,7 @@ This enables us to evaluate the practical efficacy of the proposed, unsupervised
 \subsection{Data pre-processing}
 Data pre-processing is not generally required for the proposed approach.  
 Nevertheless, we observe in a few exceptional cases that sensors reporting excessively high values (i.e. values higher than the device actual capacity) that  greatly alter the performance of SBS by inducing a large bias in the computation of the correlation coefficient.
-Therefore, we remove from the raw data signal values that are higher than the maximum capacity of the device.
+Therefore, we remove from the raw data signal values that are higher than the maximum capacity of the devices.
 
 % % In addition, to compare signals of the same length, the raw data is arranged such that the energy consumption of each device is reported every 5 minutes. 
 

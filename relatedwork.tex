@@ -2,7 +2,8 @@
 The research community has addressed the detection of abnormal energy-consumption in buildings in numerous ways.
 % Detecting abnormal energy-consumption in buildings has recently received the attention of the research community and different approaches have been studied.
 % 
-In~\cite{seem:energybldg2007}, the authors monitor the average and peak daily consumption of a building and uncover outliers.
+In~\cite{seem:energybldg2007}, the authors propose a simple approach to monitor the average and peak daily consumption of a building and uncover outliers.
+
 Using regression analysis and weather variables the devices energy-consumption is predicted and abnormal usage is highlighted.
 The authors of~\cite{brown:buildperf2012} use kernel regression to forecast device consumption and devices that behave differently 
 from the predictions are reported as anomalous.
@@ -15,12 +16,11 @@ techniques \cite{Bellala_buildsys11,wrinch:pes2012,chen:aaaiw2011}. %jakkula
 However, these methods assume a constant periodicity in the data and this causes many false positives in alarm reporting.  %, thus, they report devices usages happening at unusual times although they may not correspond to a faulty operation.
 We do not make any assumption about the device usage schedule.  We only observe and model device relationships.
 We take advantage of a recent frequency analysis technique that enables us uncover the inter-device relationships~\cite{romain:iotapp12}.
-The identified anomalies correspond to devices that are misbehaving their ``normal'' relationship to other devices, observed
-over time.
+The identified anomalies correspond to devices that deviate from their normal relationship to other devices.
 
-Reducing a building's energy consumption hasl also received a lot of attention from the research community.
+Reducing a building's energy consumption has also received a lot of attention from the research community.
 % Since HVACs are one of the major electricity consumer in the buildings, several researchers have mainly focused on reducing the consumption of HVACs.
-The most promising techniques are based on occupancy model predictions as they ensure that empty rooms are not over conditioned, needlessly.
+The most promising techniques are based on occupancy model predictions as they ensure that empty rooms are not over conditioned needlessly.
 Room occupancy is usually monitored through sensor networks \cite{agarwal:ipsn2011,erickson:ipsn2011} or the computer network traffic \cite{kim:buildsys2010}.
 These approaches are highly effective for buildings that have rarely-occupied rooms (e.g. conference room) and studies show that such approaches
  can achieve up to 42\% annual energy saving.

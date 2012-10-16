@@ -9,14 +9,14 @@
 \end{figure*}
 
 \section{Experimental Results}
+\label{eval}
 In this section we evaluate SBS on our building traces.  We demonstrate
  the benefits of striping the data, by monitoring patterns captured at different time scales.
 Then, we thoroughly investigate the alarms reported by SBS.
 
 \subsection{Device behavior at different time scales}
-The Strip and Bind part of SBS is evaluated using the data from the Building 1, since we can verify how items are being 
-used and use it as ground truth.
-This dataset is appropriate to measure SBS's performance, since lighting and HVAC systems serving the same room are always used 
+The Strip and Bind part of SBS is evaluated using the data from the Building 1. %, since we can verify how items are being used and use it as ground truth.
+This dataset is appropriate to measure SBS's performance, since lighting and HVAC systems serving the same room are usually used 
 simultaneously.
 Consequently, we analyze this data using SBS and verify that the higher correlations at medium frequencies correspond to devices located in the same room. % and the unwanted data is captured at the other frequencies.
 
@@ -26,7 +26,7 @@ Figure \ref{fig:heatmap}.
 
 \paragraph{High frequencies}
 In this work the high frequencies correspond to the signals \emph{noise}, 
-therefore, we do not expect any useful information from the corresponding matrix (Fig. \ref{fig:heatmap:high}).
+therefore, we do not expect any useful information from the corresponding matrix (Figure \ref{fig:heatmap:high}).
 Indeed, the corresponding reference matrix does not provide any help to determine a device's relative location.
 Thus, we emphasize that high frequency data should be ignored for uncovering device relationships (in contrast to \cite{romain:iotapp12}).
 Interestingly, we find that the sensors monitoring the lights generate consistent noise. % and could help one to cluster this type of sensor.
@@ -34,22 +34,22 @@ Interestingly, we find that the sensors monitoring the lights generate consisten
 \paragraph{Medium frequencies}
 Our main focus is on the medium frequencies as it is designed to capture the intrinsic device relationships.
 Figure \ref{fig:heatmap:med} shows the correlation matrix at medium frequencies.
-It is significantly different from the one obtained with the raw signals (Fig. \ref{fig:heatmap:raw}): high correlation coefficients are concentrated along the matrix diagonal. 
+It is significantly different from the one obtained with the raw signals (Figure \ref{fig:heatmap:raw}): high correlation coefficients are concentrated along the matrix diagonal. 
 Since devices serving the same or adjacent rooms are placed nearby in the matrix it validates our hypothesis: \emph{high correlation scores within the medium frequency band shows strong inter-device relationships}.
 
 Considering this reference matrix as an adjacency matrix of a graph, in which the nodes are the devices, we identify the clusters of 
 correlated devices using a community mining algorithm~\cite{blondel:unfolding}.
 As expected we obtain mainly clusters of only two devices (light and HVAC serving the same room), but we also find clusters that are composed of more devices.
 For example a cluster contains 3 HVAC systems serving the three server rooms. Although these server rooms are located on
- different floors, SBS shows a strong correlation between these devices.  Coincidentally, they managed similarly.
+ different floors, SBS shows a strong correlation between these devices.  Coincidentally, they are managed similarly.
 Interestingly, we also observe a couple of clusters that consist of independent devices serving adjacent rooms belonging to the same lab.
 The bigger cluster contains 33 devices that are 2 GHP devices and the corresponding lights.
 This correlation matrix and the corresponding clusters 
-highlight the ability for SBS to such hidden inter-device usage relationships.
+highlight the ability for SBS to identify such hidden inter-device usage relationships.
  
 \paragraph{Low frequencies}
 Low frequencies capture daily patterns, embedded in all the device traces.  
-Figure \ref{fig:heatmap:low} depicts the corresponding reference matrix which is similar to raw signal trace (Fig. \ref{fig:heatmap:raw}) 
+Figure \ref{fig:heatmap:low} depicts the corresponding reference matrix which is similar to the one of raw signal traces (Figure \ref{fig:heatmap:raw}) 
 and it shows no particular structure.% (daily patterns account for the coefficients high values).
 % Since this matrix contains mainly high values, most of the partial signals at low frequencies features similar characteristics (i.e. daily patterns).
 These partial signals are discarded as they do not help us in identifying inter-device usage patterns.
@@ -58,7 +58,7 @@ These partial signals are discarded as they do not help us in identifying inter-
 The residual data shows the weekly trend, which gives us no information about device relationships.
 But, surprisingly, by reordering the correlation matrix based on the type of the devices (Figure \ref{fig:heatmap:res}) 
 we can visually identify two major clusters.
-The first cluster consists of HVAC devices (see EHP and GHP in Fig. \ref{fig:heatmap:res}) and the second one contains only lights. 
+The first cluster consists of HVAC devices (see EHP and GHP in Figure \ref{fig:heatmap:res}) and the second one contains only lights. 
 An in-depth examination of the data reveals that long-term trends are inherent to the device types. 
 For example, as the consumption of both the EHP and GHP devices is driven by the building occupancy and the outside temperature, these two types of devices follow the same trend. 
 However, the use of light is independent from the outside temperature thus the lighting systems follow a common trend different from the EHP and GHP one.
@@ -74,7 +74,7 @@ Due to the lack of ground truth data, such as room schedule or reports of energy
 
 \paragraph{Anomaly classification}
 To validate SBS results we manually inspect the anomalies detected by the algorithm.  
-For each reported alarm $(t,i)$ we investigate the device trace $i$ and the devices correlated to it to try
+For each reported alarm $(t,i)$ we investigate the device trace $i$ and the devices correlated to it
 to determine the reason for the alarm.
 Specifically, we retrieve the major relationship change that causes the alarm (i.e. $\max(|w_j(C_{i,j}^t - R_{i,j})|)$, 
 see Section \ref{methodo:ano}) and examine the metadata associated to the corresponding device.
@@ -121,10 +121,10 @@ not spanning two time bins.
 Only the data at medium frequencies are analyzed, the other frequency bands are ignored.
 
 
-The threshold $\tau$ tunes the sensitivity of SBS and, hence, the number of reported alarms.  
-Furthermore, by plotting the number of alarms against the value of $\tau$ for both datasets (Fig. \ref{fig:thres}) we observe an 
+The threshold $\tau$ tunes the sensitivity of SBS, hence, the number of reported alarms.  
+Furthermore, by plotting the number of alarms against the value of $\tau$ for both datasets (Figure \ref{fig:thres}) we observe an 
 elbow in the graph around $\tau=5$.
-With thresholds lower than this pivot value ($\tau<5$), the number of alarms significantly increases, causes less important anomalies 
+With thresholds lower than this pivot value ($\tau<5$), the number of alarms significantly increases, causing less important anomalies 
 to be reported.  
 For higher values ($\tau>5$), the number of alarms is slowly decreasing, providing more conservative results that consist of the 
 most important anomalies.
@@ -169,7 +169,7 @@ is ``broken'' and an alarm is raised for each device.
 Figure \ref{fig:res:eng2} shows another example of energy waste.  The light is on at night and the EHP is off.
 The top-priority anomaly reported by SBS is caused by the 10 days long constant use of an EHP (Figure \ref{fig:res:eng4}) and this 
 waste of electricity accounts for 165 kWh.
-SBS partially reports this anomaly -- lower threshold values for $\tau$ permits us to identify most of it.
+SBS partially reports this anomaly but lower values of $\tau$ permits us to identify most of it.
 
 
 We observed 6 alarms corresponding to abnormally low power use.  Upon further inspection we notice that it corresponds to energy saving
@@ -200,8 +200,8 @@ This anomaly corresponds to the malfunctioning of the HVAC heater serving the $4
 The heater is constantly working for 18 consecutive days, regardless of the underlying occupant activity.
 Moreover, in order to maintain appropriate temperature this also results in an increase of the $4^{th}$ floor HVAC chiller power consumption 
 and several fans, such as the one depicted in Figure \ref{fig:res:cory3}.
-This situation, might indicative simultaneous heating and cooling -- whereby heating and cooling systems are competing -- and it 
+This situation is indicative of simultaneous heating and cooling -- whereby heating and cooling systems are competing -- and it 
 is a well-know problem in building management that leads to significant energy waste.
 For this example, the electricity waste is estimated around 2500 kWh for the heater.
-Nevertheless, as the anomaly spans over 18 days, it is hidden in the building's overall consumption and, thus, it difficult to detect 
+Nevertheless, as the anomaly spans over 18 days, it is hidden in the building's overall consumption, thus, it is difficult to detect 
 by building administrators without SBS.

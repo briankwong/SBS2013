@@ -1,0 +1,12 @@
+demo.txt
+
+\section{Demo description}
+We have integrated SBS into a fully functional anomaly detectiong system for building managers.  The system 
+is desgined as a web application that take a bulk-data feed, runs SBS on the data, and displays the associated 
+signals where anomalies have been detected.  This system address two challenges that are not addressed in the 
+paper~\cite{SBS}.  It accepts user input on the anomalies that were detected, so that the system can learn
+how to distinguish between a potential false-positive and true-positive.  Secondly, it provides a common vocabulary
+to users to help normalize the data across data set and buildings.  A \emph{major} challenge in buildings 
+is that the vocabulary and inter-relationships between the sensor, spaces, and sub-system varies slightly
+from building to building.  By providing a tagging mechanism, we attempt to embedded symantic information
+that, in time, can be used to characterize the classes of anomalies and faults found with the SBS tool.

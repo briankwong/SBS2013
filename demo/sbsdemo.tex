@@ -8,21 +8,15 @@
 \DeclareMathOperator{\dis}{d}
 \DeclareMathOperator{\mad}{MAD}
 
-\title{Energy Headhunter: \\An Energy-Savings Search Tool for Buildings}
+\title{Energy-Savings Headhunter: \\An Energy-Savings Search Tool for Buildings}
 % Mining Devices Intrinsic-Relationships to Identify Energy Saving Opportunities in Buildings
 
 
 % \numberofauthors{8}
 % \author{
-% \alignauthor Romain Fontugne
 % \alignauthor Jorge Ortiz
-% \alignauthor Kensuke Fukuda 
-% \alignauthor Nicolas Tremblay
-% \and
-% \alignauthor Pierre Borgnat
-% \alignauthor Patrick Flandrin
-% \alignauthor David Culler 
-% \alignauthor Hiroshi Esaki
+% \alignauthor Romain Fontugne
+% \alignauthor Michael Heinrich
 % }
 % \IEEEauthorblockA{\IEEEauthorrefmark{1}The University of Tokyo
 % \hfill \IEEEauthorrefmark{2}University California Berkeley
@@ -33,6 +27,18 @@
 
 \begin{document}
 \maketitle
+
+\begin{abstract}
+In this paper we describe a tool for uncovering energy savings opportunities in buildings called 
+the \emph{Energy-Savings Headhunter}.  Headhunter is based on the recently proposed, Strip, Bind, and
+Search (SBS) method -- a multi-stage, unsupervised anomaly detection technique that uncovers when device
+usage patterns deviate from normal use; a potential savings opportunity.  The tools
+takes a data log of all sensors in the building and unovers ``interesting'' segments in the data
+where the usage pattern changed significantly.  Our tool is 
+currently being tested with building and sustainability managers at several universities and we  
+describe how the data being gathered can be used to better understand \emph{how} to make buildings
+more energy efficient.
+\end{abstract}
 
 \input{introduction}
 

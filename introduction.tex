@@ -45,14 +45,14 @@ We first \emph{strip} the underlying traces of occupancy-induced trends.  Then w
  % that may represent that stand for electricity wastes.
 \end{description}
 
-The main challenge we overcame with our approach is uncovering the device relationships from numerous, noisy sensor traces
-that all share a similar trend.
+The main challenge we overcame with our approach is uncovering the device relationships from numerous, noisy sensor traces that all share a similar trend.
 %The main difficulty in this approach is to uncover the devices relationship from the numerous and noisy sensor traces. 
-Since device energy consumption is mainly driven by building occupancy, all the devices follow the same daily pattern, 
-in roughly overlapping time intervals and phases.
+Since device energy consumption is mainly driven by building occupancy, all the devices follow the same daily pattern, in roughly overlapping time intervals and phases.
 %and seem to be used all at once.
-Therefore, one of the main contributions of this work is uncovering the intrinsic device relationships by filtering out the dominant
-trend.  This is achieved by using Empirical Mode Decomposition \cite{huang:emd1998}.
+Therefore, one of the main contributions of this work is uncovering the intrinsic device relationships by filtering out the dominant trend.
+%% Romain
+This is achieved using a signal processing technique that exhibit the inherent characteristics of time series data, the Empirical Mode Decomposition \cite{huang:emd1998}.
+%% Romain
 
 Another key contribution of this work is in using SBS to practically monitor building energy consumption.
 Moreover, the proposed method is easy to use and functions in any building, as it does not require prior knowledge of the building nor extra sensors.  

@@ -69,8 +69,12 @@ We conduct the same experiments by splitting the dataset in 70 bins of 1 day lon
 
 \subsection{Anomalies}
 We now evaluate the \emph{search} performance of SBS using the traces from the Building 1 and the Building 2.
-Due to the lack of ground truth data, such as room schedule or reports of energy waste, this evaluation is non trivial.
-
+%% Romain
+Due to the lack of historical data, such as room schedule or reports of energy waste, this evaluation is non trivial.
+Furthermore, getting ground truth data from a manual inspection of the hundreds traces of our data sets is impractical.
+The lack of ground truth data prevents us from producing a systematic analysis of the anomalies missed by SBS (i.e. false negatives rate).
+Nevertheless, we exhibit the relevance of the anomalies uncovered by SBS (i.e. high true positive rate and low false positive rate) by manually checking the output of SBS.
+%% Romain
 
 \paragraph{Anomaly classification}
 To validate SBS results we manually inspect the anomalies detected by the algorithm.  

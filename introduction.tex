@@ -24,7 +24,7 @@ Thus, when the room is occupied both the air conditioner (heater on a cold day) 
 when the room is empty.
 In principal, if a person leaves the room and turns off \emph{only} the lights then the air conditioner (or heater) is a source of electricity waste.
 
-Following this basic idea we propose \emph{Strip, Bind and Search} (SBS), an unsupervised methodology to systematically detect electricity waste.
+Following this basic idea we propose \emph{Strip, Bind and Search} (SBS), an unsupervised methodology that systematically detects electricity waste.
 Our proposal consists of two key components:
 % \begin{enumerate}
 %  \item The strip and bind method (SBM) mines raw sensor data, identifying devices that are used in concert.
@@ -41,17 +41,22 @@ We first \emph{strip} the underlying traces of occupancy-induced trends.  Then w
  % It uncovers the devices relationships by looking at the correlation of their activities. 
  This allows us to differentiate between devices that are used together (high correlation), used independently (no correlation), and used mutually exclusively (negative correlation).
  \item[Search] The second part of the method monitors devices relationships over time and reports deviations from the norm.  % misbehaving devices.
- It learns the normal inter-device usages using a robust, longitudinal analysis of the building data and detect anomalous usages.  Such abnormalities usually present an opportunity to reduce electricity waste or events that deserve careful attention (e.g. faulty device).
+ It learns the normal inter-device usage using a robust, longitudinal analysis of the building data and detect anomalous usages.  Such abnormalities usually present an opportunity to reduce electricity waste or events that deserve careful attention (e.g. faulty device).
  % that may represent that stand for electricity wastes.
 \end{description}
 
-The main challenge we overcame with our approach is uncovering the device relationships from numerous, noisy sensor traces that all share a similar trend.
+SBS overcomes several challenges.  First, 
+%The main challenge we overcame with our approach is uncovering the device relationships from numerous, 
+noisy sensor traces that all share a similar trend, making direct correlation analysis non-trivial.
 %The main difficulty in this approach is to uncover the devices relationship from the numerous and noisy sensor traces. 
-Since device energy consumption is mainly driven by building occupancy, all the devices follow the same daily pattern, in roughly overlapping time intervals and phases.
+Device energy consumption is mainly driven by occupancy and weather, all the devices display a similar daily pattern, in 
+roughly overlapping time intervals and phases.
 %and seem to be used all at once.
-Therefore, one of the main contributions of this work is uncovering the intrinsic device relationships by filtering out the dominant trend.
+Therefore, one of the main contributions of this work is uncovering the intrinsic device relationships by filtering out the 
+dominant trend.  For this task we use 
 %% Romain
-This is achieved using a signal processing technique that exhibit the inherent characteristics of time series data, the Empirical Mode Decomposition \cite{huang:emd1998}.
+%This is achieved using a signal processing technique that exhibit the inherent characteristics of time series data, the 
+Empirical Mode Decomposition \cite{huang:emd1998}, a known method for de-trending time-varying signals.
 %% Romain
 
 Another key contribution of this work is in using SBS to practically monitor building energy consumption.
@@ -63,6 +68,8 @@ We validate the effectiveness of our approach using 10 weeks of data from a mode
 These experiments highlight the effectiveness of SBS to uncover device relationships in a large deployment of 135 sensors.
 Furthermore, we inspect the SBS results and show that the reported alarms correspond to significant opportunities to save energy.
 The major anomaly reported in the American building lasts 18 days and accounts for a waste of 2500 kWh. % for a single device whereas the building average power consumption is 600 kW per hour.
-SBS also reported numerous smaller anomalies that are hidden in the building overall consumption, thus, difficult for building operators to identify without the proposed method.
+% SBS also reported numerous smaller anomalies that are hidden in the building's overall consumption, thus, difficult for building operators to identify without the proposed method.
+SBS also reports numerous small anomalies, hidden deep within the building's overall consumption data.  Such errors are very difficult to find
+without SBS.
 
 In the rest of this paper, we detail the mechanisms of SBS (Section \ref{methodo}) before evaluating it with real data (Section \ref{eval}) then we discuss different outcomes of the proposed methodology (Section \ref{discussion}) and conclude.

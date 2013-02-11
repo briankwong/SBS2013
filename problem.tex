@@ -10,14 +10,19 @@ The matrix is ordered such as the devices serving same/adjacent rooms are nearby
 \end{figure}
 
 %The first step of the proposed approach is to uncover from the raw data the devices that are used all together.
-The primary objective of SBS is to determine the devices that are used simulataneously.
+The primary objective of SBS is to determine \emph{how} device usage patterns are correlated across all pairs of sensors and 
+discover when these relationships change.  
 %The basic tool that allows us to compare device energy consumption is the correlation coefficient.
-Classical approaches would run correlation analyses across pairs of power-draw signals between distinct devices, summarized by a correlation coefficient.  
-However, doing that does not yield any useful information when applied to the raw data.
+%Classical approaches would run correlation analyses across pairs of power-draw signals between distinct devices, summarized by a correlation coefficient.
+The naive approach is to run correlation analysis on pairs of sensor traces, recording their correlation coefficients over time and 
+exmaining when there is a statistically-significant deviation from the norm.  
+However, this approach does not yield any useful information when applied to \emph{raw data traces}.
 %However, during our experiments we found that it provides poor help when it is directly applied to the raw signals.
-For example the two raw signals of Figure \ref{fig:diagram1} are from two independent HVAC systems serving different rooms on different floors.
+For example, the two raw signals shown in Figure~\ref{fig:diagram1} are from two independent HVAC systems,
+ serving different rooms on different floors.
 Since each space is independently controlled, we expect their power-draw signals to be uncorrelated (or at least distinguishable 
-from other signal pairs).  However, their correlation coefficient ($0.57$) was not particularly informative.  
+from other signal pairs).  However, their correlation coefficient ($0.57$), is not particularly informative -- it is statistically
+similar to the correlation between itself and other signals in the trace.  
 % however, their correlation coefficient (i.e. $0.5675$) indicates the opposite.
 %Another example, with 135 devices, is depicted in Figure \ref{fig:heatmap:raw}.
 
@@ -57,13 +62,15 @@ the smaller fluctuations providing more specific patterns driven by local occupa
  Therefore, the signal has some periodicity and similar (though not equal) values are seen at daily and weekly time scales.
 The daily pattern is due to daily office hours and the weekly pattern corresponds to weekdays and weekends.  
 %Indeed, thorough inspection of the data reveals that the 
-Clearly, the use of correlation analysis on the \emph{raw} signals cannot be used to determine meaningful 
-inter-device relationships because periodic components act as non-stationary trends for quicker phenomenon, hence making correlation functions irrelevant.  %metric is insufficient with raw signals containing the same dominant pattern.
+Correlation analysis on \emph{raw} signals cannot be used to determine meaningful 
+inter-device relationships because periodic components act as non-stationary trends for high-frequency phenomenon, 
+ making the correlation function irrelevant.  %metric is insufficient with raw signals containing the same dominant pattern.
+Such trends must be removed in order to make meaningful progress towards our aforementioned goals.  
 
-Such trends must be removed in order to make meaningful progress towards our aforementioned goals.  In the next section
-we describe SBS.  We discuss \emph{strip and bind} in section~\ref{methodo:est}, which addresses the detrending and
-relationship-discovery challenge.  Then we describe how we \emph{search} for changes in those usage patterns, 
-in section~\ref{methodo:ano}, to identify potential opportunities for savings.
+In the next section we describe SBS.  
+We discuss \emph{strip and bind} in section~\ref{methodo:est}, which addresses detrending and
+relationship-discovery.  Then, we describe how we \emph{search} for changes in usage patterns, 
+in section~\ref{methodo:ano}, to identify potential savings opportunities.
 
 %One of the major challenges in this work is to discard these patterns and uncover devices intrinsic relationships.
 % This difficulty is overcome by the first part of the method (Strip and Bind) presented in Section \ref{methodo:est}.

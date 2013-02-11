@@ -2,19 +2,17 @@
 Buildings are a prime target to reduce energy consumption around the world.
 In the United States, the second largest energy consumer in the world, buildings account for 
 41\% of their total energy consumption~\cite{aer2011}.
-% The first measure towards reducing the building's energy consumption is to prevent 
-% electricity waste due to the improper use of the buildings equipment.
 The first approach towards reducing this figure is to make buildings more energy efficient
 by reducing waste.  However, even with sufficient measurements, challenges remain.
 
-Most large building infrastructures are monitored by a large network of sensors, periodicially
+Most large building infrastructures are monitored by a large network of sensors, periodically
 reporting physical data readings to a centralized monitoring system -- a building management system (BMS).
 Through the BMS, buildings administrators can view the latest information coming from the sensors in real time.
-Given the adminstrator's experience and expertise, they can trouble-shoot problems throughout the building
+Given the administrator's experience and expertise, they can trouble-shoot problems throughout the building
 from a central location and examine trends in the data to uncover opportunities for savings.
-However, thousands of sensors producing hundreds readings every few minutes, easily overwhelms
+However, thousands of sensors producing hundreds of readings every few minutes, easily overwhelms
 the administrator.  Furthermore, the BMS is a monitoring and supervisory control system.  There
-are no facilities to discovery problems, from the data, once it has been archived.  This task is left to the administator.
+are no facilities to discovery problems, from the data, once it has been archived.  This task is left to the administrator.
 We have designed a tool that searches through the archived data and uncovers savings opportunities.  We
 use a method called Strip, Bind, and Search (SBS)~\cite{sbs:ipsn2013} and apply it to data uploaded through our tool: 
 the \emph{Energy-Savings Headhunter}.
@@ -22,7 +20,7 @@ the \emph{Energy-Savings Headhunter}.
 The built environment provides various services to its occupants, such as sufficient 
 lighting, comfortable temperature and humidity, minimal sound and privacy, etc.
 The intuition behind SBS is that each service provided by the building requires a minimum subset of devices to be operated
-simulataneously (i.e. lights and heating).  A savings opportunity is characterized by the partial activation of these devices.
+simultaneously (i.e. lights and heating).  A savings opportunity is characterized by the partial activation of these devices.
 For example, office comfort is attained through lighting, ventilation, and air conditioning.
 These are controlled by the lighting and HVAC (Heating, Ventilation, and Air Conditioning) system.
 %controlled by the lighting system and air conditioner.% the light and air conditioning.
@@ -35,6 +33,7 @@ from hundreds of sensors from two very different buildings, one in Tokyo and the
 of potential problems; the main one was an instance of simultaneous heating and cooling that lasted for 18 days and wasted 2500 kWh of
 energy!  In addition to applying SBS on input data, we also address two main challenges; feedback from users to minimize false-positives
 and signal labeling, to establish a common vocabulary for broader study of these anomalies.  We discuss these briefly in Section~\ref{sec:demo}.
+
 
 % In the rest of the paper we will review the details of SBS, its shortcomings, and give an overview of the Energy-Saving Headhunter.  We will
 % also discuss how the Heathunter application attempts to address these shortcomings and set the foundation for future work. 

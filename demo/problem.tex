@@ -15,25 +15,25 @@
  \label{fig:diagram1}
 \end{figure}
 
-The primary objective of SBS is to determine when devices that are used, particular those that are (not) used simulataneously.
-The naive approach applies correlation analysis on raw data traces.  Figure~\ref{fig:diagram1} shows an exmaple of 
+The primary objective of SBS is to determine when multiple devices that are used (and not used) simultaneously.
+The naive approach applies correlation analysis on raw data traces.  Figure~\ref{fig:diagram1} shows an example of 
 two independent HVAC system power traces, serving different rooms on different floors.  Notice, they share a common diurnal power-draw
-pattern, driven by occupancy either room.  It is also driven by other factors, such as outside weather, temperature, incident light for
-both rooms -- factors whose affect is captured by both systems.   
+pattern, driven by occupancy in either room.  It is also driven by other factors, such as outside weather, temperature, incident light for
+both rooms -- factors whose effect is captured by both systems.   
 This trend is present in almost every trace and it hides 
 the smaller fluctuations providing more specific patterns driven by local occupant activity.  
 Such trends must be removed in order to uncover meaningful usage patterns between devices.
 
-SBS is a signal processesing and anomaly detection methodology that consists of the following step:
+SBS is a signal processing and anomaly detection methodology that consists of the following step:
 
 \begin{enumerate}
-\item Decompose the signal is four frequency-range bins.
-\item Construct a reference correlation matrix for each pair of sensor traces.
+\item Decompose the signal into four frequency-range bins.
+\item Construct a correlation matrix summarizing the inter-device usage patterns.
 \item Repeat the process, comparing subsequent correlation matrices against the reference.
 \end{enumerate}
 
 Although SBS is great at narrowing down the search space, there is no way to address false-positive alarms and
-has no notion of true-negatives and false-negatives.  Also, SBS does not using any building-specific sematic information
+has no notion of true-negatives and false-negatives.  Also, SBS does not use any building-specific semantic information
 to diagnose problems.  This is, in part, its strength, because it can be applied to all buildings without prior knowledge
 and yield valuable results, however, in order to use the results meaningfully in future studies, we need to 
 get the signal names under a normalized set of descriptors and vocabulary.

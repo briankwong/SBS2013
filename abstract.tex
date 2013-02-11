@@ -32,12 +32,13 @@
 % device.
 
 
-A typical medium-to-large building contains thousands of sensors, monitoring the HVAC system, lighting, and other operational sub-systems.
+A typical large building contains thousands of sensors, monitoring the HVAC system, lighting, and other operational sub-systems.
 With the increased push for operational efficiency, operators are relying more on historical data processing to uncover opportunities for energy-savings.
 However, they are overwhelmed with the deluge of data and seek more efficient ways to identify potential problems.
-In this paper we present a new approach, called the Strip, Bind and Search (SBS) method for uncovering abnormalities in equipment behavior and in-concert usage.
-SBS uncovers relationships between devices and constructs a model for their in-concert usage.
-It then flags deviations from the model as abnormal.
+In this paper, we present a new approach called the Strip, Bind and Search (SBS); a method for uncovering abnormal 
+equipment behavior and in-concert usage patterns.
+SBS uncovers relationships between devices and constructs a model for their usage pattern relative to other devices.
+It then flags deviations from the model. 
 % Unlike other approaches, SBS requires no a priori knowledge about the building.
 We run SBS on a set of building sensor traces; each containing hundred sensors reporting data flows over 18 weeks from two separate buildings with fundamentally different infrastructures.  
 We demonstrate that, in many cases, SBS uncovers misbehaviors corresponding to inefficient device usage that leads to energy waste.  

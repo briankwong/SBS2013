@@ -1,13 +1,21 @@
 \section{Related work}
-The research community has addressed the detection of abnormal energy-consumption in buildings in numerous ways.
+The research community has addressed the detection of abnormal energy-consumption in buildings in numerous ways \cite{katipamula:1review2005,katipamula:2review2005}.
 % Detecting abnormal energy-consumption in buildings has recently received the attention of the research community and different approaches have been studied.
 % 
-In~\cite{seem:energybldg2007}, the authors propose a simple approach to monitor the average and peak daily consumption of a building and uncover outliers.
+
+The rule-based techniques rely on a priori knowledge, they assert the sustainability of a system by identifying a set of undesired behaviors.
+Using a hierarchical set of rules, Schein et al.\ propose a method to diagnose HVAC systems \cite{schein:hvacr2006}.
+In comparison, state machine models take advantage of historical training data and domain knowledge to learn the states and transitions of a system.
+The transitions are based on measured stimuli identified through a domain expertise.
+State machines can model the operation of HVAC systems \cite{patnaik:toist2011} and permit to predict or detect the abnormal behavior of HVAC's components \cite{bellala:buildsys2012}.
+However, the deployment of these methods require expert knowledge and are mostly applied to HVAC systems.
+
+In~\cite{seem:energybldg2007}, the authors propose a simple unsupervised approach to monitor the average and peak daily consumption of a building and uncover outliers, nevertheless, the misbehaving devices are left unidentified.
 
 Using regression analysis and weather variables the devices energy-consumption is predicted and abnormal usage is highlighted.
-The authors of~\cite{brown:buildperf2012} use kernel regression to forecast device consumption and devices that behave differently 
-from the predictions are reported as anomalous.
-However, the implementation of these approaches in real situations is difficult, since it requires a training dataset and non-trivial 
+The authors of~\cite{brown:buildperf2012} use kernel regression to forecast device consumption and devices that behave differently from the predictions are reported as anomalous.
+Regression models are also used with performances indices to monitor the HVAC's components and identify inefficiencies \cite{zhou:wiley2009}.
+The implementation of these approaches in real situations is difficult, since it requires a training dataset and non-trivial 
 parameter tuning.
 
 Similar to our approach, several prior works identify abnormal energy-consumption using frequency analysis and unsupervised anomaly detection methods.

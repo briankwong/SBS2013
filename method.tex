@@ -36,8 +36,8 @@ The resulting partial signals of different device power traces are compared, pai
 % These two steps are described by the two following sections.
 
 \subsubsection{Empirical Mode Decomposition} \label{emd}
-Empirical Mode Decomposition (EMD) \cite{huang:emd1998} is a technique that decomposes a signal and reveals its intrinsic patterns, 
-trend and noise.
+Empirical Mode Decomposition (EMD) \cite{huang:emd1998} is a technique that decomposes a signal and reveals intrinsic patterns, 
+trends, and noise.
 This technique has been widely applied to a variety of datasets, including climate variables~\cite{lee:climateEMD2011}, medical data~\cite{blanco:bioMed2008}, speech signals~\cite{huang:signalProc2006,hasan:ieeeletter2009}, and image processing~\cite{nunes:vision2005}.
 % for example, it helped to uncover the global surface temperature trends\cite{}, solar activity patterns and predicts climate variables .
 EMD's effectiveness relies on its empirical, adaptive and intuitive approach.
@@ -59,13 +59,13 @@ We formally describe the EMD algorithm as follows:
 \item Sifting process: For a current signal $h_0=X$, let $m_0$ be the mean of its upper and lower envelopes as determined from a cubic-spline interpolation of local maxima and minima.
 \item The estimated local mean $m_0$ is removed from the signal, giving a first component: $h_1 = h_0-m_0$
 \item The sifting process is iterated, $h_1$ taking the place of $h_0$. Using its upper and lower envelopes, a new local mean $m_1$ is computed and $h_2 = h_1-m_1$.
-\item The procedure is repeated $k$ time until $h_k=h_{k-1}-m_{k-1}$ is an IMF according to the two conditions above.
-\item This first IMF is designated as $c_1 = h_k$, and contains the component with shortest periods. We extract it from the signal to produce a residual: $r_1 = X - c_1$. The Steps 1 to 4 are iterated on the residual signal $r_1$, providing IMFs $c_j$ and residuals $r_j  = r_{j-1}-c_j$, for $j$ from $1$ to $n$.
+\item The procedure is repeated $k$ times until $h_k=h_{k-1}-m_{k-1}$ is an IMF according to the two conditions above.
+\item This first IMF is designated as $c_1 = h_k$, and contains the component with shortest periods. We extract it from the signal to produce a residual: $r_1 = X - c_1$.  Steps 1 to 4 are repeated on the residual signal $r_1$, providing IMFs $c_j$ and residuals $r_j  = r_{j-1}-c_j$, for $j$ from $1$ to $n$.
 \item The process stops when residual $r_n$ contains no more than 3 extrema.
 \end{enumerate}
 
 The result of EMD is a set of IMFs $c_i$ and the final residue $r_n$, such as: \[X=\sum^{n}_{i=1}c_i+r_n\]
-where the size of the resulting set of IMFs $n$ depends on the original signal $X$ and $r_n$ represents the trend of 
+where the size of the resulting set of IMFs ($n$) depends on the original signal $X$ and $r_n$ represents the trend of 
 the data (see \emph{IMFs} in Figure~\ref{fig:diagram1}).
 
 For this work we implemented a variant of EMD called Complete Ensemble EMD~\cite{torres:icassp2012}.
@@ -83,10 +83,11 @@ Directly comparing $c_i^1$ and $c_i^2$ is meaningless unless we confirm that the
 
 There are numerous techniques to retrieve IMF frequencies~\cite{huang:aada2009}.  
 In this work we take advantage of the Generalized Zero Crossing (GZC)~\cite{huang:patent2006} because it is a simple and robust 
-estimator of the IMF instantaneous frequency \cite{huang:aada2009}.
+estimator of the instantaneous IMF frequency \cite{huang:aada2009}.
 GZC is a direct estimation of IMF instantaneous frequency using critical points defined as the zero crossings and local extrema 
-(round dots in Figure \ref{fig:gzc}).
-Formally, given a data point $p$ GZC measures the quarter ($T_4$), the two halves ($T_2^x$) and the four full periods ($T_1^y$) $p$  belongs to (see Figure \ref{fig:gzc}) and the instantaneous period is computed as:
+(round dots in Figure~\ref{fig:gzc}).
+Formally, given a data point $p$, GZC measures the quarter ($T_4$), the two halves ($T_2^x$), and the four full periods ($T_1^y$), $p$   
+belong to (see Figure~\ref{fig:gzc}) and the instantaneous period is computed as:
 \[T=\frac{1}{7}\{4T_4+(2T_2^1+2T_2^2)+(T_1^1+T_1^2+T_1^3+T_1^4)\}\]
 
 \begin{figure}
@@ -105,10 +106,10 @@ same cluster.  Then, we directly compare the partial signals of different device
 
 The IMFs are clustered using four time scale ranges: 
 \begin{itemize}
- \item The \emph{high frequencies} stand for all the IMFs with a time scale lower than 20 minutes. These IMFs capture the noise.
- \item The \emph{medium frequencies} stand for all the IMFs with a time scale between 20 minutes and 6 hours. These IMFs convey the detailed devices usage.
- \item The \emph{low frequencies} stand for all the IMFs with a time scale between 6 hours and 6 days. These IMFs represent the daily pattern of the devices.
- \item The \emph{residual data} is all data with a time scale higher than 6 days. This is mainly the residual data obtained after applying EMD and it highlights the trend of the devices.
+ \item The \emph{high frequencies} are all the IMFs with a time scale lower than 20 minutes. These IMFs capture the noise.
+ \item The \emph{medium frequencies} are all the IMFs with a time scale between 20 minutes and 6 hours. These IMFs convey the detailed devices usage.
+ \item The \emph{low frequencies} are all the IMFs with a time scale between 6 hours and 6 days. These IMFs represent daily device patterns.
+ \item The \emph{residual data} is all data with a time scale higher than 6 days. This is mainly residual data obtained after applying EMD.  Also, it highlights the main device trend.
 \end{itemize}
 
 These time scale ranges are chosen based on our experiments and goal.
@@ -124,7 +125,7 @@ However, the comparison of the corresponding \emph{partial signals} provides new
 the two devices are poorly correlated at high and medium frequencies (respectively $-0.01$ and $-0.04$) but highly correlated at low frequencies ($0.79$) meaning that these devices are not ``intrinsically'' correlated.  They only share a similar daily pattern.
 
 All the devices are compared pairwise at the four different time scale ranges.
-Consequently, we obtain four correlation matrices that convey the device similarities at different time scales.
+Consequently, we obtain four correlation matrices that convey device similarities at different time scales.
 Each line of these matrices (or column, since the matrices are symmetric) reveals the behavior of a device -- its relationships with the 
 other devices at a particular time scale.
 The matrices form the basis for tracking the behavior of devices and to search for misbehavior.
@@ -149,8 +150,10 @@ where $i$ and $j$ ranges in $[1,d]$.
 
 % Assuming that device-usage predominantly behaves normally and the anomalies are exceptional 
 % events, the reference matrices exhibit the normal device behaviors.
-Our model assumes anomalies are rare and the majority of the data is normal.
-This is a common assumption in unsupervised anomaly detection.
+% Our model assumes anomalies are rare and the majority of the data is normal.
+% This is a common assumption in unsupervised anomaly detection.
+Because anomalies are rare by definition, we assume the data used to construct the reference matrix
+is an accurate sample of the population; it is unbiased and accurately captures the range of normal behavior.
 % We assume that normal behavior is not truly anomalous.
 Abnormal correlation values, that could appear during model construction, %in the analyzed time bins 
 are ignored by the median operator thanks to its robustness to outliers (50\% breakdown point).  

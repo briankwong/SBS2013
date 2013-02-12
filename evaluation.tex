@@ -23,27 +23,27 @@ what is in the traces.  Some of the anomalies discussed in this section uncover 
 that are difficult to find in practice.  For example, simultaneous heating and cooling is a known, recurring problem
  in buildings, but it is very hard to identify  when it is occurring.  Some of the anomalies we could not interpret
 might be interpretable by a building manager, however, we did not consult either building manager for this study.
-The results of this study, therefore, examine only the true/false positive rate for this reason.
+Therefore, the results of this study do not examine the true/false positive rate exhaustively.
 
 The true/false negative rate is impractical to assess.  It may be examined through synthetic stimulation of
 the building via the control system.  However, getting cooperation from a building manager to hand over control of the building
 for experimentation in non-trivial.  Therefore, we forgo a full true/false negative analysis in our evaluation.
 
 Because of these challenges, the evaluation of SBS focuses on comparing the output with known fault
-signatures.  We examine anomalies, in either buildings, where the anomaly is easily interpretable but
+signatures.  We examine anomalies, in either building, where the anomaly is easily interpretable but
 difficult to find by the building manager.  We forego a comparison of SBS with competing algorithms because
  related algorithms require detailed knowledge of the building, \emph{a priori}.  The advantage of SBS is that it 
- does not require any such information provide immediate value.
+requires no such information to provide immediate value.
 
 \subsection{Device behavior at different time scales}
-The Strip and Bind part of SBS is evaluated using the data from the Eng. Bldg 2. %, since we can verify how items are being used and use it as ground truth.
+The Strip and Bind part of SBS is evaluated using the data from Eng. Bldg 2. %, since we can verify how items are being used and use it as ground truth.
 This dataset is appropriate to measure SBS's performance, since lighting and HVAC systems serving the same room are usually used 
 simultaneously.
 Consequently, we analyze this data using SBS and verify that the higher correlations at medium frequencies correspond to devices located in the same room. % and the unwanted data is captured at the other frequencies.
 
-The dataset is split in 10 bins of 1 week long and each bin is processed by SBS.
-Using the 10 correlation matrices at each time scale range SBS uncovers the four reference matrices depicted in 
-Figure \ref{fig:heatmap}.
+The dataset is split into 10, one-week bins and each bin is processed by SBS.
+Using the 10 correlation matrices at each time scale range, SBS uncovers the four reference matrices depicted in 
+Figure~\ref{fig:heatmap}.
 
 \paragraph{High frequencies}
 In this work the high frequencies correspond to the signals \emph{noise}, 
@@ -71,7 +71,7 @@ highlight the ability for SBS to identify such hidden inter-device usage relatio
 \paragraph{Low frequencies}
 Low frequencies capture daily patterns, embedded in all the device traces.  
 Figure \ref{fig:heatmap:low} depicts the corresponding reference matrix which is similar to the one of raw signal traces (Figure \ref{fig:heatmap:raw}) 
-and it shows no particular structure.% (daily patterns account for the coefficients high values).
+and it shows no particular structure.% (daily patterns account for the coefficients high values).  
 % Since this matrix contains mainly high values, most of the partial signals at low frequencies features similar characteristics (i.e. daily patterns).
 These partial signals are discarded as they do not help us in identifying inter-device usage patterns.
  

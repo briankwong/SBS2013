@@ -15,7 +15,7 @@ discover when these relationships change.
 %The basic tool that allows us to compare device energy consumption is the correlation coefficient.
 %Classical approaches would run correlation analyses across pairs of power-draw signals between distinct devices, summarized by a correlation coefficient.
 The naive approach is to run correlation analysis on pairs of sensor traces, recording their correlation coefficients over time and 
-exmaining when there is a statistically-significant deviation from the norm.  
+examining when there is a statistically-significant deviation from the norm.  
 However, this approach does not yield any useful information when applied to \emph{raw data traces}.
 %However, during our experiments we found that it provides poor help when it is directly applied to the raw signals.
 For example, the two raw signals shown in Figure~\ref{fig:diagram1} are from two independent HVAC systems,
@@ -39,7 +39,7 @@ Devices serving the same room are along the diagonal.  Because these devices are
 high average correlation scores, lighter shades, along the diagonal figure.
 %and because they are used simultaneously by the room users we expect them to feature the highest correlation scores.
 However, we observe no such pattern.  %structure is unseen in the Figure.  
-Most of the signals are correlated with all the others and we see no discernable structure.
+Most of the signals are correlated with all the others and we see no discernible structure.
 % thus this metric prevents us from finding devices that are used in concert.
 
 \begin{figure}[t!]
@@ -68,7 +68,7 @@ inter-device relationships because periodic components act as non-stationary tre
 Such trends must be removed in order to make meaningful progress towards our aforementioned goals.  
 
 In the next section we describe SBS.  
-We discuss \emph{strip and bind} in section~\ref{methodo:est}, which addresses detrending and
+We discuss \emph{strip and bind} in section~\ref{methodo:est}, which addresses de-trending and
 relationship-discovery.  Then, we describe how we \emph{search} for changes in usage patterns, 
 in section~\ref{methodo:ano}, to identify potential savings opportunities.
 

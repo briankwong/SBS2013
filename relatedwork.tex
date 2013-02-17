@@ -10,7 +10,7 @@ The transitions are based on measured stimuli identified through a domain expert
 State machines can model the operation of HVAC systems \cite{patnaik:toist2011} and permit to predict or detect the abnormal behavior of HVAC's components \cite{bellala:buildsys2012}.
 However, the deployment of these methods require expert knowledge and are mostly applied to HVAC systems.
 
-In~\cite{seem:energybldg2007}, the authors propose a simple unsupervised approach to monitor the average and peak daily consumption of a building and uncover outliers, nevertheless, the misbehaving devices are left unidentified.
+In~\cite{seem:energybldg2007}, the authors propose a simple unsupervised approach to monitor the average and peak daily consumption of a building and uncover outlier, nevertheless, the misbehaving devices are left unidentified.
 
 Using regression analysis and weather variables the devices energy-consumption is predicted and abnormal usage is highlighted.
 The authors of~\cite{brown:buildperf2012} use kernel regression to forecast device consumption and devices that behave differently from the predictions are reported as anomalous.
@@ -19,7 +19,7 @@ The implementation of these approaches in real situations is difficult, since it
 parameter tuning.
 
 Similar to our approach, previous studies identify abnormal energy-consumption using frequency analysis and unsupervised anomaly detection methods.
-The device's consumption decomposed using Fourier transform and outliers are detected using clustering 
+The device's consumption is decomposed using Fourier transform and outlier values are detected using clustering 
 techniques \cite{Bellala_buildsys11,wrinch:pes2012,chen:aaaiw2011}. %jakkula
 However, these methods assume a constant periodicity in the data and this causes many false positives in alarm reporting.  %, thus, they report devices usages happening at unusual times although they may not correspond to a faulty operation.
 We do not make any assumption about the device usage schedule.  We only observe and model device relationships.
